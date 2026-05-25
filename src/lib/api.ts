@@ -238,6 +238,15 @@ export const api = {
       body: JSON.stringify({ text: payload.text }),
     })
   },
+
+  syncFromSheet: (): Promise<{
+    status: string
+    records: number
+    matches_created: number
+    matches_updated: number
+    goals_created: number
+    errors: string[]
+  }> => request('/api/internal/sync-sheet/', { method: 'POST', body: JSON.stringify({}) }),
 }
 
 // ── Logo URL helpers ──────────────────────────────────────────────────────────

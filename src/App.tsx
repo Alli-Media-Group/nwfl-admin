@@ -10,6 +10,7 @@ import { DashboardPage } from './pages/Dashboard/index'
 import { LoginPage } from './pages/Login/index'
 import { MatchesPage } from './pages/Matches/index'
 import { StandingsPage } from './pages/Standings/index'
+import { SyncPage } from './pages/Sync/index'
 import { TeamsPage } from './pages/Teams/index'
 import { WhatsAppParserPage } from './pages/WhatsAppParser/index'
 
@@ -39,6 +40,7 @@ function ProtectedApp() {
           <Route path="/teams" element={<PageWrapper title="Club Profiles" eyebrow="Teams"><TeamsPage /></PageWrapper>} />
           <Route path="/standings" element={<PageWrapper title="Table Control" eyebrow="Standings"><StandingsPage /></PageWrapper>} />
           <Route path="/whatsapp-parser" element={<PageWrapper title="WhatsApp Intake" eyebrow="Parser"><WhatsAppParserPage /></PageWrapper>} />
+          <Route path="/sync" element={<PageWrapper title="Sheet Sync" eyebrow="Data Pipeline"><SyncPage /></PageWrapper>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
