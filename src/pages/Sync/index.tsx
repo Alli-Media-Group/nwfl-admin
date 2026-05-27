@@ -17,19 +17,41 @@ export function SyncPage() {
     errors?: string[]
   } | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [log, setLog] = useState<string>('')
+  const [polling, setPolling] = useState(false)
 
   async function handleSync() {
     setLoading(true)
     setResult(null)
     setError(null)
+    setLog('')
 
     try {
       const res = await api.syncFromSheet()
       setResult(res)
+      if (res.status === 'started') {
+        setPolling(true)
+        pollLog()
+      }
     } catch (e: any) {
       setError(e.message || 'Sync failed')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function pollLog() {
+    try {
+      const status = await api.syncStatus()
+      setLog(status.log)
+      // Continue polling if sync hasn't finished
+      if (status.log && !status.log.includes('Done.')) {
+        setTimeout(pollLog, 3000)
+      } else {
+        setPolling(false)
+      }
+    } catch {
+      setPolling(false)
     }
   }
 
@@ -74,6 +96,22 @@ export function SyncPage() {
             Sync Started
           </p>
           <p className="text-xs text-emerald-200/70">{result.message}</p>
+          {polling && (
+            <p className="mt-2 text-xs text-emerald-400 animate-pulse">
+              Live log updating...
+            </p>
+          )}
+        </Card>
+      )}
+
+      {(log || polling) && (
+        <Card className="p-4">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-muted)]">
+            Live Sync Log
+          </p>
+          <pre className="max-h-64 overflow-auto rounded-lg bg-black/40 p-3 text-xs font-mono text-emerald-300">
+            {log || 'Waiting for output...'}
+          </pre>
         </Card>
       )}
 

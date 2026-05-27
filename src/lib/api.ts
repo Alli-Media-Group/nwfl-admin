@@ -241,12 +241,16 @@ export const api = {
 
   syncFromSheet: (): Promise<{
     status: string
-    records: number
-    matches_created: number
-    matches_updated: number
-    goals_created: number
-    errors: string[]
+    message?: string
+    records?: number
+    matches_created?: number
+    matches_updated?: number
+    goals_created?: number
+    errors?: string[]
   }> => request('/api/internal/sync-sheet/', { method: 'POST', body: JSON.stringify({}) }),
+
+  syncStatus: (): Promise<{ log: string }> =>
+    request('/api/internal/sync-status/', { method: 'GET' }),
 }
 
 // ── Logo URL helpers ──────────────────────────────────────────────────────────
