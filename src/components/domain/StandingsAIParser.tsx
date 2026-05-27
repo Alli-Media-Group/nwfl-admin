@@ -352,7 +352,7 @@ function RowReviewLine({
 }
 
 // ── Main panel ────────────────────────────────────────────────────────────────
-export function StandingsAIParser({ standings, onSaved, onClose }: Props) {
+export function StandingsAIParser({ standings: _standings, onSaved, onClose }: Props) {
   const { success, error: toastError, warning } = useToast()
 
   const [text, setText]                 = useState('')
@@ -367,7 +367,7 @@ export function StandingsAIParser({ standings, onSaved, onClose }: Props) {
   const [visionFallback, setVisionFallback] = useState(false)
   const [researchAllTick, setResearchAllTick] = useState(0)
   // After a team is imported via UnmatchedTeamCard, update existence so its row unlocks
-  const [importedTeams, setImportedTeams] = useState<Record<string, Team>>({})
+  const [, setImportedTeams] = useState<Record<string, Team>>({})
 
   function handleImageDrop(file: File) {
     setImage(file)

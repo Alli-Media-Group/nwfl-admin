@@ -148,7 +148,7 @@ function TeamCard({ team, onEdit }: { team: Team; onEdit: () => void }) {
             {team.short_name.slice(0, 2).toUpperCase()}
           </div>
         )}
-        <Badge value={`Group ${team.group}`} />
+        <Badge value={team.group as 'A' | 'B'} />
       </div>
 
       <h3 style={{ margin: '0 0 4px', fontSize: '1rem', color: 'var(--color-text)' }}>{team.name}</h3>

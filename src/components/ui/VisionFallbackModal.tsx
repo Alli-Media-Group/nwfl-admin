@@ -98,7 +98,7 @@ const AI_LINKS = [
 ]
 
 export function VisionFallbackModal({ context, onClose }: Props) {
-  const { title, prompt } = PROMPTS[context]
+  const { title: _title, prompt } = PROMPTS[context]
   const [copied, setCopied] = useState(false)
 
   async function copyPrompt() {

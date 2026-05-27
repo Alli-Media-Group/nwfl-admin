@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Bot, Upload, ImageIcon, CheckCircle2, AlertTriangle, X, Check, SkipForward } from 'lucide-react'
+import { Bot, ImageIcon, CheckCircle2, AlertTriangle, X, Check, SkipForward } from 'lucide-react'
 import { api, LOGO_SOURCES } from '../../lib/api'
 import { useToast } from '../ui/Toast'
 import { Spinner } from '../ui/Spinner'
