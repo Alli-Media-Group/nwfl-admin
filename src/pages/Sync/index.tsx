@@ -9,11 +9,12 @@ export function SyncPage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<{
     status: string
-    records: number
-    matches_created: number
-    matches_updated: number
-    goals_created: number
-    errors: string[]
+    message?: string
+    records?: number
+    matches_created?: number
+    matches_updated?: number
+    goals_created?: number
+    errors?: string[]
   } | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -67,7 +68,16 @@ export function SyncPage() {
         </Card>
       )}
 
-      {result && (
+      {result && result.status === 'started' && (
+        <Card className="border-emerald-500/30 p-5">
+          <p className="mb-1 text-sm font-semibold text-emerald-300">
+            Sync Started
+          </p>
+          <p className="text-xs text-emerald-200/70">{result.message}</p>
+        </Card>
+      )}
+
+      {result && result.status === 'success' && (
         <Card className="p-5">
           <p className="mb-3 text-sm font-semibold text-[var(--color-highlight)]">
             Sync Complete
@@ -91,7 +101,7 @@ export function SyncPage() {
             </div>
           </div>
 
-          {result.errors.length > 0 && (
+          {result.errors && result.errors.length > 0 && (
             <div className="mt-4">
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">
                 Warnings ({result.errors.length})
