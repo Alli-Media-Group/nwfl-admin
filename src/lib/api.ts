@@ -98,7 +98,10 @@ async function request<T>(path: string, init?: RequestInit, retry = true): Promi
     const payload = await response
       .json()
       .catch(() => ({ detail: 'Request failed. Please try again.' }))
-    throw new Error(payload.detail ?? payload.error ?? 'Request failed.')
+    const err = new Error(payload.detail ?? payload.error ?? 'Request failed.') as Error & { status: number; data: Record<string, unknown> }
+    err.status = response.status
+    err.data = payload
+    throw err
   }
 
   return response.json() as Promise<T>
@@ -281,6 +284,12 @@ export const api = {
 
   deleteMediaImage: (id: number): Promise<void> =>
     request(`/api/media/images/${id}/`, { method: 'DELETE' }),
+
+  updateMediaImage: (id: number, tags: string[]): Promise<MediaImage> => {
+    const form = new FormData()
+    tags.forEach((t) => form.append('tag_list', t))
+    return request(`/api/media/images/${id}/`, { method: 'PATCH', body: form })
+  },
 
   searchMediaByTags: (tags: string[]): Promise<{ count: number; tags: string[]; results: MediaImage[] }> =>
     request(`/api/media/images/search-by-tags/?tags=${tags.join(',')}`),

@@ -44,7 +44,6 @@ function SuggestedImage({ image, team, onAssigned }: { image: MediaImage; team: 
         </div>
       </div>
       <Button
-        size="sm"
         onClick={() => void handleAssign()}
         disabled={assigning}
         type="button"

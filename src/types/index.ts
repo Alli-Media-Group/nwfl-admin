@@ -128,6 +128,7 @@ export interface MediaImage {
   file: string;
   url: string;
   filename: string;
+  file_hash: string;
   tags: string[];
   uploaded_at: string;
 }

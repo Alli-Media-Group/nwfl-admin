@@ -1,4 +1,4 @@
-import { ImagePlus, Search, Tag, Trash2, Upload, X, Wand2, FolderOpen } from 'lucide-react'
+import { ImagePlus, Search, Tag, Trash2, Upload, Wand2, Pencil } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
@@ -11,11 +11,13 @@ import type { MediaImage } from '../../types'
 interface BatchItem {
   file: File
   id: string
-  status: 'pending' | 'suggesting' | 'ready' | 'uploading' | 'done' | 'error'
+  status: 'pending' | 'suggesting' | 'ready' | 'uploading' | 'done' | 'error' | 'duplicate'
   aiTags: string[]
   manualTags: string
   previewUrl: string
   error?: string
+  existingId?: number
+  existingFilename?: string
 }
 
 export function MediaLibraryPage() {
@@ -28,8 +30,21 @@ export function MediaLibraryPage() {
   const [dragOver, setDragOver] = useState(false)
   const [batch, setBatch] = useState<BatchItem[]>([])
   const [batchOpen, setBatchOpen] = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState<MediaImage | null>(null)
+  const [editTarget, setEditTarget] = useState<MediaImage | null>(null)
+  const [editTags, setEditTags] = useState('')
+  const [editSaving, setEditSaving] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
   const folderRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (toast) {
+      const t = setTimeout(() => setToast(null), 3000)
+      return () => clearTimeout(t)
+    }
+  }, [toast])
 
   async function load() {
     setLoading(true)
@@ -42,6 +57,7 @@ export function MediaLibraryPage() {
       setTags(tagRes.tags || [])
     } catch (e: any) {
       console.error(e)
+      setToast({ message: 'Failed to load media library.', type: 'error' })
     } finally {
       setLoading(false)
     }
@@ -61,38 +77,93 @@ export function MediaLibraryPage() {
       setImages(res.results || [])
     } catch (e: any) {
       console.error(e)
+      setToast({ message: 'Search failed.', type: 'error' })
     } finally {
       setLoading(false)
     }
   }
 
-  async function handleDelete(id: number) {
-    if (!confirm('Delete this image?')) return
+  async function handleConfirmDelete() {
+    if (!deleteTarget) return
+    setDeleteError('')
     try {
-      await api.deleteMediaImage(id)
-      setImages((prev) => prev.filter((i) => i.id !== id))
+      await api.deleteMediaImage(deleteTarget.id)
+      setImages((prev) => prev.filter((i) => i.id !== deleteTarget.id))
+      setDeleteTarget(null)
+      setToast({ message: 'Image deleted.', type: 'success' })
     } catch (e: any) {
-      alert(e.message || 'Delete failed')
+      setDeleteError(e.message || 'Delete failed')
     }
   }
 
-  function startBatch(files: FileList | null) {
+  function openEdit(img: MediaImage) {
+    setEditTarget(img)
+    setEditTags(img.tags.join(', '))
+    setEditSaving(false)
+  }
+
+  async function handleSaveEdit() {
+    if (!editTarget) return
+    setEditSaving(true)
+    try {
+      const tagList = editTags
+        .split(',')
+        .map((t) => t.trim().toLowerCase())
+        .filter((t) => t.length > 0)
+      const updated = await api.updateMediaImage(editTarget.id, tagList)
+      setImages((prev) => prev.map((i) => (i.id === updated.id ? updated : i)))
+      setEditTarget(null)
+      setToast({ message: 'Tags updated.', type: 'success' })
+      // Refresh tag list in case new tags were added
+      void api.getMediaTags().then((r) => setTags(r.tags || []))
+    } catch (e: any) {
+      setToast({ message: e.message || 'Update failed', type: 'error' })
+    } finally {
+      setEditSaving(false)
+    }
+  }
+
+  async function checkDuplicate(file: File): Promise<{ duplicate: boolean; existingId?: number; existingFilename?: string }> {
+    const buffer = await file.arrayBuffer()
+    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer)
+    const hashArray = Array.from(new Uint8Array(hashBuffer))
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
+
+    const existing = images.find((img) => img.file_hash === hashHex)
+    if (existing) {
+      return { duplicate: true, existingId: existing.id, existingFilename: existing.filename }
+    }
+    return { duplicate: false }
+  }
+
+  async function startBatch(files: FileList | null) {
     if (!files || files.length === 0) return
-    const items: BatchItem[] = Array.from(files)
-      .filter((f) => f.type.startsWith('image/'))
-      .map((file) => ({
+    const imageFiles = Array.from(files).filter((f) => f.type.startsWith('image/'))
+    if (imageFiles.length === 0) return
+
+    const items: BatchItem[] = []
+    for (const file of imageFiles) {
+      const dup = await checkDuplicate(file)
+      items.push({
         file,
         id: Math.random().toString(36).slice(2),
-        status: 'pending',
+        status: dup.duplicate ? 'duplicate' : 'pending',
         aiTags: [],
         manualTags: '',
         previewUrl: URL.createObjectURL(file),
-      }))
+        existingId: dup.existingId,
+        existingFilename: dup.existingFilename,
+      })
+    }
+
     if (items.length === 0) return
     setBatch(items)
     setBatchOpen(true)
-    // Auto-suggest tags for all images in parallel
-    void suggestTagsForBatch(items)
+
+    const toSuggest = items.filter((i) => i.status !== 'duplicate')
+    if (toSuggest.length > 0) {
+      void suggestTagsForBatch(toSuggest)
+    }
   }
 
   async function suggestTagsForBatch(items: BatchItem[]) {
@@ -111,9 +182,19 @@ export function MediaLibraryPage() {
             )
           )
         } catch (e: any) {
+          const data = e?.data || {}
+          const isVisionUnavailable = data.error === 'vision_unavailable' || e.status === 503
           setBatch((prev) =>
             prev.map((b) =>
-              b.id === item.id ? { ...b, status: 'ready', aiTags: [], manualTags: '' } : b
+              b.id === item.id
+                ? {
+                    ...b,
+                    status: 'ready',
+                    aiTags: [],
+                    manualTags: '',
+                    error: isVisionUnavailable ? 'AI unavailable — add tags manually' : undefined,
+                  }
+                : b
             )
           )
         }
@@ -123,7 +204,7 @@ export function MediaLibraryPage() {
 
   async function uploadBatch() {
     for (const item of batch) {
-      if (item.status === 'done') continue
+      if (item.status === 'done' || item.status === 'duplicate') continue
       setBatch((prev) =>
         prev.map((b) => (b.id === item.id ? { ...b, status: 'uploading' } : b))
       )
@@ -137,9 +218,26 @@ export function MediaLibraryPage() {
           prev.map((b) => (b.id === item.id ? { ...b, status: 'done' } : b))
         )
       } catch (e: any) {
-        setBatch((prev) =>
-          prev.map((b) => (b.id === item.id ? { ...b, status: 'error', error: e.message } : b))
-        )
+        const data = e?.data
+        if (data?.duplicate) {
+          setBatch((prev) =>
+            prev.map((b) =>
+              b.id === item.id
+                ? {
+                    ...b,
+                    status: 'duplicate',
+                    existingId: data.existing_id,
+                    existingFilename: data.existing_filename,
+                    error: data.detail,
+                  }
+                : b
+            )
+          )
+        } else {
+          setBatch((prev) =>
+            prev.map((b) => (b.id === item.id ? { ...b, status: 'error', error: e.message } : b))
+          )
+        }
       }
     }
     void load()
@@ -152,11 +250,25 @@ export function MediaLibraryPage() {
     startBatch(files)
   }
 
-  const pendingCount = batch.filter((b) => b.status !== 'done').length
+  const pendingCount = batch.filter((b) => b.status !== 'done' && b.status !== 'duplicate').length
   const doneCount = batch.filter((b) => b.status === 'done').length
+  const allFinished = batch.every((b) => b.status === 'done' || b.status === 'duplicate' || b.status === 'error')
 
   return (
     <div className="space-y-6">
+      {/* Toast */}
+      {toast && (
+        <div
+          className={`fixed right-4 top-4 z-50 rounded-lg px-4 py-2 text-sm font-medium shadow-lg transition-all ${
+            toast.type === 'success'
+              ? 'bg-green-600 text-white'
+              : 'bg-red-600 text-white'
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
+
       {/* Header */}
       <Card className="p-6">
         <div className="mb-4 flex items-center gap-3">
@@ -225,8 +337,7 @@ export function MediaLibraryPage() {
             ref={folderRef}
             type="file"
             accept="image/*"
-            webkitdirectory=""
-            directory=""
+            {...{ webkitdirectory: '', directory: '' } as any}
             multiple
             className="hidden"
             onChange={(e) => {
@@ -307,7 +418,7 @@ export function MediaLibraryPage() {
                 className="block aspect-square w-full overflow-hidden"
               >
                 <img
-                  src={img.url}
+                  src={img.file}
                   alt={img.filename}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
@@ -317,25 +428,40 @@ export function MediaLibraryPage() {
               <div className="p-3">
                 <p className="truncate text-xs text-[var(--color-muted)]">{img.filename}</p>
                 <div className="mt-2 flex flex-wrap gap-1">
-                  {img.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--color-highlight)]"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  {img.tags.length === 0 ? (
+                    <span className="text-[10px] text-[var(--color-muted)] italic">No tags</span>
+                  ) : (
+                    img.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--color-highlight)]"
+                      >
+                        {t}
+                      </span>
+                    ))
+                  )}
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => void handleDelete(img.id)}
-                className="absolute right-2 top-2 rounded-lg bg-black/50 p-1.5 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-red-500/80"
-                title="Delete"
-              >
-                <Trash2 size={14} />
-              </button>
+              {/* Actions */}
+              <div className="absolute right-2 top-2 flex gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
+                <button
+                  type="button"
+                  onClick={() => openEdit(img)}
+                  className="rounded-lg bg-black/50 p-1.5 text-white hover:bg-[var(--color-highlight)]/80"
+                  title="Edit tags"
+                >
+                  <Pencil size={14} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeleteTarget(img)}
+                  className="rounded-lg bg-black/50 p-1.5 text-white hover:bg-red-500/80"
+                  title="Delete"
+                >
+                  <Trash2 size={14} />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -345,7 +471,7 @@ export function MediaLibraryPage() {
       <Modal
         open={batchOpen}
         onClose={() => {
-          if (pendingCount === 0 || doneCount === batch.length) {
+          if (allFinished) {
             setBatchOpen(false)
             setBatch([])
             void load()
@@ -373,12 +499,17 @@ export function MediaLibraryPage() {
                     )}
                     {item.status === 'uploading' && (
                       <span className="flex items-center gap-1 text-xs text-[var(--color-highlight)]">
-                        <Spinner size="xs" />
+                        <Spinner size="sm" />
                         Uploading...
                       </span>
                     )}
                     {item.status === 'done' && (
                       <span className="text-xs text-[var(--color-success)]">Uploaded</span>
+                    )}
+                    {item.status === 'duplicate' && (
+                      <span className="text-xs text-amber-400">
+                        Already exists: {item.existingFilename}
+                      </span>
                     )}
                     {item.status === 'error' && (
                       <span className="text-xs text-red-400">{item.error || 'Failed'}</span>
@@ -391,7 +522,7 @@ export function MediaLibraryPage() {
                     )}
                   </div>
 
-                  {(item.status === 'ready' || item.status === 'uploading' || item.status === 'done' || item.status === 'error') && (
+                  {(item.status === 'ready' || item.status === 'uploading' || item.status === 'done' || item.status === 'error' || item.status === 'duplicate') && (
                     <div className="mt-2 flex items-center gap-2">
                       <Tag size={12} className="shrink-0 text-[var(--color-muted)]" />
                       <input
@@ -454,23 +585,85 @@ export function MediaLibraryPage() {
         {preview && (
           <div className="space-y-4">
             <img
-              src={preview.url}
+              src={preview.file}
               alt={preview.filename}
               className="max-h-[60vh] w-full rounded-lg object-contain"
             />
             <div className="flex flex-wrap gap-2">
-              {preview.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full bg-[var(--color-surface)] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-highlight)]"
-                >
-                  {t}
-                </span>
-              ))}
+              {preview.tags.length === 0 ? (
+                <span className="text-xs text-[var(--color-muted)] italic">No tags</span>
+              ) : (
+                preview.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full bg-[var(--color-surface)] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-highlight)]"
+                  >
+                    {t}
+                  </span>
+                ))
+              )}
             </div>
             <p className="text-xs text-[var(--color-muted)]">
               Uploaded {new Date(preview.uploaded_at).toLocaleString()}
             </p>
+          </div>
+        )}
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal open={!!deleteTarget} onClose={() => { setDeleteTarget(null); setDeleteError('') }} title="Delete Image">
+        {deleteTarget && (
+          <div className="space-y-4">
+            <p className="text-sm text-[var(--color-off-white)]">
+              Are you sure you want to delete <strong>{deleteTarget.filename}</strong>? This cannot be undone.
+            </p>
+            {deleteError && (
+              <p className="text-xs text-red-400">{deleteError}</p>
+            )}
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => { setDeleteTarget(null); setDeleteError('') }} type="button">
+                Cancel
+              </Button>
+              <Button
+                onClick={() => void handleConfirmDelete()}
+                type="button"
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Delete
+              </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Edit Tags Modal */}
+      <Modal open={!!editTarget} onClose={() => setEditTarget(null)} title={editTarget ? `Edit Tags: ${editTarget.filename}` : 'Edit Tags'}>
+        {editTarget && (
+          <div className="space-y-4">
+            <img
+              src={editTarget.file}
+              alt={editTarget.filename}
+              className="max-h-[40vh] w-full rounded-lg object-contain"
+            />
+            <div className="space-y-2">
+              <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
+                Tags
+              </label>
+              <Input
+                value={editTags}
+                onChange={(e) => setEditTags(e.target.value)}
+                placeholder="logo, rivers angels, 2025"
+              />
+              <p className="text-xs text-[var(--color-muted)]">Separate tags with commas.</p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setEditTarget(null)} type="button">
+                Cancel
+              </Button>
+              <Button onClick={() => void handleSaveEdit()} disabled={editSaving} type="button">
+                {editSaving ? <Spinner size="sm" /> : 'Save Tags'}
+              </Button>
+            </div>
           </div>
         )}
       </Modal>
