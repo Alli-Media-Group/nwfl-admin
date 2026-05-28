@@ -273,6 +273,12 @@ export const api = {
     return request('/api/media/images/', { method: 'POST', body: form })
   },
 
+  suggestImageTags: (file: File): Promise<{ tags: string[] }> => {
+    const form = new FormData()
+    form.append('image', file)
+    return request('/api/media/images/suggest-tags/', { method: 'POST', body: form })
+  },
+
   deleteMediaImage: (id: number): Promise<void> =>
     request(`/api/media/images/${id}/`, { method: 'DELETE' }),
 

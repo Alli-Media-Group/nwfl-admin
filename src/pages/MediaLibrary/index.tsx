@@ -1,4 +1,4 @@
-import { ImagePlus, Search, Tag, Trash2, Upload, X } from 'lucide-react'
+import { ImagePlus, Search, Tag, Trash2, Upload, X, Wand2, FolderOpen } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
@@ -8,17 +8,28 @@ import { Spinner } from '../../components/ui/Spinner'
 import { api } from '../../lib/api'
 import type { MediaImage } from '../../types'
 
+interface BatchItem {
+  file: File
+  id: string
+  status: 'pending' | 'suggesting' | 'ready' | 'uploading' | 'done' | 'error'
+  aiTags: string[]
+  manualTags: string
+  previewUrl: string
+  error?: string
+}
+
 export function MediaLibraryPage() {
   const [images, setImages] = useState<MediaImage[]>([])
   const [tags, setTags] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
-  const [uploading, setUploading] = useState(false)
   const [searchTag, setSearchTag] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [preview, setPreview] = useState<MediaImage | null>(null)
   const [dragOver, setDragOver] = useState(false)
+  const [batch, setBatch] = useState<BatchItem[]>([])
+  const [batchOpen, setBatchOpen] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
-  const [newTags, setNewTags] = useState('')
+  const folderRef = useRef<HTMLInputElement>(null)
 
   async function load() {
     setLoading(true)
@@ -55,23 +66,6 @@ export function MediaLibraryPage() {
     }
   }
 
-  async function handleUpload(file: File) {
-    const tagList = newTags
-      .split(',')
-      .map((t) => t.trim().toLowerCase())
-      .filter((t) => t.length > 0)
-    setUploading(true)
-    try {
-      await api.uploadMediaImage(file, tagList)
-      setNewTags('')
-      void load()
-    } catch (e: any) {
-      alert(e.message || 'Upload failed')
-    } finally {
-      setUploading(false)
-    }
-  }
-
   async function handleDelete(id: number) {
     if (!confirm('Delete this image?')) return
     try {
@@ -82,12 +76,84 @@ export function MediaLibraryPage() {
     }
   }
 
+  function startBatch(files: FileList | null) {
+    if (!files || files.length === 0) return
+    const items: BatchItem[] = Array.from(files)
+      .filter((f) => f.type.startsWith('image/'))
+      .map((file) => ({
+        file,
+        id: Math.random().toString(36).slice(2),
+        status: 'pending',
+        aiTags: [],
+        manualTags: '',
+        previewUrl: URL.createObjectURL(file),
+      }))
+    if (items.length === 0) return
+    setBatch(items)
+    setBatchOpen(true)
+    // Auto-suggest tags for all images in parallel
+    void suggestTagsForBatch(items)
+  }
+
+  async function suggestTagsForBatch(items: BatchItem[]) {
+    await Promise.all(
+      items.map(async (item) => {
+        setBatch((prev) =>
+          prev.map((b) => (b.id === item.id ? { ...b, status: 'suggesting' } : b))
+        )
+        try {
+          const res = await api.suggestImageTags(item.file)
+          setBatch((prev) =>
+            prev.map((b) =>
+              b.id === item.id
+                ? { ...b, status: 'ready', aiTags: res.tags || [], manualTags: (res.tags || []).join(', ') }
+                : b
+            )
+          )
+        } catch (e: any) {
+          setBatch((prev) =>
+            prev.map((b) =>
+              b.id === item.id ? { ...b, status: 'ready', aiTags: [], manualTags: '' } : b
+            )
+          )
+        }
+      })
+    )
+  }
+
+  async function uploadBatch() {
+    for (const item of batch) {
+      if (item.status === 'done') continue
+      setBatch((prev) =>
+        prev.map((b) => (b.id === item.id ? { ...b, status: 'uploading' } : b))
+      )
+      try {
+        const tagList = item.manualTags
+          .split(',')
+          .map((t) => t.trim().toLowerCase())
+          .filter((t) => t.length > 0)
+        await api.uploadMediaImage(item.file, tagList)
+        setBatch((prev) =>
+          prev.map((b) => (b.id === item.id ? { ...b, status: 'done' } : b))
+        )
+      } catch (e: any) {
+        setBatch((prev) =>
+          prev.map((b) => (b.id === item.id ? { ...b, status: 'error', error: e.message } : b))
+        )
+      }
+    }
+    void load()
+  }
+
   function onDrop(e: React.DragEvent) {
     e.preventDefault()
     setDragOver(false)
-    const file = e.dataTransfer.files[0]
-    if (file) void handleUpload(file)
+    const files = e.dataTransfer.files
+    startBatch(files)
   }
+
+  const pendingCount = batch.filter((b) => b.status !== 'done').length
+  const doneCount = batch.filter((b) => b.status === 'done').length
 
   return (
     <div className="space-y-6">
@@ -104,7 +170,7 @@ export function MediaLibraryPage() {
         </div>
 
         <p className="mb-5 max-w-xl text-sm text-[var(--color-muted)]">
-          Upload, tag, and search images. Tag images with team names so they can be easily found and assigned to clubs.
+          Upload, tag, and search images. Drag a folder of images and AI will auto-suggest tags for each one.
         </p>
       </Card>
 
@@ -125,44 +191,49 @@ export function MediaLibraryPage() {
         >
           <Upload size={32} className="mx-auto mb-3 text-[var(--color-muted)]" />
           <p className="mb-2 text-sm font-medium text-[var(--color-off-white)]">
-            Drop an image here, or{' '}
+            Drop files or a folder here, or{' '}
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
               className="text-[var(--color-highlight)] underline"
             >
-              browse
+              browse files
+            </button>{' '}
+            /{' '}
+            <button
+              type="button"
+              onClick={() => folderRef.current?.click()}
+              className="text-[var(--color-highlight)] underline"
+            >
+              select folder
             </button>
           </p>
-          <p className="mb-4 text-xs text-[var(--color-muted)]">PNG, JPG, WEBP up to 5MB</p>
+          <p className="text-xs text-[var(--color-muted)]">PNG, JPG, WEBP up to 5MB each</p>
 
           <input
             ref={fileRef}
             type="file"
             accept="image/*"
+            multiple
             className="hidden"
             onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) void handleUpload(file)
+              startBatch(e.target.files)
               e.target.value = ''
             }}
           />
-
-          <div className="mx-auto flex max-w-sm items-center gap-2">
-            <Tag size={14} className="shrink-0 text-[var(--color-muted)]" />
-            <Input
-              placeholder="Enter tags separated by commas (e.g. rivers-angels, logo, 2024)"
-              value={newTags}
-              onChange={(e) => setNewTags(e.target.value)}
-            />
-          </div>
-
-          {uploading && (
-            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--color-highlight)]">
-              <Spinner size="sm" />
-              Uploading...
-            </div>
-          )}
+          <input
+            ref={folderRef}
+            type="file"
+            accept="image/*"
+            webkitdirectory=""
+            directory=""
+            multiple
+            className="hidden"
+            onChange={(e) => {
+              startBatch(e.target.files)
+              e.target.value = ''
+            }}
+          />
         </div>
       </Card>
 
@@ -269,6 +340,114 @@ export function MediaLibraryPage() {
           ))}
         </div>
       )}
+
+      {/* Batch Upload Modal */}
+      <Modal
+        open={batchOpen}
+        onClose={() => {
+          if (pendingCount === 0 || doneCount === batch.length) {
+            setBatchOpen(false)
+            setBatch([])
+            void load()
+          }
+        }}
+        title={`Upload Batch (${doneCount}/${batch.length} done)`}
+      >
+        <div className="max-h-[60vh] space-y-3 overflow-auto">
+          {batch.map((item) => (
+            <div key={item.id} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3">
+              <div className="flex items-start gap-3">
+                <img
+                  src={item.previewUrl}
+                  alt={item.file.name}
+                  className="h-14 w-14 shrink-0 rounded-md object-cover"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-xs font-medium text-[var(--color-off-white)]">{item.file.name}</p>
+                  <div className="mt-1 flex items-center gap-2">
+                    {item.status === 'suggesting' && (
+                      <span className="flex items-center gap-1 text-xs text-[var(--color-highlight)]">
+                        <Wand2 size={10} className="animate-pulse" />
+                        AI suggesting tags...
+                      </span>
+                    )}
+                    {item.status === 'uploading' && (
+                      <span className="flex items-center gap-1 text-xs text-[var(--color-highlight)]">
+                        <Spinner size="xs" />
+                        Uploading...
+                      </span>
+                    )}
+                    {item.status === 'done' && (
+                      <span className="text-xs text-[var(--color-success)]">Uploaded</span>
+                    )}
+                    {item.status === 'error' && (
+                      <span className="text-xs text-red-400">{item.error || 'Failed'}</span>
+                    )}
+                    {item.status === 'ready' && (
+                      <span className="text-xs text-[var(--color-muted)]">Ready</span>
+                    )}
+                    {item.status === 'pending' && (
+                      <span className="text-xs text-[var(--color-muted)]">Waiting...</span>
+                    )}
+                  </div>
+
+                  {(item.status === 'ready' || item.status === 'uploading' || item.status === 'done' || item.status === 'error') && (
+                    <div className="mt-2 flex items-center gap-2">
+                      <Tag size={12} className="shrink-0 text-[var(--color-muted)]" />
+                      <input
+                        type="text"
+                        value={item.manualTags}
+                        onChange={(e) =>
+                          setBatch((prev) =>
+                            prev.map((b) =>
+                              b.id === item.id ? { ...b, manualTags: e.target.value } : b
+                            )
+                          )
+                        }
+                        placeholder="tags, separated, by, commas"
+                        className="w-full rounded bg-[var(--color-bg)] px-2 py-1 text-xs text-[var(--color-off-white)] outline-none focus:ring-1 focus:ring-[var(--color-highlight)]"
+                        disabled={item.status === 'uploading' || item.status === 'done'}
+                      />
+                    </div>
+                  )}
+
+                  {item.aiTags.length > 0 && (
+                    <div className="mt-1.5 flex flex-wrap gap-1">
+                      {item.aiTags.map((t) => (
+                        <span key={t} className="rounded bg-[var(--color-bg)] px-1.5 py-0.5 text-[9px] text-[var(--color-highlight)]">
+                          {t}
+                        </span>
+                      ))}
+                      <span className="text-[9px] text-[var(--color-muted)]">← AI suggested</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 flex justify-end gap-2">
+          <Button
+            variant="outline"
+            onClick={() => {
+              setBatchOpen(false)
+              setBatch([])
+              void load()
+            }}
+            type="button"
+          >
+            Close
+          </Button>
+          <Button
+            onClick={() => void uploadBatch()}
+            disabled={pendingCount === 0 || batch.some((b) => b.status === 'uploading')}
+            type="button"
+          >
+            Upload All ({pendingCount} remaining)
+          </Button>
+        </div>
+      </Modal>
 
       {/* Preview Modal */}
       <Modal open={!!preview} onClose={() => setPreview(null)} title={preview?.filename || 'Image'}>
