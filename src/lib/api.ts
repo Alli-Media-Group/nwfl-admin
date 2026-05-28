@@ -2,6 +2,8 @@ import type {
   AuthUser,
   Match,
   MatchFormValues,
+  MediaImage,
+  MissingLogoTeam,
   ParsedMatchResult,
   ParsedStandingRow,
   ParsedTeamResult,
@@ -11,7 +13,8 @@ import type {
   TeamResearchResult,
 } from '../types'
 
-const BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+const RAW_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+const BASE = RAW_BASE.replace(/\/$/, '')
 
 // ── Token storage ─────────────────────────────────────────────────────────────
 export const tokens = {
@@ -249,8 +252,45 @@ export const api = {
     errors?: string[]
   }> => request('/api/internal/sync-sheet/', { method: 'POST', body: JSON.stringify({}) }),
 
+  syncFixturesFromSheet: (): Promise<{
+    status: string
+    message?: string
+  }> => request('/api/internal/sync-sheet/', { method: 'POST', body: JSON.stringify({ fixtures: true }) }),
+
   syncStatus: (): Promise<{ log: string }> =>
     request('/api/internal/sync-status/', { method: 'GET' }),
+
+  // ── Media Library ────────────────────────────────────────────────────────────
+  getMediaImages: (params?: { tag?: string; tags?: string }): Promise<{ count: number; results: MediaImage[] }> => {
+    const qs = params ? '?' + new URLSearchParams(Object.entries(params).filter(([, v]) => v) as [string, string][]).toString() : ''
+    return request(`/api/media/images/${qs}`)
+  },
+
+  uploadMediaImage: (file: File, tags: string[]): Promise<MediaImage> => {
+    const form = new FormData()
+    form.append('file', file)
+    tags.forEach((t) => form.append('tag_list', t))
+    return request('/api/media/images/', { method: 'POST', body: form })
+  },
+
+  deleteMediaImage: (id: number): Promise<void> =>
+    request(`/api/media/images/${id}/`, { method: 'DELETE' }),
+
+  searchMediaByTags: (tags: string[]): Promise<{ count: number; tags: string[]; results: MediaImage[] }> =>
+    request(`/api/media/images/search-by-tags/?tags=${tags.join(',')}`),
+
+  getMediaTags: (): Promise<{ tags: string[] }> =>
+    request('/api/media/images/tags/all/'),
+
+  // ── Missing Logos ────────────────────────────────────────────────────────────
+  getTeamsMissingLogos: (): Promise<{ missing_count: number; teams: MissingLogoTeam[] }> =>
+    request('/api/internal/teams-missing-logos/'),
+
+  updateTeamLogo: (id: number, logoFile: File): Promise<Team> => {
+    const form = new FormData()
+    form.append('logo', logoFile)
+    return request<Team>(`/api/teams/${id}/`, { method: 'PATCH', body: form })
+  },
 }
 
 // ── Logo URL helpers ──────────────────────────────────────────────────────────

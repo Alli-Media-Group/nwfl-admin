@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { AudioLines, ClipboardList, CloudCog, LayoutDashboard, Menu, Shield, Users, X } from 'lucide-react'
+import { AudioLines, ClipboardList, CloudCog, ImageIcon, LayoutDashboard, Menu, Shield, AlertTriangle, Users, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -10,6 +10,8 @@ const items = [
   { icon: Shield, label: 'Standings', to: '/standings' },
   { icon: AudioLines, label: 'WhatsApp Parser', to: '/whatsapp-parser' },
   { icon: CloudCog, label: 'Sheet Sync', to: '/sync' },
+  { icon: ImageIcon, label: 'Media Library', to: '/media-library' },
+  { icon: AlertTriangle, label: 'Missing Logos', to: '/missing-logos' },
 ]
 
 export function Sidebar() {

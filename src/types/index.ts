@@ -122,3 +122,17 @@ export interface MatchFormValues {
   status: Match['status'];
   pending_reason: string;
 }
+
+export interface MediaImage {
+  id: number;
+  file: string;
+  url: string;
+  filename: string;
+  tags: string[];
+  uploaded_at: string;
+}
+
+export interface MissingLogoTeam {
+  team: Team;
+  suggestions: MediaImage[];
+}

@@ -1,4 +1,4 @@
-import { CloudCog, RefreshCw } from 'lucide-react'
+import { CalendarDays, CloudCog, RefreshCw } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
@@ -7,6 +7,7 @@ import { api } from '../../lib/api'
 
 export function SyncPage() {
   const [loading, setLoading] = useState(false)
+  const [loadingFixtures, setLoadingFixtures] = useState(false)
   const [result, setResult] = useState<{
     status: string
     message?: string
@@ -37,6 +38,26 @@ export function SyncPage() {
       setError(e.message || 'Sync failed')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleSyncFixtures() {
+    setLoadingFixtures(true)
+    setResult(null)
+    setError(null)
+    setLog('')
+
+    try {
+      const res = await api.syncFixturesFromSheet()
+      setResult(res)
+      if (res.status === 'started') {
+        setPolling(true)
+        pollLog()
+      }
+    } catch (e: any) {
+      setError(e.message || 'Fixtures sync failed')
+    } finally {
+      setLoadingFixtures(false)
     }
   }
 
@@ -75,13 +96,23 @@ export function SyncPage() {
           NWFL Google Sheet. This will create new matches and update existing ones.
         </p>
 
-        <Button
-          icon={loading ? <Spinner size="sm" /> : <RefreshCw size={16} />}
-          onClick={() => void handleSync()}
-          type="button"
-        >
-          {loading ? 'Syncing...' : 'Run Sync'}
-        </Button>
+        <div className="flex flex-wrap gap-3">
+          <Button
+            icon={loading ? <Spinner size="sm" /> : <RefreshCw size={16} />}
+            onClick={() => void handleSync()}
+            type="button"
+          >
+            {loading ? 'Syncing Results...' : 'Sync Results'}
+          </Button>
+          <Button
+            variant="outline"
+            icon={loadingFixtures ? <Spinner size="sm" /> : <CalendarDays size={16} />}
+            onClick={() => void handleSyncFixtures()}
+            type="button"
+          >
+            {loadingFixtures ? 'Syncing Fixtures...' : 'Sync Fixtures'}
+          </Button>
+        </div>
       </Card>
 
       {error && (
