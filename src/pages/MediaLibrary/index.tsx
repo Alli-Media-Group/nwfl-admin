@@ -202,31 +202,6 @@ export function MediaLibraryPage() {
     )
   }
 
-  async function handleReplaceDuplicate(item: BatchItem) {
-    if (!item.existingId) return
-    setBatch((prev) =>
-      prev.map((b) => (b.id === item.id ? { ...b, status: 'uploading' } : b))
-    )
-    try {
-      await api.deleteMediaImage(item.existingId)
-      setImages((prev) => prev.filter((i) => i.id !== item.existingId))
-      // After deleting the old one, this file is now ready to upload
-      setBatch((prev) =>
-        prev.map((b) =>
-          b.id === item.id
-            ? { ...b, status: 'ready', existingId: undefined, existingFilename: undefined }
-            : b
-        )
-      )
-      setToast({ message: 'Old image deleted — ready to upload.', type: 'success' })
-    } catch (e: any) {
-      setBatch((prev) =>
-        prev.map((b) => (b.id === item.id ? { ...b, status: 'duplicate', error: e.message } : b))
-      )
-      setToast({ message: e.message || 'Failed to delete old image', type: 'error' })
-    }
-  }
-
   async function uploadBatch() {
     for (const item of batch) {
       if (item.status === 'done' || item.status === 'duplicate') continue
@@ -536,10 +511,12 @@ export function MediaLibraryPage() {
                         <span>Already exists: {item.existingFilename}</span>
                         <button
                           type="button"
-                          onClick={() => void handleReplaceDuplicate(item)}
-                          className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300 hover:bg-amber-500/30"
+                          onClick={() =>
+                            setBatch((prev) => prev.filter((b) => b.id !== item.id))
+                          }
+                          className="rounded bg-red-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-red-300 hover:bg-red-500/30"
                         >
-                          Replace
+                          Remove
                         </button>
                       </span>
                     )}
