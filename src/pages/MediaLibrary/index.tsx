@@ -1,4 +1,4 @@
-import { ImagePlus, Search, Tag, Trash2, Upload, Wand2, Pencil } from 'lucide-react'
+import { ImagePlus, Search, Tag, Trash2, Upload, Wand2, Pencil, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
@@ -481,8 +481,16 @@ export function MediaLibraryPage() {
       >
         <div className="max-h-[60vh] space-y-3 overflow-auto">
           {batch.map((item) => (
-            <div key={item.id} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3">
-              <div className="flex items-start gap-3">
+            <div key={item.id} className="relative rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3">
+              <button
+                type="button"
+                onClick={() => setBatch((prev) => prev.filter((b) => b.id !== item.id))}
+                className="absolute right-2 top-2 rounded p-1 text-[var(--color-muted)] hover:bg-red-500/20 hover:text-red-400"
+                title="Remove from batch"
+              >
+                <X size={12} />
+              </button>
+              <div className="flex items-start gap-3 pr-6">
                 <img
                   src={item.previewUrl}
                   alt={item.file.name}
