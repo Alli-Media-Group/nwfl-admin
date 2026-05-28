@@ -72,8 +72,8 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
         transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease',
         background: 'var(--color-card)',
         border: '1px solid var(--color-border)',
-        borderRadius: '14px',
-        boxShadow: 'var(--shadow-card)',
+        borderRadius: '8px',
+        boxShadow: 'var(--shadow-elevated)',
         overflow: 'hidden',
         cursor: 'pointer',
         minWidth: '300px',
@@ -140,7 +140,7 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
             padding: '2px',
             cursor: 'pointer',
             color: 'var(--color-muted)',
-            borderRadius: '4px',
+            borderRadius: '2px',
             flexShrink: 0,
           }}
         >

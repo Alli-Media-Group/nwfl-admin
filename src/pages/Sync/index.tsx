@@ -116,19 +116,19 @@ export function SyncPage() {
       </Card>
 
       {error && (
-        <Card className="border-red-500/30 p-5">
-          <p className="text-sm font-medium text-red-300">{error}</p>
+        <Card className="p-5" style={{ borderColor: 'rgba(186,26,26,0.30)' }}>
+          <p className="text-sm font-medium" style={{ color: 'var(--color-danger)' }}>{error}</p>
         </Card>
       )}
 
       {result && result.status === 'started' && (
-        <Card className="border-emerald-500/30 p-5">
-          <p className="mb-1 text-sm font-semibold text-emerald-300">
+        <Card className="p-5" style={{ borderColor: 'rgba(22,163,74,0.30)' }}>
+          <p className="mb-1 text-sm font-semibold" style={{ color: 'var(--color-success)' }}>
             Sync Started
           </p>
-          <p className="text-xs text-emerald-200/70">{result.message}</p>
+          <p className="text-xs" style={{ color: 'var(--color-success)', opacity: 0.7 }}>{result.message}</p>
           {polling && (
-            <p className="mt-2 text-xs text-emerald-400 animate-pulse">
+            <p className="mt-2 text-xs animate-pulse" style={{ color: 'var(--color-success)' }}>
               Live log updating...
             </p>
           )}
@@ -140,7 +140,7 @@ export function SyncPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-muted)]">
             Live Sync Log
           </p>
-          <pre className="max-h-64 overflow-auto rounded-lg bg-black/40 p-3 text-xs font-mono text-emerald-300">
+          <pre className="max-h-64 overflow-auto rounded-lg p-3 text-xs font-mono" style={{ background: 'var(--color-bg-subtle)', color: 'var(--color-success)' }}>
             {log || 'Waiting for output...'}
           </pre>
         </Card>
@@ -152,32 +152,32 @@ export function SyncPage() {
             Sync Complete
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl border border-[var(--color-border)] bg-black/20 p-4">
-              <p className="text-xs text-[var(--color-muted)]">Sheet Rows</p>
-              <p className="mt-1 text-2xl text-[var(--color-off-white)]">{result.records}</p>
+            <div className="rounded-lg border p-4" style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}>
+              <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Sheet Rows</p>
+              <p className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>{result.records}</p>
             </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-black/20 p-4">
-              <p className="text-xs text-[var(--color-muted)]">Matches Created</p>
-              <p className="mt-1 text-2xl text-[var(--color-off-white)]">{result.matches_created}</p>
+            <div className="rounded-lg border p-4" style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}>
+              <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Matches Created</p>
+              <p className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>{result.matches_created}</p>
             </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-black/20 p-4">
-              <p className="text-xs text-[var(--color-muted)]">Matches Updated</p>
-              <p className="mt-1 text-2xl text-[var(--color-off-white)]">{result.matches_updated}</p>
+            <div className="rounded-lg border p-4" style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}>
+              <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Matches Updated</p>
+              <p className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>{result.matches_updated}</p>
             </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-black/20 p-4">
-              <p className="text-xs text-[var(--color-muted)]">Goals Created</p>
-              <p className="mt-1 text-2xl text-[var(--color-off-white)]">{result.goals_created}</p>
+            <div className="rounded-lg border p-4" style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}>
+              <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Goals Created</p>
+              <p className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>{result.goals_created}</p>
             </div>
           </div>
 
           {result.errors && result.errors.length > 0 && (
             <div className="mt-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--color-warning)' }}>
                 Warnings ({result.errors.length})
               </p>
-              <div className="max-h-48 overflow-auto rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
+              <div className="max-h-48 overflow-auto rounded-lg border p-3" style={{ borderColor: 'rgba(217,119,6,0.20)', background: 'rgba(217,119,6,0.05)' }}>
                 {result.errors.map((err, i) => (
-                  <p key={i} className="text-sm text-amber-200">
+                  <p key={i} className="text-sm" style={{ color: 'var(--color-warning)' }}>
                     {err}
                   </p>
                 ))}

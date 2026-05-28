@@ -73,7 +73,7 @@ export function AIParserBox({
             </p>
           ) : null}
         </div>
-        {error ? <p className="text-sm text-red-300">{error}</p> : null}
+        {error ? <p className="text-sm" style={{ color: 'var(--color-danger)' }}>{error}</p> : null}
       </div>
     </Card>
   )

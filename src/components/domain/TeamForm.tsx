@@ -117,7 +117,7 @@ export function TeamForm({ onSaved, team }: TeamFormProps) {
           <Textarea onChange={(event) => setForm((current) => ({ ...current, bio: event.target.value }))} rows={5} value={form.bio} />
         </Field>
       </div>
-      {error ? <p className="md:col-span-2 text-sm text-red-300">{error}</p> : null}
+      {error ? <p className="md:col-span-2 text-sm" style={{ color: 'var(--color-danger)' }}>{error}</p> : null}
       <div className="md:col-span-2 flex justify-end">
         <Button icon={saving ? <Spinner size="sm" /> : <Save size={16} />} type="submit">
           Save Team

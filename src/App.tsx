@@ -35,7 +35,7 @@ function ProtectedApp() {
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       <Sidebar />
       <TopBar />
-      <main className="lg:pl-60">
+      <main className="lg:pl-[260px]">
         <Routes>
           <Route path="/" element={<PageWrapper title="Newsroom Overview" eyebrow="Dashboard"><DashboardPage /></PageWrapper>} />
           <Route path="/matches" element={<PageWrapper title="Match Operations" eyebrow="Matches"><MatchesPage /></PageWrapper>} />

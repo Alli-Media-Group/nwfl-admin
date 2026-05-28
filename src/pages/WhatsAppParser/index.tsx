@@ -103,7 +103,7 @@ export function WhatsAppParserPage() {
                   Matchday {row.matchday ?? 'TBD'} • {row.date ?? 'Date missing'} • {row.venue ?? 'Venue missing'}
                 </p>
                 {row.status === 'PENDING' ? (
-                  <p className="mt-3 rounded-2xl bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
+                  <p className="mt-3 rounded-lg px-3 py-2 text-sm" style={{ background: 'rgba(217,119,6,0.10)', color: 'var(--color-warning)' }}>
                     Pending reason: {row.pending_reason || 'Needs editorial review'}
                   </p>
                 ) : null}

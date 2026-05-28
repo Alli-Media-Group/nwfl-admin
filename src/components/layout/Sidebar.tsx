@@ -30,35 +30,32 @@ export function Sidebar() {
 
       <aside
         className={clsx(
-          'fixed inset-y-0 left-0 z-40 flex w-60 flex-col px-3 py-5 transition-transform duration-200 lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-40 flex w-[260px] flex-col py-8 transition-transform duration-200 lg:translate-x-0',
           open ? 'translate-x-0' : '-translate-x-full',
-          'md:w-[72px] lg:w-60',
         )}
         style={{
           background: 'var(--color-sidebar)',
-          borderRight: '1px solid var(--color-border)',
+          borderRight: '1px solid var(--color-border-2)',
         }}
       >
         {/* Logo */}
-        <div className="mb-6 flex items-center justify-between px-1 md:justify-center lg:justify-between">
-          <div className="flex items-center gap-3 overflow-hidden">
-            <div
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-xl"
-              style={{ background: 'var(--color-surface-2)', border: '1px solid var(--color-border)' }}
-            >
-              <img alt="NWFL" className="h-5 w-5 object-contain" src="/logo.svg" />
-            </div>
-            <div className="md:hidden lg:block">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--color-highlight)' }}>
-                Internal
-              </p>
-              <p className="text-sm font-bold" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}>
-                Admin Portal
-              </p>
-            </div>
+        <div className="mb-8 flex items-center gap-3 px-6">
+          <div
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-lg"
+            style={{ background: 'var(--color-primary)' }}
+          >
+            <img alt="NWFL" className="h-6 w-6 object-contain invert" src="/logo.svg" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold leading-tight" style={{ color: 'var(--color-primary)', fontFamily: 'var(--font-heading)' }}>
+              NWFL Admin
+            </h1>
+            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'var(--color-muted)' }}>
+              Governance Portal
+            </p>
           </div>
           <button
-            className="rounded-lg p-1.5 lg:hidden"
+            className="ml-auto rounded-lg p-1.5 lg:hidden"
             style={{ color: 'var(--color-muted)' }}
             onClick={() => setOpen(false)}
             type="button"
@@ -68,7 +65,7 @@ export function Sidebar() {
         </div>
 
         {/* Nav */}
-        <nav className="flex flex-1 flex-col gap-0.5">
+        <nav className="flex flex-1 flex-col gap-0.5 px-3">
           {items.map(({ icon: Icon, label, to }) => (
             <NavLink
               key={to}
@@ -76,29 +73,30 @@ export function Sidebar() {
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 clsx(
-                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
-                  'md:justify-center lg:justify-start',
+                  'flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors duration-150',
                   isActive
-                    ? 'text-[var(--color-highlight)]'
-                    : 'hover:text-[var(--color-text)]',
+                    ? 'font-bold'
+                    : 'hover:bg-[var(--color-surface)]',
                 )
               }
               style={({ isActive }) => ({
                 background: isActive ? 'var(--color-surface)' : 'transparent',
-                color: isActive ? 'var(--color-highlight)' : 'var(--color-muted)',
+                color: isActive ? 'var(--color-primary)' : 'var(--color-text-2)',
+                borderLeft: isActive ? '4px solid var(--color-primary)' : '4px solid transparent',
               })}
             >
               <Icon size={17} />
-              <span className="md:hidden lg:inline">{label}</span>
+              <span>{label}</span>
             </NavLink>
           ))}
         </nav>
 
         {/* Bottom label */}
-        <div className="mt-4 px-3 md:hidden lg:block">
-          <p className="text-[10px]" style={{ color: 'var(--color-muted)' }}>
-            NWFL · Internal tool
-          </p>
+        <div className="mt-auto px-6 pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
+          <div className="flex items-center gap-2 px-3 py-2" style={{ color: 'var(--color-muted)' }}>
+            <Shield size={14} />
+            <span className="text-xs font-semibold uppercase tracking-wider">Internal Tool</span>
+          </div>
         </div>
       </aside>
 

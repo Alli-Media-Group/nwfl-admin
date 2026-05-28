@@ -206,7 +206,7 @@ export function MatchForm({
         ) : null}
       </div>
 
-      {error ? <p className="text-sm text-red-300">{error}</p> : null}
+      {error ? <p className="text-sm" style={{ color: 'var(--color-danger)' }}>{error}</p> : null}
 
       <div className="flex justify-end">
         <Button icon={saving ? <Spinner size="sm" /> : <Save size={16} />} type="submit">

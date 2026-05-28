@@ -415,7 +415,8 @@ export function MediaLibraryPage() {
               <button
                 type="button"
                 onClick={() => setPreview(img)}
-                className="block aspect-square w-full overflow-hidden"
+                className="block aspect-square w-full overflow-hidden border-b"
+                style={{ borderColor: 'var(--color-border)' }}
               >
                 <img
                   src={img.file}
@@ -522,7 +523,7 @@ export function MediaLibraryPage() {
                           onClick={() =>
                             setBatch((prev) => prev.filter((b) => b.id !== item.id))
                           }
-                          className="rounded bg-red-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-red-300 hover:bg-red-500/30"
+                          className="rounded px-1.5 py-0.5 text-[10px] font-semibold hover:bg-red-500/30" style={{ background: 'rgba(239,68,68,0.15)', color: 'var(--color-danger)' }}
                         >
                           Remove
                         </button>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { LogOut, ChevronDown, Shield, Sun, Moon } from 'lucide-react'
+import { LogOut, ChevronDown, Shield, Sun, Moon, Bell } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { useTheme } from '../../hooks/useTheme'
@@ -19,8 +19,9 @@ export function TopBar() {
   const [open, setOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const displayName = user?.full_name || user?.username || 'Staff User'
+  const displayName = user?.full_name || user?.username || 'User'
   const initials = displayName.slice(0, 2).toUpperCase()
+  const roleLabel = user?.is_superuser ? 'Administrator' : user?.is_staff ? 'Staff' : 'User'
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -34,18 +35,17 @@ export function TopBar() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-20 lg:left-60"
+      className="fixed inset-x-0 top-0 z-20 lg:left-[260px]"
       style={{
         background: 'var(--color-sidebar)',
-        borderBottom: '1px solid var(--color-border)',
-        boxShadow: 'var(--shadow-nav)',
+        borderBottom: '1px solid var(--color-border-2)',
       }}
     >
-      <div className="flex h-16 items-center justify-between gap-4 px-4 md:px-6 lg:px-8">
+      <div className="flex h-16 items-center justify-between gap-4 px-6 md:px-8 lg:px-10">
 
         {/* Page title */}
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--color-highlight)' }}>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--color-primary)' }}>
             NWFL Editorial Desk
           </p>
           <p className="text-base font-semibold" style={{ color: 'var(--color-text)' }}>
@@ -59,43 +59,53 @@ export function TopBar() {
             type="button"
             onClick={toggle}
             title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="grid h-9 w-9 place-items-center rounded-lg transition"
-            style={{
-              background: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
-              color: 'var(--color-text-2)',
-            }}
+            className="grid h-9 w-9 place-items-center rounded-full transition"
+            style={{ color: 'var(--color-muted)' }}
           >
             {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
           </button>
+
+          {/* Notifications */}
+          <button
+            type="button"
+            className="relative grid h-9 w-9 place-items-center rounded-full transition"
+            style={{ color: 'var(--color-muted)' }}
+          >
+            <Bell size={18} />
+            <span
+              className="absolute top-2 right-2 h-2 w-2 rounded-full"
+              style={{ background: 'var(--color-danger)' }}
+            />
+          </button>
+
+          {/* Divider */}
+          <div className="mx-2 h-8 w-px" style={{ background: 'var(--color-border-2)' }} />
 
           {/* User dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               type="button"
               onClick={() => setOpen(v => !v)}
-              className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition"
-              style={{
-                border: '1px solid var(--color-border)',
-                background: 'var(--color-bg-subtle)',
-              }}
+              className="flex items-center gap-3 cursor-pointer group"
             >
+              <div className="hidden text-right sm:block">
+                <p className="text-xs font-bold leading-none" style={{ color: 'var(--color-text)' }}>
+                  {displayName}
+                </p>
+                <p className="text-[10px] leading-tight" style={{ color: 'var(--color-muted)' }}>
+                  {roleLabel}
+                </p>
+              </div>
               <div
-                className="grid h-7 w-7 place-items-center rounded-full text-[11px] font-bold text-white"
-                style={{ background: 'var(--gradient-glow)' }}
+                className="grid h-9 w-9 place-items-center rounded-full border text-[11px] font-bold overflow-hidden"
+                style={{
+                  background: 'var(--color-surface-2)',
+                  borderColor: 'var(--color-border-2)',
+                  color: 'var(--color-primary)',
+                }}
               >
                 {initials}
               </div>
-
-              <div className="hidden text-left sm:block">
-                <p className="text-sm font-semibold leading-tight" style={{ color: 'var(--color-text)' }}>
-                  {displayName}
-                </p>
-                <p className="text-[11px] leading-tight" style={{ color: 'var(--color-muted)' }}>
-                  {user?.is_superuser ? 'Superadmin' : 'Staff'}
-                </p>
-              </div>
-
               <ChevronDown
                 size={13}
                 style={{ color: 'var(--color-muted)', transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'none' }}
@@ -105,19 +115,22 @@ export function TopBar() {
             {/* Dropdown panel */}
             {open && (
               <div
-                className="absolute right-0 top-full mt-2 w-52 rounded-xl overflow-hidden"
+                className="absolute right-0 top-full mt-2 w-52 rounded-lg overflow-hidden"
                 style={{
                   background: 'var(--color-card)',
-                  border: '1px solid var(--color-border)',
-                  boxShadow: 'var(--shadow-card)',
+                  border: '1px solid var(--color-border-2)',
+                  boxShadow: 'var(--shadow-elevated)',
                 }}
               >
                 {/* User info */}
                 <div className="px-4 py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
                   <div className="flex items-center gap-3">
                     <div
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-bold text-white"
-                      style={{ background: 'var(--gradient-glow)' }}
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-bold"
+                      style={{
+                        background: 'var(--color-surface-2)',
+                        color: 'var(--color-primary)',
+                      }}
                     >
                       {initials}
                     </div>
@@ -134,16 +147,16 @@ export function TopBar() {
 
                 <div className="p-1.5">
                   <div className="flex items-center gap-2.5 rounded-lg px-3 py-2">
-                    <Shield size={13} style={{ color: 'var(--color-highlight)' }} />
+                    <Shield size={13} style={{ color: 'var(--color-primary)' }} />
                     <span className="text-xs" style={{ color: 'var(--color-muted)' }}>
-                      {user?.is_superuser ? 'Superadmin access' : 'Staff access'}
+                      {roleLabel}
                     </span>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => { setOpen(false); void logout() }}
-                    className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-red-50"
+                    className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition"
                     style={{ color: 'var(--color-danger)' }}
                   >
                     <LogOut size={13} />

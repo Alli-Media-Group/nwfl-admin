@@ -20,12 +20,12 @@ export function Field({
 }: FieldProps & { children: ReactNode }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-sm font-medium text-[var(--color-off-white)]">
+      <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>
         {label}
-        {required ? <span className="ml-1 text-[var(--color-highlight)]">*</span> : null}
+        {required ? <span className="ml-1" style={{ color: 'var(--color-danger)' }}>*</span> : null}
       </span>
       {children}
-      {hint ? <span className="text-xs text-[var(--color-muted)]">{hint}</span> : null}
+      {hint ? <span className="text-xs" style={{ color: 'var(--color-muted)' }}>{hint}</span> : null}
     </label>
   )
 }

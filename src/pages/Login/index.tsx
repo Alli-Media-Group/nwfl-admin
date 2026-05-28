@@ -20,8 +20,8 @@ export function LoginPage() {
         {/* Logo + wordmark */}
         <div className="mb-8 text-center">
           <div
-            className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-2xl"
-            style={{ background: 'var(--gradient-glow)' }}
+            className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-lg"
+            style={{ background: 'var(--color-primary)' }}
           >
             <img alt="NWFL" className="h-7 w-7 object-contain" src="/logo.svg" />
           </div>
@@ -35,7 +35,7 @@ export function LoginPage() {
 
         {/* Card */}
         <div
-          className="rounded-2xl p-6 space-y-4"
+          className="rounded-lg p-6 space-y-4"
           style={{
             background: 'var(--color-card)',
             border: '1px solid var(--color-border)',
