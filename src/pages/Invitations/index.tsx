@@ -1,4 +1,4 @@
-import { Mail, Plus, Shield, User, Loader2, RotateCcw } from 'lucide-react'
+import { Mail, Plus, Shield, User, Loader2, RotateCcw, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Card } from '../../components/ui/Card'
 import { Input } from '../../components/ui/Input'
@@ -13,6 +13,7 @@ export function InvitationsPage() {
   const [invites, setInvites] = useState<Invitation[]>([])
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)
+  const [revokingId, setRevokingId] = useState<number | null>(null)
   const [email, setEmail] = useState('')
   const [role, setRole] = useState<'superadmin' | 'staff'>('staff')
 
@@ -43,6 +44,20 @@ export function InvitationsPage() {
       error(err.message || 'Failed to send invitation.')
     } finally {
       setSending(false)
+    }
+  }
+
+  async function handleRevoke(id: number) {
+    if (!window.confirm('Are you sure you want to revoke this invitation?')) return
+    setRevokingId(id)
+    try {
+      await api.revokeInvitation(id)
+      setInvites(prev => prev.filter(i => i.id !== id))
+      success('Invitation revoked.')
+    } catch (err: any) {
+      error(err.message || 'Failed to revoke invitation.')
+    } finally {
+      setRevokingId(null)
     }
   }
 
@@ -127,6 +142,7 @@ export function InvitationsPage() {
                   <th>Status</th>
                   <th>Sent</th>
                   <th>Sent By</th>
+                  <th style={{ width: 48 }} />
                 </tr>
               </thead>
               <tbody>
@@ -151,6 +167,23 @@ export function InvitationsPage() {
                     </td>
                     <td className="text-sm" style={{ color: 'var(--color-muted)' }}>
                       {invite.invited_by_name}
+                    </td>
+                    <td>
+                      {invite.status === 'pending' && (
+                        <button
+                          type="button"
+                          onClick={() => handleRevoke(invite.id)}
+                          disabled={revokingId === invite.id}
+                          className="inline-flex items-center justify-center rounded p-1.5 transition hover:bg-red-500/10 disabled:opacity-40"
+                          title="Revoke invitation"
+                        >
+                          {revokingId === invite.id ? (
+                            <Loader2 size={14} className="animate-spin" style={{ color: 'var(--color-danger)' }} />
+                          ) : (
+                            <Trash2 size={14} style={{ color: 'var(--color-danger)' }} />
+                          )}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

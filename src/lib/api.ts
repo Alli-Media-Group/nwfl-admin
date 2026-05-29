@@ -326,6 +326,11 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
+
+  revokeInvitation: (id: number): Promise<{ detail: string }> =>
+    request<{ detail: string }>(`/api/internal/invitations/${id}/`, {
+      method: 'DELETE',
+    }),
 }
 
 // ── Logo URL helpers ──────────────────────────────────────────────────────────
