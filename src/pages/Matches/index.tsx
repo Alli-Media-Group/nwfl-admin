@@ -44,18 +44,33 @@ export function MatchesPage() {
   const [showAI, setShowAI] = useState(false)
   const [view, setView] = useState<'desk' | 'results'>('results')
   const [filters, setFilters] = useState({ group: '', matchday: '', status: '' })
+  const [season, setSeason] = useState('')
+  const [seasons, setSeasons] = useState<string[]>([])
 
   async function loadMatches() {
     setLoading(true)
     try {
-      const response = await api.getMatches({ matchday: filters.matchday, status: filters.status })
+      const response = await api.getMatches({ season, matchday: filters.matchday, status: filters.status })
       setMatches(response)
     } finally {
       setLoading(false)
     }
   }
 
-  useEffect(() => { void loadMatches() }, [filters.matchday, filters.status])
+  async function loadSeasons() {
+    try {
+      const response = await api.getSeasons()
+      setSeasons(response)
+      if (response.length && !season) {
+        setSeason(response[0])
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  useEffect(() => { void loadSeasons() }, [])
+  useEffect(() => { void loadMatches() }, [season, filters.matchday, filters.status])
 
   const filteredMatches = useMemo(
     () => matches.filter(m =>
@@ -262,7 +277,7 @@ export function MatchesPage() {
       <Card className="p-5">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p style={{ margin: 0, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.24em', color: 'var(--color-highlight)' }}>Season 2024/25</p>
+            <p style={{ margin: 0, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.24em', color: 'var(--color-highlight)' }}>{season ? `Season ${season}` : 'All Seasons'}</p>
             <h1 style={{ margin: '4px 0 0', fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-off-white)' }}>Matches</h1>
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
@@ -274,7 +289,15 @@ export function MatchesPage() {
             </button>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-4">
+          <Field label="Season">
+            <Select onChange={e => setSeason(e.target.value)} value={season}>
+              <option value="">All seasons</option>
+              {seasons.map(s => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </Select>
+          </Field>
           <Field label="Status">
             <Select onChange={e => setFilters(f => ({ ...f, status: e.target.value }))} value={filters.status}>
               <option value="">All statuses</option>

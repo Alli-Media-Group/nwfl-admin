@@ -17,6 +17,7 @@ export interface Match {
   id: number;
   home_team: Team;
   away_team: Team;
+  season: string;
   matchday: number;
   date: string | null;
   kick_off: string | null;

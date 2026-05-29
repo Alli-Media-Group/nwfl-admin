@@ -166,6 +166,8 @@ export const api = {
     return list<Match>(`/api/matches/${query ? `?${query}` : ''}`)
   },
 
+  getSeasons: () => request<string[]>('/api/matches/seasons/'),
+
   createMatch: (payload: Record<string, unknown>) =>
     request<Match>('/api/matches/', {
       method: 'POST',
