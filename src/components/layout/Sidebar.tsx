@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { AudioLines, ClipboardList, CloudCog, ImageIcon, LayoutDashboard, Menu, Shield, AlertTriangle, Users, X } from 'lucide-react'
+import { AudioLines, ClipboardList, CloudCog, ImageIcon, LayoutDashboard, Mail, Menu, Shield, AlertTriangle, Users, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 
-const items = [
+const baseItems = [
   { icon: LayoutDashboard, label: 'Dashboard', to: '/' },
   { icon: ClipboardList, label: 'Matches', to: '/matches' },
   { icon: Users, label: 'Teams', to: '/teams' },
@@ -16,6 +17,11 @@ const items = [
 
 export function Sidebar() {
   const [open, setOpen] = useState(false)
+  const { user } = useAuth()
+
+  const items = user?.is_superuser
+    ? [...baseItems, { icon: Mail, label: 'Invitations', to: '/invitations' }]
+    : baseItems
 
   return (
     <>

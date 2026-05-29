@@ -137,3 +137,15 @@ export interface MissingLogoTeam {
   team: Team;
   suggestions: MediaImage[];
 }
+
+export interface Invitation {
+  id: number;
+  email: string;
+  token: string;
+  role: 'superadmin' | 'staff';
+  invited_by_name: string;
+  created_at: string;
+  expires_at: string;
+  accepted_at: string | null;
+  status: 'pending' | 'accepted' | 'expired';
+}

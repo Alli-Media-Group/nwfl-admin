@@ -15,6 +15,8 @@ import { MissingLogosPage } from './pages/MissingLogos/index'
 import { SyncPage } from './pages/Sync/index'
 import { TeamsPage } from './pages/Teams/index'
 import { WhatsAppParserPage } from './pages/WhatsAppParser/index'
+import { InvitationsPage } from './pages/Invitations/index'
+import { AcceptInvitePage } from './pages/AcceptInvite/index'
 
 function ProtectedApp() {
   const { loading, user } = useAuth()
@@ -45,6 +47,7 @@ function ProtectedApp() {
           <Route path="/sync" element={<PageWrapper title="Sheet Sync" eyebrow="Data Pipeline"><SyncPage /></PageWrapper>} />
           <Route path="/media-library" element={<PageWrapper title="Media Library" eyebrow="Assets"><MediaLibraryPage /></PageWrapper>} />
           <Route path="/missing-logos" element={<PageWrapper title="Missing Logos" eyebrow="Asset Health"><MissingLogosPage /></PageWrapper>} />
+          <Route path="/invitations" element={<PageWrapper title="Team Invitations" eyebrow="Access Control"><InvitationsPage /></PageWrapper>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
@@ -58,6 +61,7 @@ export default function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes>
+        <Route path="/accept-invite" element={<AcceptInvitePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/*" element={<ProtectedApp />} />
       </Routes>

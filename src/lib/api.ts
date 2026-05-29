@@ -1,5 +1,6 @@
 import type {
   AuthUser,
+  Invitation,
   Match,
   MatchFormValues,
   MediaImage,
@@ -306,6 +307,22 @@ export const api = {
     form.append('logo', logoFile)
     return request<Team>(`/api/teams/${id}/`, { method: 'PATCH', body: form })
   },
+
+  // ── Invitations ──────────────────────────────────────────────────────────────
+  getInvitations: (): Promise<Invitation[]> =>
+    request<Invitation[]>('/api/internal/invitations/'),
+
+  createInvitation: (payload: { email: string; role: string }): Promise<Invitation> =>
+    request<Invitation>('/api/internal/invitations/', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  acceptInvitation: (payload: { token: string; username: string; password: string; full_name: string }): Promise<{ detail: string; user: AuthUser }> =>
+    request('/api/internal/invitations/accept/', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
 }
 
 // ── Logo URL helpers ──────────────────────────────────────────────────────────
