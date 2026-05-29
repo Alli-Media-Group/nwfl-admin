@@ -5,10 +5,12 @@ import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { Card } from '../../components/ui/Card'
 import { api } from '../../lib/api'
+import { useAuth } from '../../hooks/useAuth'
 
 export function AcceptInvitePage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const { login } = useAuth()
   const token = searchParams.get('token')
 
   const [checking, setChecking] = useState(true)
@@ -20,6 +22,7 @@ export function AcceptInvitePage() {
   const [fullName, setFullName] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
+  const [autoLoggingIn, setAutoLoggingIn] = useState(false)
 
   useEffect(() => {
     if (!token) {
@@ -47,6 +50,14 @@ export function AcceptInvitePage() {
         full_name: fullName.trim(),
       })
       setDone(true)
+      // Auto-login the new user so old tokens don't interfere
+      setAutoLoggingIn(true)
+      try {
+        await login(username.trim(), password)
+      } catch {
+        // If auto-login fails, let them click the button manually
+        setAutoLoggingIn(false)
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to accept invitation.')
     } finally {
@@ -71,11 +82,15 @@ export function AcceptInvitePage() {
             Account Created
           </h2>
           <p className="text-sm mb-6" style={{ color: 'var(--color-muted)' }}>
-            Your invitation has been accepted. You can now sign in.
+            {autoLoggingIn
+              ? 'Signing you in automatically...'
+              : 'Your invitation has been accepted. You can now sign in.'}
           </p>
-          <Button onClick={() => navigate('/login')} type="button">
-            Go to Sign In
-          </Button>
+          {!autoLoggingIn && (
+            <Button onClick={() => navigate('/login')} type="button">
+              Go to Sign In
+            </Button>
+          )}
         </Card>
       </div>
     )
