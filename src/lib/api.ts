@@ -119,10 +119,11 @@ export const api = {
   login: async (payload: { username: string; password: string }): Promise<AuthUser> => {
     // Clear any stale tokens so the login request doesn't send an expired Authorization header
     tokens.clear()
+    // Pass retry=false so a 401 from bad credentials doesn't trigger the refresh flow
     const data = await request<{ access: string; refresh: string }>('/api/auth/login/', {
       method: 'POST',
       body: JSON.stringify(payload),
-    })
+    }, false)
     tokens.set(data.access, data.refresh)
     return request<AuthUser>('/api/auth/me/')
   },
