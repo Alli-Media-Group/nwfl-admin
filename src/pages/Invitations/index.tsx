@@ -212,4 +212,3 @@ function StatusBadge({ status }: { status: Invitation['status'] }) {
     </span>
   )
 }
-// force vercel rebuild 1780054605
