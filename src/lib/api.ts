@@ -117,6 +117,8 @@ async function list<T>(path: string): Promise<T[]> {
 // ── Public API ────────────────────────────────────────────────────────────────
 export const api = {
   login: async (payload: { username: string; password: string }): Promise<AuthUser> => {
+    // Clear any stale tokens so the login request doesn't send an expired Authorization header
+    tokens.clear()
     const data = await request<{ access: string; refresh: string }>('/api/auth/login/', {
       method: 'POST',
       body: JSON.stringify(payload),
