@@ -46,6 +46,7 @@ export function MatchesPage() {
   const [filters, setFilters] = useState({ group: '', matchday: '', status: '' })
   const [season, setSeason] = useState('')
   const [seasons, setSeasons] = useState<string[]>([])
+  const [seasonsReady, setSeasonsReady] = useState(false)
 
   async function loadMatches() {
     setLoading(true)
@@ -61,16 +62,21 @@ export function MatchesPage() {
     try {
       const response = await api.getSeasons()
       setSeasons(response)
-      if (response.length && !season) {
+      if (response.length) {
         setSeason(response[0])
       }
     } catch {
       // ignore
+    } finally {
+      setSeasonsReady(true)
     }
   }
 
   useEffect(() => { void loadSeasons() }, [])
-  useEffect(() => { void loadMatches() }, [season, filters.matchday, filters.status])
+  useEffect(() => {
+    if (!seasonsReady) return
+    void loadMatches()
+  }, [seasonsReady, season, filters.matchday, filters.status])
 
   const filteredMatches = useMemo(
     () => matches.filter(m =>
