@@ -358,5 +358,7 @@ export function toMatchPayload(values: MatchFormValues) {
     pending_reason: values.status === 'PENDING' ? values.pending_reason : '',
     home_score:    rest.home_score === '' ? null : rest.home_score,
     away_score:    rest.away_score === '' ? null : rest.away_score,
+    home_ht_score: rest.home_ht_score === '' ? null : rest.home_ht_score,
+    away_ht_score: rest.away_ht_score === '' ? null : rest.away_ht_score,
   }
 }

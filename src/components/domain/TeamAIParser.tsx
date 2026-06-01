@@ -8,7 +8,6 @@ import type { ParsedTeamResult, Team, TeamExistenceResult } from '../../types'
 
 interface Props {
   onSaved: (team: Team) => void
-  onClose: () => void
 }
 
 type ConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW'
@@ -180,7 +179,7 @@ function TeamReviewCard({
 }
 
 // ── Main parser panel ─────────────────────────────────────────────────────────
-export function TeamAIParser({ onSaved, onClose }: Props) {
+export function TeamAIParser({ onSaved }: Props) {
   const { success, error: toastError } = useToast()
 
   const [text, setText]               = useState('')
@@ -271,9 +270,6 @@ export function TeamAIParser({ onSaved, onClose }: Props) {
             </p>
           </div>
         </div>
-        <button type="button" onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-muted)', flexShrink: 0 }}>
-          <X size={16} />
-        </button>
       </div>
 
       {/* Input — only show before results */}

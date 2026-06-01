@@ -55,7 +55,6 @@ export function TeamsPage() {
         title="Import Team with AI"
       >
         <TeamAIParser
-          onClose={() => { setShowAIParser(false); void loadTeams() }}
           onSaved={() => { void loadTeams() }}
         />
       </Modal>

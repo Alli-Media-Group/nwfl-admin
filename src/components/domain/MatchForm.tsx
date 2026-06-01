@@ -9,9 +9,11 @@ import { AIParserBox } from './AIParserBox'
 
 const emptyValues: MatchFormValues = {
   away_score: '',
+  away_ht_score: '',
   away_team: '',
   date: '',
   home_score: '',
+  home_ht_score: '',
   home_team: '',
   kick_off: '',
   matchday: '',
@@ -26,9 +28,11 @@ function toFormValues(match?: Match | null): MatchFormValues {
 
   return {
     away_score: match.away_score ?? '',
+    away_ht_score: match.away_ht_score ?? '',
     away_team: match.away_team.id,
     date: match.date ?? '',
     home_score: match.home_score ?? '',
+    home_ht_score: match.home_ht_score ?? '',
     home_team: match.home_team.id,
     kick_off: match.kick_off ?? '',
     matchday: match.matchday ?? '',
@@ -86,13 +90,15 @@ export function MatchForm({
     setValues((current) => ({
       ...current,
       away_score: result.away_score ?? '',
+      away_ht_score: '',
       away_team: awayTeam?.id ?? current.away_team,
       date: result.date ?? current.date,
       home_score: result.home_score ?? '',
+      home_ht_score: '',
       home_team: homeTeam?.id ?? current.home_team,
       kick_off: result.kick_off ?? '',
       matchday: result.matchday ?? '',
-      notes: result.notes ?? '',
+      notes: '',
       pending_reason: result.pending_reason ?? '',
       status: result.status,
       venue: result.venue ?? '',
@@ -166,6 +172,22 @@ export function MatchForm({
             onChange={(event) => updateValue('away_score', event.target.value === '' ? '' : Number(event.target.value))}
             type="number"
             value={values.away_score}
+          />
+        </Field>
+        <Field label="HT Home">
+          <Input
+            min="0"
+            onChange={(event) => updateValue('home_ht_score', event.target.value === '' ? '' : Number(event.target.value))}
+            type="number"
+            value={values.home_ht_score}
+          />
+        </Field>
+        <Field label="HT Away">
+          <Input
+            min="0"
+            onChange={(event) => updateValue('away_ht_score', event.target.value === '' ? '' : Number(event.target.value))}
+            type="number"
+            value={values.away_ht_score}
           />
         </Field>
         <Field label="Matchday" required>

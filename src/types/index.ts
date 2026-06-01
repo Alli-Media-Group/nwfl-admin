@@ -25,6 +25,8 @@ export interface Match {
   status: 'UPCOMING' | 'LIVE' | 'FT' | 'PENDING';
   home_score: number | null;
   away_score: number | null;
+  home_ht_score: number | null;
+  away_ht_score: number | null;
   pending_reason: string;
   notify_admin: boolean;
   notes: string;
@@ -117,6 +119,8 @@ export interface MatchFormValues {
   away_team: number | '';
   home_score: number | '';
   away_score: number | '';
+  home_ht_score: number | '';
+  away_ht_score: number | '';
   matchday: number | '';
   date: string;
   kick_off: string;

@@ -539,12 +539,15 @@ export function MatchesAIParser({ onSaved, onClose }: Props) {
       away_team:      away.id,
       home_score:     draft.home_score ?? '',
       away_score:     draft.away_score ?? '',
+      home_ht_score:  '',
+      away_ht_score:  '',
       matchday:       draft.matchday ?? '',
       date:           draft.date ?? '',
       kick_off:       draft.kick_off ?? '',
       venue:          draft.venue ?? '',
       status:         draft.status,
       pending_reason: draft.pending_reason ?? '',
+      notes:          '',
     })
     await api.createMatch(payload)
     success(`${home.name} vs ${away.name} saved.`)

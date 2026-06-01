@@ -28,22 +28,44 @@ export function DashboardPage() {
   const navigate = useNavigate()
   const [teams, setTeams] = useState<Team[]>([])
   const [matches, setMatches] = useState<Match[]>([])
+  const [season, setSeason] = useState('')
+  const [seasons, setSeasons] = useState<string[]>([])
+  const [seasonsReady, setSeasonsReady] = useState(false)
   const [loading, setLoading] = useState(true)
   const [dismissed, setDismissed] = useState(false)
 
   useEffect(() => {
-    async function load() {
+    async function loadSeasons() {
       try {
-        const [teamData, matchData] = await Promise.all([api.getTeams(), api.getMatches()])
+        const response = await api.getSeasons()
+        setSeasons(response)
+        if (response.length && !season) {
+          setSeason(response[0])
+        }
+      } finally {
+        setSeasonsReady(true)
+      }
+    }
+    void loadSeasons()
+  }, [])
+
+  useEffect(() => {
+    if (!seasonsReady) return
+    async function load() {
+      setLoading(true)
+      try {
+        const [teamData, matchData] = await Promise.all([
+          api.getTeams(),
+          api.getMatches({ season }),
+        ])
         setTeams(teamData)
         setMatches(matchData)
       } finally {
         setLoading(false)
       }
     }
-
     void load()
-  }, [])
+  }, [seasonsReady, season])
 
   const stats = useMemo<DashboardStats>(() => {
     const pendingMatches = matches.filter((match) => match.status === 'PENDING').length
@@ -95,6 +117,20 @@ export function DashboardPage() {
           </div>
         </div>
       ) : null}
+
+      <div className="flex items-center gap-4">
+        <span className="text-sm font-medium" style={{ color: 'var(--color-muted)' }}>Season</span>
+        <select
+          className="rounded-md border px-3 py-1.5 text-sm"
+          style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)', color: 'var(--color-text)' }}
+          value={season}
+          onChange={(e) => setSeason(e.target.value)}
+        >
+          {seasons.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+      </div>
 
       <div className="data-grid data-grid-4">
         {cards.map(({ icon: Icon, label, tone, value }) => (
