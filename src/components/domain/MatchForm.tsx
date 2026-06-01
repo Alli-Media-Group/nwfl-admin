@@ -15,6 +15,7 @@ const emptyValues: MatchFormValues = {
   home_team: '',
   kick_off: '',
   matchday: '',
+  notes: '',
   pending_reason: '',
   status: 'UPCOMING',
   venue: '',
@@ -31,6 +32,7 @@ function toFormValues(match?: Match | null): MatchFormValues {
     home_team: match.home_team.id,
     kick_off: match.kick_off ?? '',
     matchday: match.matchday ?? '',
+    notes: match.notes ?? '',
     pending_reason: match.pending_reason ?? '',
     status: match.status,
     venue: match.venue ?? '',
@@ -90,6 +92,7 @@ export function MatchForm({
       home_team: homeTeam?.id ?? current.home_team,
       kick_off: result.kick_off ?? '',
       matchday: result.matchday ?? '',
+      notes: result.notes ?? '',
       pending_reason: result.pending_reason ?? '',
       status: result.status,
       venue: result.venue ?? '',
@@ -204,6 +207,16 @@ export function MatchForm({
             </Field>
           </div>
         ) : null}
+        <div className="md:col-span-2">
+          <Field label="Notes">
+            <Textarea
+              onChange={(event) => updateValue('notes', event.target.value)}
+              placeholder="Match notes, postponements, admin remarks..."
+              rows={3}
+              value={values.notes}
+            />
+          </Field>
+        </div>
       </div>
 
       {error ? <p className="text-sm" style={{ color: 'var(--color-danger)' }}>{error}</p> : null}

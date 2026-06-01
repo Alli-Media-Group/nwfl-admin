@@ -27,6 +27,7 @@ export interface Match {
   away_score: number | null;
   pending_reason: string;
   notify_admin: boolean;
+  notes: string;
 }
 
 export interface Standing {
@@ -122,6 +123,7 @@ export interface MatchFormValues {
   venue: string;
   status: Match['status'];
   pending_reason: string;
+  notes: string;
 }
 
 export interface MediaImage {
