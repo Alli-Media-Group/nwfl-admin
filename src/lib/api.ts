@@ -180,7 +180,12 @@ export const api = {
       body: JSON.stringify(payload),
     }),
 
-  getStandings: () => list<Standing>('/api/standings/'),
+  getStandings: (season?: string) => {
+    const query = season ? `?season=${encodeURIComponent(season)}` : ''
+    return list<Standing>(`/api/standings/${query}`)
+  },
+
+  getStandingsSeasons: () => request<string[]>('/api/standings/seasons/'),
 
   updateStanding: (id: number, payload: Partial<Standing>) =>
     request<Standing>(`/api/standings/${id}/`, {
