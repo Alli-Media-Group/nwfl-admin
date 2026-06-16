@@ -145,10 +145,10 @@ export const api = {
 
   getTeams: () => list<Team>('/api/teams/'),
 
-  createTeam: (payload: Record<string, unknown>) =>
+  createTeam: (payload: FormData | Record<string, unknown>) =>
     request<Team>('/api/teams/', {
       method: 'POST',
-      body: JSON.stringify(payload),
+      body: payload instanceof FormData ? payload : JSON.stringify(payload),
     }),
 
   updateTeam: (id: number, payload: FormData | Record<string, unknown>) =>

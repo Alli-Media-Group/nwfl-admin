@@ -1,5 +1,5 @@
 import { Save } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { api } from '../../lib/api'
 import type { Team } from '../../types'
 import { Button } from '../ui/Button'
@@ -8,44 +8,48 @@ import { Spinner } from '../ui/Spinner'
 
 interface TeamFormProps {
   onSaved: () => void;
-  team: Team | null;
+  team?: Team | null;
+}
+
+const emptyForm = {
+  bio: '',
+  city: '',
+  founded: '',
+  group: 'A' as const,
+  logo: null as File | null,
+  manager: '',
+  name: '',
+  short_name: '',
+  slug: '',
+  state: '',
+  titles: '',
 }
 
 export function TeamForm({ onSaved, team }: TeamFormProps) {
-  const [form, setForm] = useState({
-    bio: '',
-    city: '',
-    founded: '',
-    group: 'A',
-    logo: null as File | null,
-    manager: '',
-    name: '',
-    short_name: '',
-    slug: '',
-    state: '',
-  })
-  const [saving, setSaving] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!team) return
-    setForm({
+  const isCreate = !team
+  const initialForm = useMemo(() => {
+    if (!team) return emptyForm
+    return {
       bio: team.bio ?? '',
       city: team.city ?? '',
       founded: team.founded ? String(team.founded) : '',
       group: team.group,
-      logo: null,
+      logo: null as File | null,
       manager: team.manager ?? '',
       name: team.name ?? '',
       short_name: team.short_name ?? '',
       slug: team.slug ?? '',
       state: team.state ?? '',
-    })
+      titles: team.titles ? String(team.titles) : '',
+    }
   }, [team])
+
+  const [form, setForm] = useState(initialForm)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (!team) return
     setSaving(true)
     setError(null)
 
@@ -57,15 +61,21 @@ export function TeamForm({ onSaved, team }: TeamFormProps) {
       payload.append('city', form.city)
       payload.append('state', form.state)
       payload.append('group', form.group)
-      payload.append('founded', form.founded)
+      if (form.founded) payload.append('founded', form.founded)
       payload.append('manager', form.manager)
       payload.append('bio', form.bio)
+      if (form.titles) payload.append('titles', form.titles)
       if (form.logo) payload.append('logo', form.logo)
 
-      await api.updateTeam(team.id, payload)
+      if (isCreate) {
+        await api.createTeam(payload)
+      } else {
+        await api.updateTeam(team.id, payload)
+      }
       onSaved()
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Could not save team.')
+      const message = caught instanceof Error ? caught.message : 'Could not save team.'
+      setError(message)
     } finally {
       setSaving(false)
     }
@@ -91,10 +101,10 @@ export function TeamForm({ onSaved, team }: TeamFormProps) {
           <option value="B">B</option>
         </Select>
       </Field>
-      <Field label="City">
+      <Field label="City" required>
         <Input onChange={(event) => setForm((current) => ({ ...current, city: event.target.value }))} value={form.city} />
       </Field>
-      <Field label="State">
+      <Field label="State" required>
         <Input onChange={(event) => setForm((current) => ({ ...current, state: event.target.value }))} value={form.state} />
       </Field>
       <Field label="Founded">
@@ -106,6 +116,14 @@ export function TeamForm({ onSaved, team }: TeamFormProps) {
       </Field>
       <Field label="Manager">
         <Input onChange={(event) => setForm((current) => ({ ...current, manager: event.target.value }))} value={form.manager} />
+      </Field>
+      <Field label="Titles">
+        <Input
+          onChange={(event) => setForm((current) => ({ ...current, titles: event.target.value }))}
+          type="number"
+          min={0}
+          value={form.titles}
+        />
       </Field>
       <div className="md:col-span-2">
         <Field label="Logo">
@@ -120,7 +138,7 @@ export function TeamForm({ onSaved, team }: TeamFormProps) {
       {error ? <p className="md:col-span-2 text-sm" style={{ color: 'var(--color-danger)' }}>{error}</p> : null}
       <div className="md:col-span-2 flex justify-end">
         <Button icon={saving ? <Spinner size="sm" /> : <Save size={16} />} type="submit">
-          Save Team
+          {isCreate ? 'Create Team' : 'Save Team'}
         </Button>
       </div>
     </form>

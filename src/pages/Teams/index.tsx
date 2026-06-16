@@ -1,4 +1,4 @@
-import { Bot, MapPin, Pencil, Users, ImageIcon } from 'lucide-react'
+import { Bot, MapPin, Pencil, Plus, Users, ImageIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Card } from '../../components/ui/Card'
 import { Modal } from '../../components/ui/Modal'
@@ -13,6 +13,7 @@ export function TeamsPage() {
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState<Team | null>(null)
   const [showAIParser, setShowAIParser] = useState(false)
+  const [showCreate, setShowCreate] = useState(false)
 
   async function loadTeams() {
     setLoading(true)
@@ -38,14 +39,24 @@ export function TeamsPage() {
             {teams.length} clubs registered · Group A: {groupA.length} · Group B: {groupB.length}
           </p>
         </div>
-        <button
-          type="button"
-          className="btn-primary"
-          onClick={() => setShowAIParser(true)}
-        >
-          <Bot size={15} />
-          AI Import Team
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button
+            type="button"
+            className="btn-outline"
+            onClick={() => setShowCreate(true)}
+          >
+            <Plus size={15} />
+            Create Team
+          </button>
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={() => setShowAIParser(true)}
+          >
+            <Bot size={15} />
+            AI Import Team
+          </button>
+        </div>
       </div>
 
       {/* AI Parser modal */}
@@ -59,6 +70,18 @@ export function TeamsPage() {
         />
       </Modal>
 
+      {/* Create team modal */}
+      <Modal
+        onClose={() => setShowCreate(false)}
+        open={showCreate}
+        title="Create Team"
+      >
+        <TeamForm
+          key="create"
+          onSaved={() => { setShowCreate(false); void loadTeams() }}
+        />
+      </Modal>
+
       {/* Edit team modal */}
       <Modal
         onClose={() => setSelected(null)}
@@ -66,6 +89,7 @@ export function TeamsPage() {
         title={selected ? `Edit ${selected.name}` : 'Edit Team'}
       >
         <TeamForm
+          key={selected?.id ?? 'edit'}
           onSaved={() => { setSelected(null); void loadTeams() }}
           team={selected}
         />
