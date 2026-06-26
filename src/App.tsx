@@ -14,6 +14,7 @@ import { MediaLibraryPage } from './pages/MediaLibrary/index'
 import { MissingLogosPage } from './pages/MissingLogos/index'
 import { SyncPage } from './pages/Sync/index'
 import { TeamsPage } from './pages/Teams/index'
+import { BlogPage } from './pages/Blog/index'
 import { WhatsAppParserPage } from './pages/WhatsAppParser/index'
 import { InvitationsPage } from './pages/Invitations/index'
 import { AcceptInvitePage } from './pages/AcceptInvite/index'
@@ -45,6 +46,7 @@ function ProtectedApp() {
           <Route path="/standings" element={<PageWrapper title="Table Control" eyebrow="Standings"><StandingsPage /></PageWrapper>} />
           <Route path="/whatsapp-parser" element={<PageWrapper title="WhatsApp Intake" eyebrow="Parser"><WhatsAppParserPage /></PageWrapper>} />
           <Route path="/sync" element={<PageWrapper title="Sheet Sync" eyebrow="Data Pipeline"><SyncPage /></PageWrapper>} />
+          <Route path="/blog" element={<PageWrapper title="News, Blog & Gallery" eyebrow="Content"><BlogPage /></PageWrapper>} />
           <Route path="/media-library" element={<PageWrapper title="Media Library" eyebrow="Assets"><MediaLibraryPage /></PageWrapper>} />
           <Route path="/missing-logos" element={<PageWrapper title="Missing Logos" eyebrow="Asset Health"><MissingLogosPage /></PageWrapper>} />
           <Route path="/invitations" element={<PageWrapper title="Team Invitations" eyebrow="Access Control"><InvitationsPage /></PageWrapper>} />

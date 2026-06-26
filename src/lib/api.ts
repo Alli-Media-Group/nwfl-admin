@@ -1,5 +1,7 @@
 import type {
   AuthUser,
+  BlogPost,
+  Gallery,
   Invitation,
   Match,
   MatchFormValues,
@@ -338,6 +340,42 @@ export const api = {
     request<{ detail: string }>(`/api/internal/invitations/${id}/`, {
       method: 'DELETE',
     }),
+
+  // ── Blog / News / Gallery ─────────────────────────────────────────────────────
+  getBlogPosts: (category?: string): Promise<BlogPost[]> => {
+    const query = category ? `?category=${encodeURIComponent(category)}` : ''
+    return list<BlogPost>(`/api/blog/posts/${query}`)
+  },
+
+  getBlogPost: (slug: string): Promise<BlogPost> =>
+    request<BlogPost>(`/api/blog/posts/${encodeURIComponent(slug)}/`),
+
+  updateBlogPost: (slug: string, payload: Partial<BlogPost>): Promise<BlogPost> =>
+    request<BlogPost>(`/api/blog/posts/${encodeURIComponent(slug)}/`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    }),
+
+  deleteBlogPost: (slug: string): Promise<void> =>
+    request(`/api/blog/posts/${encodeURIComponent(slug)}/`, { method: 'DELETE' }),
+
+  getGalleries: (): Promise<Gallery[]> =>
+    list<Gallery>('/api/blog/galleries/'),
+
+  getGallery: (slug: string): Promise<Gallery> =>
+    request<Gallery>(`/api/blog/galleries/${encodeURIComponent(slug)}/`),
+
+  updateGallery: (slug: string, payload: Partial<Gallery>): Promise<Gallery> =>
+    request<Gallery>(`/api/blog/galleries/${encodeURIComponent(slug)}/`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    }),
+
+  deleteGallery: (slug: string): Promise<void> =>
+    request(`/api/blog/galleries/${encodeURIComponent(slug)}/`, { method: 'DELETE' }),
+
+  syncWordPress: (): Promise<{ status: string; output?: string; errors?: string }> =>
+    request('/api/blog/sync-wordpress/', { method: 'POST', body: JSON.stringify({}) }),
 }
 
 // ── Logo URL helpers ──────────────────────────────────────────────────────────

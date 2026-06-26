@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { AudioLines, ClipboardList, CloudCog, ImageIcon, LayoutDashboard, Mail, Menu, Shield, AlertTriangle, Users, X } from 'lucide-react'
+import { AudioLines, ClipboardList, CloudCog, FileText, ImageIcon, LayoutDashboard, Mail, Menu, Shield, AlertTriangle, Users, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
@@ -11,6 +11,7 @@ const baseItems = [
   { icon: Shield, label: 'Standings', to: '/standings' },
   { icon: AudioLines, label: 'WhatsApp Parser', to: '/whatsapp-parser' },
   { icon: CloudCog, label: 'Sheet Sync', to: '/sync' },
+  { icon: FileText, label: 'Blog & Gallery', to: '/blog' },
   { icon: ImageIcon, label: 'Media Library', to: '/media-library' },
   { icon: AlertTriangle, label: 'Missing Logos', to: '/missing-logos' },
 ]

@@ -156,3 +156,45 @@ export interface Invitation {
   accepted_at: string | null;
   status: 'pending' | 'accepted' | 'expired';
 }
+
+export interface BlogPost {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featured_image_url: string;
+  category: 'news' | 'blog' | 'match_report' | 'transfer' | 'feature';
+  tags: string[];
+  author: string;
+  wp_id: number | null;
+  source_url: string;
+  status: 'draft' | 'published';
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Gallery {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  cover_image_url: string;
+  wp_id: number | null;
+  source_url: string;
+  event_date: string | null;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+  images: GalleryImage[];
+}
+
+export interface GalleryImage {
+  id: number;
+  image_url: string;
+  caption: string;
+  order: number;
+  wp_id: number | null;
+  source_url: string;
+}
