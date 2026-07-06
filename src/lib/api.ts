@@ -10,6 +10,7 @@ import type {
   ParsedMatchResult,
   ParsedStandingRow,
   ParsedTeamResult,
+  Player,
   Standing,
   Team,
   TeamExistenceResult,
@@ -146,6 +147,41 @@ export const api = {
   },
 
   getTeams: () => list<Team>('/api/teams/'),
+
+  getPlayers: (filters?: { team?: number | string; position?: string; group?: string; search?: string }) => {
+    const params = new URLSearchParams()
+    Object.entries(filters ?? {}).forEach(([key, value]) => {
+      if (value !== '' && value !== undefined) params.set(key, String(value))
+    })
+    const query = params.toString()
+    return list<Player>(`/api/players/${query ? `?${query}` : ''}`)
+  },
+
+  getPlayer: (slug: string): Promise<Player> =>
+    request<Player>(`/api/players/${encodeURIComponent(slug)}/`),
+
+  createPlayer: (payload: FormData | Record<string, unknown>) =>
+    request<Player>('/api/players/', {
+      method: 'POST',
+      body: payload instanceof FormData ? payload : JSON.stringify(payload),
+    }),
+
+  updatePlayer: (slug: string, payload: FormData | Record<string, unknown>) =>
+    request<Player>(`/api/players/${encodeURIComponent(slug)}/`, {
+      method: 'PATCH',
+      body: payload instanceof FormData ? payload : JSON.stringify(payload),
+    }),
+
+  deletePlayer: (slug: string): Promise<void> =>
+    request(`/api/players/${encodeURIComponent(slug)}/`, { method: 'DELETE' }),
+
+  getPlayerTopScorers: (season?: string, limit = 20): Promise<Player[]> => {
+    const params = new URLSearchParams()
+    if (season) params.set('season', season)
+    if (limit) params.set('limit', String(limit))
+    const query = params.toString()
+    return request<Player[]>(`/api/players/top-scorers/${query ? `?${query}` : ''}`)
+  },
 
   createTeam: (payload: FormData | Record<string, unknown>) =>
     request<Team>('/api/teams/', {

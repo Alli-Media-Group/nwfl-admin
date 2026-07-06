@@ -7,6 +7,7 @@ import type {
 } from 'react'
 
 interface FieldProps {
+  className?: string;
   hint?: string;
   label: string;
   required?: boolean;
@@ -14,12 +15,13 @@ interface FieldProps {
 
 export function Field({
   children,
+  className,
   hint,
   label,
   required,
 }: FieldProps & { children: ReactNode }) {
   return (
-    <label className="flex flex-col gap-2">
+    <label className={clsx('flex flex-col gap-2', className)}>
       <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>
         {label}
         {required ? <span className="ml-1" style={{ color: 'var(--color-danger)' }}>*</span> : null}

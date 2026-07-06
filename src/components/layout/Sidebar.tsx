@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { AudioLines, ClipboardList, CloudCog, FileText, ImageIcon, LayoutDashboard, Mail, Menu, Shield, AlertTriangle, Users, X } from 'lucide-react'
+import { AudioLines, ClipboardList, CloudCog, FileText, ImageIcon, LayoutDashboard, Mail, Menu, Shield, AlertTriangle, Users, UserCircle, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
@@ -8,6 +8,7 @@ const baseItems = [
   { icon: LayoutDashboard, label: 'Dashboard', to: '/' },
   { icon: ClipboardList, label: 'Matches', to: '/matches' },
   { icon: Users, label: 'Teams', to: '/teams' },
+  { icon: UserCircle, label: 'Players', to: '/players' },
   { icon: Shield, label: 'Standings', to: '/standings' },
   { icon: AudioLines, label: 'WhatsApp Parser', to: '/whatsapp-parser' },
   { icon: CloudCog, label: 'Sheet Sync', to: '/sync' },

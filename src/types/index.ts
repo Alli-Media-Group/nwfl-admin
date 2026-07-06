@@ -13,6 +13,28 @@ export interface Team {
   bio: string;
 }
 
+export interface Player {
+  id: number;
+  name: string;
+  slug: string;
+  team: Team;
+  position: 'GK' | 'DF' | 'MF' | 'FW' | '';
+  jersey_number: number | null;
+  nationality: string;
+  date_of_birth: string | null;
+  joined_date: string | null;
+  bio: string;
+  photo: string | null;
+  is_active: boolean;
+  goals?: number;
+  stats?: {
+    goals: number;
+    penalties: number;
+    own_goals: number;
+    matches_scored_in: number;
+  };
+}
+
 export interface Match {
   id: number;
   home_team: Team;

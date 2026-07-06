@@ -18,6 +18,7 @@ import { BlogPage } from './pages/Blog/index'
 import { WhatsAppParserPage } from './pages/WhatsAppParser/index'
 import { InvitationsPage } from './pages/Invitations/index'
 import { AcceptInvitePage } from './pages/AcceptInvite/index'
+import { PlayersPage } from './pages/Players/index'
 
 function ProtectedApp() {
   const { loading, user } = useAuth()
@@ -43,6 +44,7 @@ function ProtectedApp() {
           <Route path="/" element={<PageWrapper title="Newsroom Overview" eyebrow="Dashboard"><DashboardPage /></PageWrapper>} />
           <Route path="/matches" element={<PageWrapper title="Match Operations" eyebrow="Matches"><MatchesPage /></PageWrapper>} />
           <Route path="/teams" element={<PageWrapper title="Club Profiles" eyebrow="Teams"><TeamsPage /></PageWrapper>} />
+          <Route path="/players" element={<PageWrapper title="Player Registry" eyebrow="Players"><PlayersPage /></PageWrapper>} />
           <Route path="/standings" element={<PageWrapper title="Table Control" eyebrow="Standings"><StandingsPage /></PageWrapper>} />
           <Route path="/whatsapp-parser" element={<PageWrapper title="WhatsApp Intake" eyebrow="Parser"><WhatsAppParserPage /></PageWrapper>} />
           <Route path="/sync" element={<PageWrapper title="Sheet Sync" eyebrow="Data Pipeline"><SyncPage /></PageWrapper>} />
