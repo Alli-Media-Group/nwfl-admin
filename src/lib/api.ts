@@ -17,7 +17,10 @@ import type {
   TeamResearchResult,
 } from '../types'
 
-const RAW_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+// The API address. VITE_NWFL_API_URL is the setting to change; VITE_API_URL is the old name, kept as a fallback
+// (a value saved under that name in the hosting dashboard overrides the file, so the new name is used first).
+const RAW_BASE =
+  import.meta.env.VITE_NWFL_API_URL ?? import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 const BASE = RAW_BASE.replace(/\/$/, '')
 
 // ── Token storage ─────────────────────────────────────────────────────────────
