@@ -1,4 +1,5 @@
 import type {
+  ApiClientInfo,
   AuthUser,
   BlogPost,
   Gallery,
@@ -360,6 +361,21 @@ export const api = {
   },
 
   // ── Invitations ──────────────────────────────────────────────────────────────
+  getApiClients: (): Promise<ApiClientInfo[]> =>
+    request<ApiClientInfo[]>('/api/internal/api-keys/'),
+
+  createApiClient: (name: string): Promise<ApiClientInfo & { key: string }> =>
+    request('/api/internal/api-keys/', { method: 'POST', body: JSON.stringify({ name }) }),
+
+  revealApiClient: (id: number): Promise<{ key: string }> =>
+    request<{ key: string }>(`/api/internal/api-keys/${id}/reveal/`),
+
+  rotateApiClient: (id: number): Promise<ApiClientInfo & { key: string }> =>
+    request(`/api/internal/api-keys/${id}/rotate/`, { method: 'POST' }),
+
+  revokeApiClient: (id: number): Promise<ApiClientInfo> =>
+    request<ApiClientInfo>(`/api/internal/api-keys/${id}/revoke/`, { method: 'POST' }),
+
   getInvitations: (): Promise<Invitation[]> =>
     request<Invitation[]>('/api/internal/invitations/'),
 

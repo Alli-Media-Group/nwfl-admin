@@ -18,6 +18,7 @@ import { BlogPage } from './pages/Blog/index'
 import { WhatsAppParserPage } from './pages/WhatsAppParser/index'
 import { InvitationsPage } from './pages/Invitations/index'
 import { AcceptInvitePage } from './pages/AcceptInvite/index'
+import { ApiAccessPage } from './pages/ApiAccess/index'
 import { PlayersPage } from './pages/Players/index'
 
 function ProtectedApp() {
@@ -52,6 +53,7 @@ function ProtectedApp() {
           <Route path="/media-library" element={<PageWrapper title="Media Library" eyebrow="Assets"><MediaLibraryPage /></PageWrapper>} />
           <Route path="/missing-logos" element={<PageWrapper title="Missing Logos" eyebrow="Asset Health"><MissingLogosPage /></PageWrapper>} />
           <Route path="/invitations" element={<PageWrapper title="Team Invitations" eyebrow="Access Control"><InvitationsPage /></PageWrapper>} />
+          <Route path="/api-access" element={<PageWrapper title="API Access" eyebrow="Data"><ApiAccessPage /></PageWrapper>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

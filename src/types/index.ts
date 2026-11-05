@@ -167,6 +167,19 @@ export interface MissingLogoTeam {
   suggestions: MediaImage[];
 }
 
+export interface ApiClientInfo {
+  id: number;
+  name: string;
+  key_prefix: string;
+  active: boolean;
+  requests_per_minute: number;
+  created_at: string;
+  rotated_at: string | null;
+  revoked_at: string | null;
+  last_used_at: string | null;
+  created_by_name: string;
+}
+
 export interface Invitation {
   id: number;
   email: string;
