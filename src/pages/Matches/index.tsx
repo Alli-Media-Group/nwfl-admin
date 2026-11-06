@@ -61,13 +61,15 @@ export function MatchesPage() {
   )
 
   const groupedResults = useMemo(() => {
-    const grouped = new Map<number, { A: Match[]; B: Match[] }>()
+    // The Super Six has its own matchdays; they sort above the group stage (key 100 and up) and are not split by group.
+    const grouped = new Map<number, { A: Match[]; B: Match[]; S: Match[] }>()
 
     for (const match of filteredMatches) {
-      const matchday = typeof match.matchday === 'number' ? match.matchday : 0
-      const groupKey = match.home_team.group
-      const existing = grouped.get(matchday) ?? { A: [], B: [] }
-      existing[groupKey].push(match)
+      const base = typeof match.matchday === 'number' ? match.matchday : 0
+      const superSix = match.stage === 'SUPER_SIX'
+      const matchday = superSix ? 100 + base : base
+      const existing = grouped.get(matchday) ?? { A: [], B: [], S: [] }
+      existing[superSix ? 'S' : match.home_team.group].push(match)
       grouped.set(matchday, existing)
     }
 
@@ -75,6 +77,7 @@ export function MatchesPage() {
       .sort((left, right) => right[0] - left[0])
       .map(([matchday, groups]) => ({
         groups: {
+          S: groups.S.sort((left, right) => `${left.date}${left.kick_off}`.localeCompare(`${right.date}${right.kick_off}`)),
           A: groups.A.sort((left, right) =>
             `${left.home_team.name}-${left.away_team.name}`.localeCompare(
               `${right.home_team.name}-${right.away_team.name}`,
@@ -126,11 +129,11 @@ export function MatchesPage() {
     )
   }
 
-  function GroupList({ group, list }: { group: 'A' | 'B'; list: Match[] }) {
+  function GroupList({ group, list }: { group: 'A' | 'B' | 'S'; list: Match[] }) {
     if (!list.length) return null
     return (
       <div className="overflow-hidden rounded-[var(--radius-md)] border" style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg-subtle)' }}>
-        <p className="eyebrow px-4 py-2">Group {group}</p>
+        <p className="eyebrow px-4 py-2">{group === 'S' ? 'Championship round' : `Group ${group}`}</p>
         <ul>{list.map(m => <MatchLine key={m.id} match={m} />)}</ul>
       </div>
     )
@@ -194,12 +197,13 @@ export function MatchesPage() {
           {groupedResults.map(({ matchday, groups }) => (
             <Card className="overflow-hidden" key={matchday}>
               <div className="flex items-baseline justify-between border-b px-5 py-3" style={{ borderColor: 'var(--color-border)' }}>
-                <h2 className="text-[1rem]">{matchday ? `Matchday ${matchday}` : 'No matchday'}</h2>
-                <span className="text-[0.8rem] text-[var(--color-muted)]">{groups.A.length + groups.B.length} matches</span>
+                <h2 className="text-[1rem]">{matchday >= 100 ? `Super Six, matchday ${matchday - 100}` : matchday ? `Matchday ${matchday}` : 'No matchday'}</h2>
+                <span className="text-[0.8rem] text-[var(--color-muted)]">{groups.A.length + groups.B.length + groups.S.length} matches</span>
               </div>
               <div className="grid gap-4 p-4 [grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))]">
                 <GroupList group="A" list={groups.A} />
                 <GroupList group="B" list={groups.B} />
+                <GroupList group="S" list={groups.S} />
               </div>
             </Card>
           ))}

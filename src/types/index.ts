@@ -40,6 +40,8 @@ export interface Match {
   home_team: Team;
   away_team: Team;
   season: string;
+  /** LEAGUE is the group stage; SUPER_SIX is the championship round after it. */
+  stage?: 'LEAGUE' | 'SUPER_SIX';
   matchday: number;
   date: string | null;
   kick_off: string | null;
