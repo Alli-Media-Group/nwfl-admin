@@ -26,3 +26,6 @@ dist-ssr
 .env/.playwright-mcp/
 news-page*.png
 news-detail.png
+
+.playwright-mcp/
+public-news-page.png
