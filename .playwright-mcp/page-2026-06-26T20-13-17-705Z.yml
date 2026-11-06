@@ -1,0 +1,118 @@
+- generic [ref=e3]:
+  - navigation "Main navigation" [ref=e4]:
+    - generic [ref=e5]:
+      - link "NWFL" [ref=e97] [cursor=pointer]:
+        - /url: /
+        - img "NWFL" [ref=e98]
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e9]:
+          - link "News" [ref=e10] [cursor=pointer]:
+            - /url: /news
+        - listitem [ref=e11]:
+          - link "Blog" [ref=e12] [cursor=pointer]:
+            - /url: /blog
+        - listitem [ref=e13]:
+          - link "Gallery" [ref=e14] [cursor=pointer]:
+            - /url: /gallery
+        - listitem [ref=e15]:
+          - link "Stats" [ref=e16] [cursor=pointer]:
+            - /url: /stats
+        - listitem [ref=e17]:
+          - link "Analytics" [ref=e18] [cursor=pointer]:
+            - /url: /analytics
+      - generic [ref=e19]:
+        - button "Search" [ref=e20] [cursor=pointer]:
+          - img [ref=e21]
+        - button "Open menu" [ref=e24] [cursor=pointer]:
+          - img [ref=e25]
+  - complementary "Site menu" [ref=e26]:
+    - img [ref=e28]
+    - button "Close menu" [ref=e30] [cursor=pointer]:
+      - img [ref=e31]
+    - navigation [ref=e34]:
+      - list [ref=e35]:
+        - listitem [ref=e36]:
+          - link "Home" [ref=e37] [cursor=pointer]:
+            - /url: /
+            - img [ref=e39]
+            - generic [ref=e42]: Home
+        - listitem [ref=e43]:
+          - link "About" [ref=e44] [cursor=pointer]:
+            - /url: /about
+            - img [ref=e46]
+            - generic [ref=e48]: About
+        - listitem [ref=e49]:
+          - link "News" [ref=e50] [cursor=pointer]:
+            - /url: /news
+            - img [ref=e52]
+            - generic [ref=e54]: News
+        - listitem [ref=e55]:
+          - link "Match Center" [ref=e56] [cursor=pointer]:
+            - /url: /match-center
+            - img [ref=e58]
+            - generic [ref=e61]: Match Center
+        - listitem [ref=e62]:
+          - link "Teams" [ref=e63] [cursor=pointer]:
+            - /url: /teams
+            - img [ref=e65]
+            - generic [ref=e70]: Teams
+        - listitem [ref=e71]:
+          - link "Players" [ref=e72] [cursor=pointer]:
+            - /url: /players
+            - img [ref=e74]
+            - generic [ref=e77]: Players
+        - listitem [ref=e78]:
+          - link "Analytics" [ref=e79] [cursor=pointer]:
+            - /url: /analytics
+            - img [ref=e81]
+            - generic [ref=e82]: Analytics
+        - listitem [ref=e83]:
+          - link "Media Channel" [ref=e84] [cursor=pointer]:
+            - /url: /media
+            - img [ref=e86]
+            - generic [ref=e89]: Media Channel
+    - generic [ref=e90]: NWFL © 2023
+  - main [ref=e91]:
+    - generic [ref=e92]:
+      - generic [ref=e93]:
+        - heading "Blog & Features" [level=1] [ref=e94]
+        - paragraph [ref=e95]: In-depth stories, player profiles and features from the NWFL.
+      - generic [ref=e99]:
+        - 'link "IN PHOTOS: Individual Awards Emerge as Edo Queens Reclaim NWFL Premiership Crown 15 Jun 2026 | blog IN PHOTOS: Individual Awards Emerge as Edo Queens Reclaim NWFL Premiership Crown Edo Queens were crowned 2025/26 NWFL Premiership champions after a goalless draw against Bayelsa Queens, while FC Robo Queens and Abia Angels played out a 1-1 draw on the final day of the Super Six. Edo Queens celebrated league glory following a..." [ref=e100] [cursor=pointer]':
+          - /url: /blog/in-photos-individual-awards-emerge-as-edo-queens-reclaim-nwfl-premiership-crown
+          - 'img "IN PHOTOS: Individual Awards Emerge as Edo Queens Reclaim NWFL Premiership Crown" [ref=e102]'
+          - generic [ref=e103]:
+            - generic [ref=e104]: 15 Jun 2026 | blog
+            - 'heading "IN PHOTOS: Individual Awards Emerge as Edo Queens Reclaim NWFL Premiership Crown" [level=3] [ref=e105]'
+            - paragraph [ref=e106]: Edo Queens were crowned 2025/26 NWFL Premiership champions after a goalless draw against Bayelsa Queens, while FC Robo Queens and Abia Angels played out a 1-1 draw on the final day of the Super Six. Edo Queens celebrated league glory following a...
+        - 'link "IN PHOTOS: Mixed Fortunes on Matchday 4 Leave 3 Clubs Chasing NWFL Premiership Glory 12 Jun 2026 | blog IN PHOTOS: Mixed Fortunes on Matchday 4 Leave 3 Clubs Chasing NWFL Premiership Glory Matchday 4 delivered goals, drama, heartbreak and hope—setting up a thrilling final-day battle for the 2025/26 NWFL Premiership crown Champions’ mentality. Edo Queens stay top with a crucial derby victory. 👑 Three points secured, summit retained...." [ref=e107] [cursor=pointer]':
+          - /url: /blog/in-photos-mixed-fortunes-on-matchday-4-leave-3-clubs-chasing-nwfl-premiership-glory
+          - 'img "IN PHOTOS: Mixed Fortunes on Matchday 4 Leave 3 Clubs Chasing NWFL Premiership Glory" [ref=e109]'
+          - generic [ref=e110]:
+            - generic [ref=e111]: 12 Jun 2026 | blog
+            - 'heading "IN PHOTOS: Mixed Fortunes on Matchday 4 Leave 3 Clubs Chasing NWFL Premiership Glory" [level=3] [ref=e112]'
+            - paragraph [ref=e113]: Matchday 4 delivered goals, drama, heartbreak and hope—setting up a thrilling final-day battle for the 2025/26 NWFL Premiership crown Champions’ mentality. Edo Queens stay top with a crucial derby victory. 👑 Three points secured, summit retained....
+        - 'link "IN PHOTOS: Derby Delight, Goal Fest and Upsets Headline NWFL Super 6 Matchday Three 10 Jun 2026 | blog IN PHOTOS: Derby Delight, Goal Fest and Upsets Headline NWFL Super 6 Matchday Three Abia Angels battled bravely, but Edo Queens’ relentless attacking pressure proved too much to contain. Pure joy on the faces of Edo Queens players after another goal in their emphatic 6-2 victory. Chioma Moses celebrates one of her four goals as Edo..." [ref=e114] [cursor=pointer]':
+          - /url: /blog/in-photos-derby-delight-goal-fest-and-upsets-headline-nwfl-super-6-matchday-three
+          - 'img "IN PHOTOS: Derby Delight, Goal Fest and Upsets Headline NWFL Super 6 Matchday Three" [ref=e116]'
+          - generic [ref=e117]:
+            - generic [ref=e118]: 10 Jun 2026 | blog
+            - 'heading "IN PHOTOS: Derby Delight, Goal Fest and Upsets Headline NWFL Super 6 Matchday Three" [level=3] [ref=e119]'
+            - paragraph [ref=e120]: Abia Angels battled bravely, but Edo Queens’ relentless attacking pressure proved too much to contain. Pure joy on the faces of Edo Queens players after another goal in their emphatic 6-2 victory. Chioma Moses celebrates one of her four goals as Edo...
+        - 'link "IN PHOTOS: Drama, History & Title Race Twists Define NWFL Premiership Super Six Matchday Two 8 Jun 2026 | blog IN PHOTOS: Drama, History & Title Race Twists Define NWFL Premiership Super Six Matchday Two Historic moment! Abia Angels celebrate their first-ever NWFL Premiership Super Six victory after edging Rivers Angels 1-0 in Port Harcourt. Joy unconfined as Abia Angels players celebrate a landmark victory that strengthens their title credentials...." [ref=e121] [cursor=pointer]':
+          - /url: /blog/in-photos-drama-history-title-race-twists-define-nwfl-premiership-super-six-matchday-two
+          - 'img "IN PHOTOS: Drama, History & Title Race Twists Define NWFL Premiership Super Six Matchday Two" [ref=e123]'
+          - generic [ref=e124]:
+            - generic [ref=e125]: 8 Jun 2026 | blog
+            - 'heading "IN PHOTOS: Drama, History & Title Race Twists Define NWFL Premiership Super Six Matchday Two" [level=3] [ref=e126]'
+            - paragraph [ref=e127]: Historic moment! Abia Angels celebrate their first-ever NWFL Premiership Super Six victory after edging Rivers Angels 1-0 in Port Harcourt. Joy unconfined as Abia Angels players celebrate a landmark victory that strengthens their title credentials....
+        - 'link "IN PHOTOS: Memorable Moments from 2026 NWFL Premiership Super Six Matchday One 6 Jun 2026 | blog IN PHOTOS: Memorable Moments from 2026 NWFL Premiership Super Six Matchday One Rivers Angels players celebrate for the goal against FC Robo Queens during their Super Six showdown. Players of Edo Queens and Nasarawa Amazons in action as the race for the NWFL Premiership title begins in Port Harcourt. Two former champions, Edo..." [ref=e128] [cursor=pointer]':
+          - /url: /blog/in-photos-memorable-moments-from-2026-nwfl-premiership-super-six-matchday-one
+          - 'img "IN PHOTOS: Memorable Moments from 2026 NWFL Premiership Super Six Matchday One" [ref=e130]'
+          - generic [ref=e131]:
+            - generic [ref=e132]: 6 Jun 2026 | blog
+            - 'heading "IN PHOTOS: Memorable Moments from 2026 NWFL Premiership Super Six Matchday One" [level=3] [ref=e133]'
+            - paragraph [ref=e134]: Rivers Angels players celebrate for the goal against FC Robo Queens during their Super Six showdown. Players of Edo Queens and Nasarawa Amazons in action as the race for the NWFL Premiership title begins in Port Harcourt. Two former champions, Edo...

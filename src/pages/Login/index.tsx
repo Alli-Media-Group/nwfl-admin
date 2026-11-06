@@ -21,7 +21,7 @@ export function LoginPage() {
         <div className="mb-8 text-center">
           <div
             className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-lg"
-            style={{ background: 'var(--color-primary)' }}
+            style={{ background: 'var(--color-primary-solid)' }}
           >
             <img alt="NWFL" className="h-7 w-7 object-contain" src="/logo.svg" />
           </div>

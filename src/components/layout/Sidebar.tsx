@@ -50,7 +50,7 @@ export function Sidebar() {
         <div className="mb-8 flex items-center gap-3 px-6">
           <div
             className="grid h-10 w-10 shrink-0 place-items-center rounded-lg"
-            style={{ background: 'var(--color-primary)' }}
+            style={{ background: 'var(--color-primary-solid)' }}
           >
             <img alt="NWFL" className="h-6 w-6 object-contain invert" src="/logo.svg" />
           </div>

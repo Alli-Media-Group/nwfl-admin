@@ -1,0 +1,433 @@
+- generic [ref=e3]:
+  - navigation "Main navigation" [ref=e4]:
+    - generic [ref=e5]:
+      - link "NWFL" [ref=e97] [cursor=pointer]:
+        - /url: /
+        - img "NWFL" [ref=e98]
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e9]:
+          - link "News" [ref=e10] [cursor=pointer]:
+            - /url: /news
+        - listitem [ref=e11]:
+          - link "Blog" [ref=e12] [cursor=pointer]:
+            - /url: /blog
+        - listitem [ref=e13]:
+          - link "Gallery" [ref=e14] [cursor=pointer]:
+            - /url: /gallery
+        - listitem [ref=e15]:
+          - link "Stats" [ref=e16] [cursor=pointer]:
+            - /url: /stats
+        - listitem [ref=e17]:
+          - link "Analytics" [ref=e18] [cursor=pointer]:
+            - /url: /analytics
+      - generic [ref=e19]:
+        - button "Search" [ref=e20] [cursor=pointer]:
+          - img [ref=e21]
+        - button "Open menu" [ref=e24] [cursor=pointer]:
+          - img [ref=e25]
+  - complementary "Site menu" [ref=e26]:
+    - img [ref=e28]
+    - button "Close menu" [ref=e30] [cursor=pointer]:
+      - img [ref=e31]
+    - navigation [ref=e34]:
+      - list [ref=e35]:
+        - listitem [ref=e36]:
+          - link "Home" [ref=e37] [cursor=pointer]:
+            - /url: /
+            - img [ref=e39]
+            - generic [ref=e42]: Home
+        - listitem [ref=e43]:
+          - link "About" [ref=e44] [cursor=pointer]:
+            - /url: /about
+            - img [ref=e46]
+            - generic [ref=e48]: About
+        - listitem [ref=e49]:
+          - link "News" [ref=e50] [cursor=pointer]:
+            - /url: /news
+            - img [ref=e52]
+            - generic [ref=e54]: News
+        - listitem [ref=e55]:
+          - link "Match Center" [ref=e56] [cursor=pointer]:
+            - /url: /match-center
+            - img [ref=e58]
+            - generic [ref=e61]: Match Center
+        - listitem [ref=e62]:
+          - link "Teams" [ref=e63] [cursor=pointer]:
+            - /url: /teams
+            - img [ref=e65]
+            - generic [ref=e70]: Teams
+        - listitem [ref=e71]:
+          - link "Players" [ref=e72] [cursor=pointer]:
+            - /url: /players
+            - img [ref=e74]
+            - generic [ref=e77]: Players
+        - listitem [ref=e78]:
+          - link "Analytics" [ref=e79] [cursor=pointer]:
+            - /url: /analytics
+            - img [ref=e81]
+            - generic [ref=e82]: Analytics
+        - listitem [ref=e83]:
+          - link "Media Channel" [ref=e84] [cursor=pointer]:
+            - /url: /media
+            - img [ref=e86]
+            - generic [ref=e89]: Media Channel
+    - generic [ref=e90]: NWFL © 2023
+  - main [ref=e91]:
+    - generic [ref=e92]:
+      - generic [ref=e93]:
+        - heading "Latest News" [level=1] [ref=e94]
+        - paragraph [ref=e95]: Updates, announcements and stories from the Nigeria Women Football League.
+      - link "NWFL Championship Makes Calabar Return 25 Jun 2026 | news NWFL Championship Makes Calabar Return The Nigeria Women Football League (NWFL) Championship will return to Calabar, Cross River State, for the 2026 edition, two years after the city hosted the second-tier competition in 2024. In a statement on Thursday, the NWFL spokesperson, Samuel Ahmadu, confirmed this year’s Championship will hold from July 9 to July 16, 2026, with 16 participating" [ref=e100] [cursor=pointer]:
+        - /url: /news/nwfl-championship-makes-calabar-return
+        - img "NWFL Championship Makes Calabar Return" [ref=e101]
+        - generic [ref=e102]:
+          - generic [ref=e103]: 25 Jun 2026 | news
+          - heading "NWFL Championship Makes Calabar Return" [level=2] [ref=e104]
+          - paragraph [ref=e105]: The Nigeria Women Football League (NWFL) Championship will return to Calabar, Cross River State, for the 2026 edition, two years after the city hosted the second-tier competition in 2024. In a statement on Thursday, the NWFL spokesperson, Samuel Ahmadu, confirmed this year’s Championship will hold from July 9 to July 16, 2026, with 16 participating
+      - generic [ref=e106]:
+        - link "Edo Queens, Nasarawa Amazons Dominate 2025/26 NWFL Premiership Best XI of the Season 21 Jun 2026 | news Edo Queens, Nasarawa Amazons Dominate 2025/26 NWFL Premiership Best XI of the Season The 2025/26 Nigeria Women Football League (NWFL) Premiership season produced a thrilling display of quality, resilience, and individual brilliance, with several players delivering outstanding performances throughout the campaign. Following months of intense competition, the NWFL Premiership Best XI of the Season has been unveiled, recognising the standout performers who made significant impacts for their respective" [ref=e107] [cursor=pointer]:
+          - /url: /news/edo-queens-nasarawa-amazons-dominate-2025-26-nwfl-premiership-best-xi-of-the-season
+          - img "Edo Queens, Nasarawa Amazons Dominate 2025/26 NWFL Premiership Best XI of the Season" [ref=e109]
+          - generic [ref=e110]:
+            - generic [ref=e111]: 21 Jun 2026 | news
+            - heading "Edo Queens, Nasarawa Amazons Dominate 2025/26 NWFL Premiership Best XI of the Season" [level=3] [ref=e112]
+            - paragraph [ref=e113]: The 2025/26 Nigeria Women Football League (NWFL) Premiership season produced a thrilling display of quality, resilience, and individual brilliance, with several players delivering outstanding performances throughout the campaign. Following months of intense competition, the NWFL Premiership Best XI of the Season has been unveiled, recognising the standout performers who made significant impacts for their respective
+        - 'link "NWFL Premiership: Edo Queens’ Atume Doosuur, Rivers Angels’ Abasiofon Uwah Share Golden Boot as Adegbuyi Claims MVP 15 Jun 2026 | news NWFL Premiership: Edo Queens’ Atume Doosuur, Rivers Angels’ Abasiofon Uwah Share Golden Boot as Adegbuyi Claims MVP The Nigeria Women Football League (NWFL) celebrated the outstanding performers of the 2025/26 Premiership season on Sunday, with several players and clubs receiving individual honours following the conclusion of the Super Six in Port Harcourt. Fresh from helping Edo Queens secure their second NWFL Premiership title, striker Atume Doosuur finished the season as joint top" [ref=e114] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-edo-queens-atume-doosuur-rivers-angels-abasiofon-uwah-share-golden-boot-as-adegbuyi-claims-mvp
+          - 'img "NWFL Premiership: Edo Queens’ Atume Doosuur, Rivers Angels’ Abasiofon Uwah Share Golden Boot as Adegbuyi Claims MVP" [ref=e116]'
+          - generic [ref=e117]:
+            - generic [ref=e118]: 15 Jun 2026 | news
+            - 'heading "NWFL Premiership: Edo Queens’ Atume Doosuur, Rivers Angels’ Abasiofon Uwah Share Golden Boot as Adegbuyi Claims MVP" [level=3] [ref=e119]'
+            - paragraph [ref=e120]: The Nigeria Women Football League (NWFL) celebrated the outstanding performers of the 2025/26 Premiership season on Sunday, with several players and clubs receiving individual honours following the conclusion of the Super Six in Port Harcourt. Fresh from helping Edo Queens secure their second NWFL Premiership title, striker Atume Doosuur finished the season as joint top
+        - link "Edo Queens Clinch Second NWFL Premiership Title 14 Jun 2026 | news Edo Queens Clinch Second NWFL Premiership Title Edo Queens have been crowned champions of the 2025/26 Nigeria Women Football League (NWFL) Premiership following a determined 0–0 draw against Bayelsa Queens in the final matchday of the Super Six playoffs at the Adokiye Amiesimaka Stadium on Sunday. Bayelsa Queens entered the decisive fixture needing an outright victory to secure the title, while Edo" [ref=e121] [cursor=pointer]:
+          - /url: /news/edo-queens-clinch-second-nwfl-premiership-title
+          - img "Edo Queens Clinch Second NWFL Premiership Title" [ref=e123]
+          - generic [ref=e124]:
+            - generic [ref=e125]: 14 Jun 2026 | news
+            - heading "Edo Queens Clinch Second NWFL Premiership Title" [level=3] [ref=e126]
+            - paragraph [ref=e127]: Edo Queens have been crowned champions of the 2025/26 Nigeria Women Football League (NWFL) Premiership following a determined 0–0 draw against Bayelsa Queens in the final matchday of the Super Six playoffs at the Adokiye Amiesimaka Stadium on Sunday. Bayelsa Queens entered the decisive fixture needing an outright victory to secure the title, while Edo
+        - 'link "2026 NWFL Premiership Golden Boot Race: 4 Players Still in Contention Ahead of Super 6 Final Day 13 Jun 2026 | news 2026 NWFL Premiership Golden Boot Race: 4 Players Still in Contention Ahead of Super 6 Final Day 2025/26 The battle for the 2025/26 Nigeria Women Football League (NWFL) Premiership Golden Boot remains wide open heading into the final day of the Super Six in Port Harcourt, with four players still mathematically in contention for the league’s top scorer award. With just one round of matches remaining, the race for individual honours is" [ref=e128] [cursor=pointer]':
+          - /url: /news/2026-nwfl-premiership-golden-boot-race-4-players-still-in-contention-ahead-of-super-6-final-day
+          - 'img "2026 NWFL Premiership Golden Boot Race: 4 Players Still in Contention Ahead of Super 6 Final Day" [ref=e130]'
+          - generic [ref=e131]:
+            - generic [ref=e132]: 13 Jun 2026 | news
+            - 'heading "2026 NWFL Premiership Golden Boot Race: 4 Players Still in Contention Ahead of Super 6 Final Day" [level=3] [ref=e133]'
+            - paragraph [ref=e134]: 2025/26 The battle for the 2025/26 Nigeria Women Football League (NWFL) Premiership Golden Boot remains wide open heading into the final day of the Super Six in Port Harcourt, with four players still mathematically in contention for the league’s top scorer award. With just one round of matches remaining, the race for individual honours is
+        - 'link "NWFL Premiership Super Six MD 5 Previews: Title Race Goes Down to the Wire in Port Harcourt 13 Jun 2026 | news NWFL Premiership Super Six MD 5 Previews: Title Race Goes Down to the Wire in Port Harcourt The curtain will fall on the 2025/26 Nigeria Women Football League (NWFL) Premiership season on Sunday as the Super Six reaches its climax in Port Harcourt, with the title race set for a dramatic final-day conclusion. Three teams remain mathematically in contention for the championship, while history beckons for clubs and coaches alike in what" [ref=e135] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-super-six-md-5-previews-title-race-goes-down-to-the-wire-in-port-harcourt
+          - 'img "NWFL Premiership Super Six MD 5 Previews: Title Race Goes Down to the Wire in Port Harcourt" [ref=e137]'
+          - generic [ref=e138]:
+            - generic [ref=e139]: 13 Jun 2026 | news
+            - 'heading "NWFL Premiership Super Six MD 5 Previews: Title Race Goes Down to the Wire in Port Harcourt" [level=3] [ref=e140]'
+            - paragraph [ref=e141]: The curtain will fall on the 2025/26 Nigeria Women Football League (NWFL) Premiership season on Sunday as the Super Six reaches its climax in Port Harcourt, with the title race set for a dramatic final-day conclusion. Three teams remain mathematically in contention for the championship, while history beckons for clubs and coaches alike in what
+        - 'link "NWFL Premiership Super 6 Permutations: Will Edo Queens, Bayelsa Queens or Nasarawa Amazons Lift the 2026 Trophy? 13 Jun 2026 | news NWFL Premiership Super 6 Permutations: Will Edo Queens, Bayelsa Queens or Nasarawa Amazons Lift the 2026 Trophy? The 2025/26 Nigeria Women Football League (NWFL) Premiership title race will go down to the wire as three teams remain in contention ahead of the final day of the Super Six tournament in Port Harcourt on Sunday. With one round of matches left to play, Edo Queens, defending champions Bayelsa Queens, and Nasarawa Amazons all" [ref=e142] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-super-6-permutations-will-edo-queens-bayelsa-queens-or-nasarawa-amazons-lift-the-2026-trophy
+          - 'img "NWFL Premiership Super 6 Permutations: Will Edo Queens, Bayelsa Queens or Nasarawa Amazons Lift the 2026 Trophy?" [ref=e144]'
+          - generic [ref=e145]:
+            - generic [ref=e146]: 13 Jun 2026 | news
+            - 'heading "NWFL Premiership Super 6 Permutations: Will Edo Queens, Bayelsa Queens or Nasarawa Amazons Lift the 2026 Trophy?" [level=3] [ref=e147]'
+            - paragraph [ref=e148]: The 2025/26 Nigeria Women Football League (NWFL) Premiership title race will go down to the wire as three teams remain in contention ahead of the final day of the Super Six tournament in Port Harcourt on Sunday. With one round of matches left to play, Edo Queens, defending champions Bayelsa Queens, and Nasarawa Amazons all
+        - link "2026 NWFL Premiership Super 6 set for Grand Finale in Port Harcourt 13 Jun 2026 | news 2026 NWFL Premiership Super 6 set for Grand Finale in Port Harcourt Port Harcourt is set to come alive on Sunday as the 2025/26 Nigeria Women Football League (NWFL) Premiership Super Six reaches its climax with a season-defining Matchday 5 that promises excitement, drama and celebration. After four rounds of captivating football, the race for the league title remains wide open, with defending champions Edo Queens, Bayelsa" [ref=e149] [cursor=pointer]:
+          - /url: /news/2026-nwfl-premiership-super-6-set-for-grand-finale-in-port-harcourt
+          - img "2026 NWFL Premiership Super 6 set for Grand Finale in Port Harcourt" [ref=e151]
+          - generic [ref=e152]:
+            - generic [ref=e153]: 13 Jun 2026 | news
+            - heading "2026 NWFL Premiership Super 6 set for Grand Finale in Port Harcourt" [level=3] [ref=e154]
+            - paragraph [ref=e155]: Port Harcourt is set to come alive on Sunday as the 2025/26 Nigeria Women Football League (NWFL) Premiership Super Six reaches its climax with a season-defining Matchday 5 that promises excitement, drama and celebration. After four rounds of captivating football, the race for the league title remains wide open, with defending champions Edo Queens, Bayelsa
+        - 'link "2026 NWFL Premiership Super 6 MD 4 Previews: Friday of Reckoning Beckons for Title Contenders 11 Jun 2026 | news 2026 NWFL Premiership Super 6 MD 4 Previews: Friday of Reckoning Beckons for Title Contenders The race for the 2025/26 Nigeria Women Football League (NWFL) Premiership title enters a defining moment on Friday as Matchday Four of the Super Six takes centre stage in Ikenne. With only two rounds of matches remaining, every point has become crucial as the six contenders continue their pursuit of the league crown and a" [ref=e156] [cursor=pointer]':
+          - /url: /news/2026-nwfl-premiership-super-6-md-4-previews-friday-of-reckoning-beckons-for-title-contenders
+          - 'img "2026 NWFL Premiership Super 6 MD 4 Previews: Friday of Reckoning Beckons for Title Contenders" [ref=e158]'
+          - generic [ref=e159]:
+            - generic [ref=e160]: 11 Jun 2026 | news
+            - 'heading "2026 NWFL Premiership Super 6 MD 4 Previews: Friday of Reckoning Beckons for Title Contenders" [level=3] [ref=e161]'
+            - paragraph [ref=e162]: The race for the 2025/26 Nigeria Women Football League (NWFL) Premiership title enters a defining moment on Friday as Matchday Four of the Super Six takes centre stage in Ikenne. With only two rounds of matches remaining, every point has become crucial as the six contenders continue their pursuit of the league crown and a
+        - link "2026 NWFL Premiership Golden Boot Race Intensifies as Four Players Hit Double Figures 11 Jun 2026 | news 2026 NWFL Premiership Golden Boot Race Intensifies as Four Players Hit Double Figures The battle for the 2025/26 Nigeria Women Football League (NWFL) Premiership Golden Boot is heading for a dramatic conclusion, with only two rounds of matches left to decide the season’s top scorer. In what has become a landmark campaign for the league, four players have already reached double figures in goals, highlighting the increasing attacking" [ref=e163] [cursor=pointer]:
+          - /url: /news/2026-nwfl-premiership-golden-boot-race-intensifies-as-four-players-hit-double-figures
+          - img "2026 NWFL Premiership Golden Boot Race Intensifies as Four Players Hit Double Figures" [ref=e165]
+          - generic [ref=e166]:
+            - generic [ref=e167]: 11 Jun 2026 | news
+            - heading "2026 NWFL Premiership Golden Boot Race Intensifies as Four Players Hit Double Figures" [level=3] [ref=e168]
+            - paragraph [ref=e169]: The battle for the 2025/26 Nigeria Women Football League (NWFL) Premiership Golden Boot is heading for a dramatic conclusion, with only two rounds of matches left to decide the season’s top scorer. In what has become a landmark campaign for the league, four players have already reached double figures in goals, highlighting the increasing attacking
+        - 'link "2026 NWFL Premiership Super 6 MD 3 Previews: Bayelsa, Rivers Renew Fierce Rivalry as Nasarawa & Abia Angels Chase Title Momentum 9 Jun 2026 | news 2026 NWFL Premiership Super 6 MD 3 Previews: Bayelsa, Rivers Renew Fierce Rivalry as Nasarawa & Abia Angels Chase Title Momentum The 2025/26 Nigeria Women Football League Premiership Super Six resumes on Wednesday with Matchday Three fixtures set to further define the title race in Port Harcourt. With leaders Nasarawa Amazons seeking to extend their advantage, surprise package Abia Angels looking to maintain their remarkable start, and traditional powerhouses Rivers Angels, Bayelsa Queens, and Edo Queens" [ref=e170] [cursor=pointer]':
+          - /url: /news/2026-nwfl-premiership-super-6-md-3-previews-bayelsa-rivers-renew-fierce-rivalry-as-nasarawa-abia-angels-chase-title-momentum
+          - 'img "2026 NWFL Premiership Super 6 MD 3 Previews: Bayelsa, Rivers Renew Fierce Rivalry as Nasarawa & Abia Angels Chase Title Momentum" [ref=e172]'
+          - generic [ref=e173]:
+            - generic [ref=e174]: 9 Jun 2026 | news
+            - 'heading "2026 NWFL Premiership Super 6 MD 3 Previews: Bayelsa, Rivers Renew Fierce Rivalry as Nasarawa & Abia Angels Chase Title Momentum" [level=3] [ref=e175]'
+            - paragraph [ref=e176]: The 2025/26 Nigeria Women Football League Premiership Super Six resumes on Wednesday with Matchday Three fixtures set to further define the title race in Port Harcourt. With leaders Nasarawa Amazons seeking to extend their advantage, surprise package Abia Angels looking to maintain their remarkable start, and traditional powerhouses Rivers Angels, Bayelsa Queens, and Edo Queens
+        - 'link "2026 NWFL Premiership Super 6 MD 2 Previews: Big Teams Face Early Title Race Defining Tests 7 Jun 2026 | news 2026 NWFL Premiership Super 6 MD 2 Previews: Big Teams Face Early Title Race Defining Tests The 2025/26 Nigeria Women Football League Premiership Super Six continues on Matchday Two with three high-stakes fixtures as the race for the championship and continental qualification intensifies in Port Harcourt on Monday. With all six teams still firmly in contention, every point now carries added significance as the competition edges toward its decisive stages by" [ref=e177] [cursor=pointer]':
+          - /url: /news/2026-nwfl-premiership-super-6-md-2-previews-big-teams-face-early-title-race-defining-tests
+          - 'img "2026 NWFL Premiership Super 6 MD 2 Previews: Big Teams Face Early Title Race Defining Tests" [ref=e179]'
+          - generic [ref=e180]:
+            - generic [ref=e181]: 7 Jun 2026 | news
+            - 'heading "2026 NWFL Premiership Super 6 MD 2 Previews: Big Teams Face Early Title Race Defining Tests" [level=3] [ref=e182]'
+            - paragraph [ref=e183]: The 2025/26 Nigeria Women Football League Premiership Super Six continues on Matchday Two with three high-stakes fixtures as the race for the championship and continental qualification intensifies in Port Harcourt on Monday. With all six teams still firmly in contention, every point now carries added significance as the competition edges toward its decisive stages by
+        - 'link "2026 NWFL Premiership Super 6 MD One Previews: Who Make the Perfect Start To Title Race? 6 Jun 2026 | news 2026 NWFL Premiership Super 6 MD One Previews: Who Make the Perfect Start To Title Race? The wait is finally over as the 2025/26 Nigeria Women Football League Premiership Super Six kicks off in Port Harcourt on Saturday, with three high-stakes fixtures set to open the race for the league crown. With no room for errors at this elite playoff stage, all six teams begin their title quest knowing that momentum" [ref=e184] [cursor=pointer]':
+          - /url: /news/2026-nwfl-premiership-super-6-md-one-previews-who-make-the-perfect-start-to-title-race
+          - 'img "2026 NWFL Premiership Super 6 MD One Previews: Who Make the Perfect Start To Title Race?" [ref=e186]'
+          - generic [ref=e187]:
+            - generic [ref=e188]: 6 Jun 2026 | news
+            - 'heading "2026 NWFL Premiership Super 6 MD One Previews: Who Make the Perfect Start To Title Race?" [level=3] [ref=e189]'
+            - paragraph [ref=e190]: The wait is finally over as the 2025/26 Nigeria Women Football League Premiership Super Six kicks off in Port Harcourt on Saturday, with three high-stakes fixtures set to open the race for the league crown. With no room for errors at this elite playoff stage, all six teams begin their title quest knowing that momentum
+        - 'link "2026 NWFL Premiership Super 6 Previews: Who does the crown fit? 5 Jun 2026 | news 2026 NWFL Premiership Super 6 Previews: Who does the crown fit? The stage is set for the Port Harcourt 2026 NWFL Premiership Super Six as six of Nigeria’s finest women’s football clubs battle for the league crown and a CAF Women’s Champions League ticket. Bayelsa Queens The defending champions remain one of the strongest forces in Nigerian women’s football. Bayelsa Queens topped Group A with consistency," [ref=e191] [cursor=pointer]':
+          - /url: /news/2026-nwfl-premiership-super-6-previews-who-does-the-crown-fit
+          - 'img "2026 NWFL Premiership Super 6 Previews: Who does the crown fit?" [ref=e193]'
+          - generic [ref=e194]:
+            - generic [ref=e195]: 5 Jun 2026 | news
+            - 'heading "2026 NWFL Premiership Super 6 Previews: Who does the crown fit?" [level=3] [ref=e196]'
+            - paragraph [ref=e197]: The stage is set for the Port Harcourt 2026 NWFL Premiership Super Six as six of Nigeria’s finest women’s football clubs battle for the league crown and a CAF Women’s Champions League ticket. Bayelsa Queens The defending champions remain one of the strongest forces in Nigerian women’s football. Bayelsa Queens topped Group A with consistency,
+        - link "Port Harcourt Gets Nod for Historic 2026 NWFL Premiership Super Six 26 May 2026 | news Port Harcourt Gets Nod for Historic 2026 NWFL Premiership Super Six The Nigeria Women Football League (NWFL) has officially announced Port Harcourt, Rivers State capital, as the host city for the 2026 NWFL Premiership Super Six Finals, marking the first time ever the six-team season-ending playoffs will be staged in the Garden City. The title-deciding championship is scheduled to hold from Friday, June 5 to Sunday," [ref=e198] [cursor=pointer]:
+          - /url: /news/port-harcourt-gets-nod-for-historic-2026-nwfl-premiership-super-six
+          - img "Port Harcourt Gets Nod for Historic 2026 NWFL Premiership Super Six" [ref=e200]
+          - generic [ref=e201]:
+            - generic [ref=e202]: 26 May 2026 | news
+            - heading "Port Harcourt Gets Nod for Historic 2026 NWFL Premiership Super Six" [level=3] [ref=e203]
+            - paragraph [ref=e204]: The Nigeria Women Football League (NWFL) has officially announced Port Harcourt, Rivers State capital, as the host city for the 2026 NWFL Premiership Super Six Finals, marking the first time ever the six-team season-ending playoffs will be staged in the Garden City. The title-deciding championship is scheduled to hold from Friday, June 5 to Sunday,
+        - link "Relegation Tears, Super Six Cheers as 2025/26 NWFL Premiership Regular Season Ends 7 May 2026 | news Relegation Tears, Super Six Cheers as 2025/26 NWFL Premiership Regular Season Ends The 2025/26 Nigeria Women Football League (NWFL) Premiership regular season concluded dramatically on Wednesday, with the clubs relegated to the second-tier NWFL Championship officially confirmed following decisive final-day action across the country. Before the final round, Bayelsa Queens FC, Edo Queens, Rivers Angels, FC Robo Queens, Nasarawa Amazons, and Abia Angels had already secured qualification" [ref=e205] [cursor=pointer]:
+          - /url: /news/relegation-tears-super-six-cheers-as-2025-26-nwfl-premiership-regular-season-ends
+          - img "Relegation Tears, Super Six Cheers as 2025/26 NWFL Premiership Regular Season Ends" [ref=e207]
+          - generic [ref=e208]:
+            - generic [ref=e209]: 7 May 2026 | news
+            - heading "Relegation Tears, Super Six Cheers as 2025/26 NWFL Premiership Regular Season Ends" [level=3] [ref=e210]
+            - paragraph [ref=e211]: The 2025/26 Nigeria Women Football League (NWFL) Premiership regular season concluded dramatically on Wednesday, with the clubs relegated to the second-tier NWFL Championship officially confirmed following decisive final-day action across the country. Before the final round, Bayelsa Queens FC, Edo Queens, Rivers Angels, FC Robo Queens, Nasarawa Amazons, and Abia Angels had already secured qualification
+        - 'link "NWFL Premiership MD 18 Previews: Super Six Dress Rehearsals, Relegation Survival Scramble Rock Regular Season Finale 5 May 2026 | news NWFL Premiership MD 18 Previews: Super Six Dress Rehearsals, Relegation Survival Scramble Rock Regular Season Finale The 2025/26 Nigeria Women Football League Premiership regular season comes to an end on Wednesday with high drama expected across centres in the country. While the Super Six lineup is already confirmed, the fight for survival remains wide open, with two relegation spots still to be decided. Key fixtures, particularly in Group B, will shape" [ref=e212] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-18-previews-super-six-dress-rehearsals-relegation-survival-scramble-rock-regular-season-finale
+          - 'img "NWFL Premiership MD 18 Previews: Super Six Dress Rehearsals, Relegation Survival Scramble Rock Regular Season Finale" [ref=e214]'
+          - generic [ref=e215]:
+            - generic [ref=e216]: 5 May 2026 | news
+            - 'heading "NWFL Premiership MD 18 Previews: Super Six Dress Rehearsals, Relegation Survival Scramble Rock Regular Season Finale" [level=3] [ref=e217]'
+            - paragraph [ref=e218]: The 2025/26 Nigeria Women Football League Premiership regular season comes to an end on Wednesday with high drama expected across centres in the country. While the Super Six lineup is already confirmed, the fight for survival remains wide open, with two relegation spots still to be decided. Key fixtures, particularly in Group B, will shape
+        - 'link "NWFL Premiership MD 17 Previews: Derby Fireworks as Relegation, Super Six Race Nears Decisive Peak 27 Apr 2026 | news NWFL Premiership MD 17 Previews: Derby Fireworks as Relegation, Super Six Race Nears Decisive Peak The 2025/26 Nigeria Women Football League (NWFL) Premiership enters Matchday 17 with the stakes at their highest yet, as the race for Super Six qualification tightens and relegation battles intensify across both groups on Wednesday. With only a few games left in the regular season, every point carries weight and the presence of key derby" [ref=e219] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-17-previews-derby-fireworks-as-relegation-super-six-race-nears-decisive-peak
+          - 'img "NWFL Premiership MD 17 Previews: Derby Fireworks as Relegation, Super Six Race Nears Decisive Peak" [ref=e221]'
+          - generic [ref=e222]:
+            - generic [ref=e223]: 27 Apr 2026 | news
+            - 'heading "NWFL Premiership MD 17 Previews: Derby Fireworks as Relegation, Super Six Race Nears Decisive Peak" [level=3] [ref=e224]'
+            - paragraph [ref=e225]: The 2025/26 Nigeria Women Football League (NWFL) Premiership enters Matchday 17 with the stakes at their highest yet, as the race for Super Six qualification tightens and relegation battles intensify across both groups on Wednesday. With only a few games left in the regular season, every point carries weight and the presence of key derby
+        - link "FC Robo Queens Seal Super Six Berth as NWFL Premiership MD 16 Delivers High Drama 22 Apr 2026 | news FC Robo Queens Seal Super Six Berth as NWFL Premiership MD 16 Delivers High Drama FC Robo Queens have become the first team from Group B to secure qualification for the 2025/26 Nigeria Women Football League (NWFL) Premiership Super Six, following a crucial Matchday 16 victory on Wednesday. The Lagos-based side edged Remo Stars Ladies 1–0 in a tightly contested South West derby on Wednesday, with Tosin Rafiu striking in" [ref=e226] [cursor=pointer]:
+          - /url: /news/fc-robo-queens-seal-super-six-berth-as-nwfl-premiership-md-16-delivers-high-drama
+          - img "FC Robo Queens Seal Super Six Berth as NWFL Premiership MD 16 Delivers High Drama" [ref=e228]
+          - generic [ref=e229]:
+            - generic [ref=e230]: 22 Apr 2026 | news
+            - heading "FC Robo Queens Seal Super Six Berth as NWFL Premiership MD 16 Delivers High Drama" [level=3] [ref=e231]
+            - paragraph [ref=e232]: FC Robo Queens have become the first team from Group B to secure qualification for the 2025/26 Nigeria Women Football League (NWFL) Premiership Super Six, following a crucial Matchday 16 victory on Wednesday. The Lagos-based side edged Remo Stars Ladies 1–0 in a tightly contested South West derby on Wednesday, with Tosin Rafiu striking in
+        - 'link "NWFL Premiership MD 16 Previews: Robo Queens, Nasarawa Amazons, Abia Angels, Remo Stars Ladies eye Super 6 spots 20 Apr 2026 | news NWFL Premiership MD 16 Previews: Robo Queens, Nasarawa Amazons, Abia Angels, Remo Stars Ladies eye Super 6 spots Matchday 16 of the Nigeria Women Football League (NWFL) Premiership promises high drama as nine fixtures unfold across the country, with crucial points at stake in both groups on Wednesday. While Group A teams play largely for pride following confirmed Super Six and relegation outcomes, attention shifts firmly to Group B, where qualification and relegation" [ref=e233] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-16-previews-robo-queens-nasarawa-amazons-abia-angels-remo-stars-ladies-eye-super-6-spots
+          - 'img "NWFL Premiership MD 16 Previews: Robo Queens, Nasarawa Amazons, Abia Angels, Remo Stars Ladies eye Super 6 spots" [ref=e235]'
+          - generic [ref=e236]:
+            - generic [ref=e237]: 20 Apr 2026 | news
+            - 'heading "NWFL Premiership MD 16 Previews: Robo Queens, Nasarawa Amazons, Abia Angels, Remo Stars Ladies eye Super 6 spots" [level=3] [ref=e238]'
+            - paragraph [ref=e239]: Matchday 16 of the Nigeria Women Football League (NWFL) Premiership promises high drama as nine fixtures unfold across the country, with crucial points at stake in both groups on Wednesday. While Group A teams play largely for pride following confirmed Super Six and relegation outcomes, attention shifts firmly to Group B, where qualification and relegation
+        - link "NWFL Suspends Two Players Over Post-Match Violence 16 Apr 2026 | news NWFL Suspends Two Players Over Post-Match Violence The Nigeria Women Football League (NWFL) on Thursday handed match suspensions to two players following a violent altercation after Wednesday’s Premiership fixture between Ekiti Queens and Pacesetter Queens in Ado Ekiti. The Matchday 15 encounter, played on April 15, 2026, at the Oluyemi Kayode Stadium, ended 2-0 in favour of the home side, Ekiti Queens," [ref=e240] [cursor=pointer]:
+          - /url: /news/nwfl-suspends-two-players-over-post-match-violence
+          - img "NWFL Suspends Two Players Over Post-Match Violence" [ref=e242]
+          - generic [ref=e243]:
+            - generic [ref=e244]: 16 Apr 2026 | news
+            - heading "NWFL Suspends Two Players Over Post-Match Violence" [level=3] [ref=e245]
+            - paragraph [ref=e246]: The Nigeria Women Football League (NWFL) on Thursday handed match suspensions to two players following a violent altercation after Wednesday’s Premiership fixture between Ekiti Queens and Pacesetter Queens in Ado Ekiti. The Matchday 15 encounter, played on April 15, 2026, at the Oluyemi Kayode Stadium, ended 2-0 in favour of the home side, Ekiti Queens,
+        - 'link "NWFL Premiership MD 15 Previews: Derby Clashes Set the Tone as Super Six Race Intensifies 14 Apr 2026 | news NWFL Premiership MD 15 Previews: Derby Clashes Set the Tone as Super Six Race Intensifies Matchday 15 of the 2025/26 Nigeria Women Football League (NWFL) Premiership takes centre stage with high-stakes fixtures across both groups, headlined by three crucial derby clashes that could shape the final push for Super Six positioning on Wednesday, April 15. The spotlight falls on Port Harcourt, where Rivers Angels host Bayelsa Queens in a blockbuster" [ref=e247] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-15-previews-derby-clashes-set-the-tone-as-super-six-race-intensifies
+          - 'img "NWFL Premiership MD 15 Previews: Derby Clashes Set the Tone as Super Six Race Intensifies" [ref=e249]'
+          - generic [ref=e250]:
+            - generic [ref=e251]: 14 Apr 2026 | news
+            - 'heading "NWFL Premiership MD 15 Previews: Derby Clashes Set the Tone as Super Six Race Intensifies" [level=3] [ref=e252]'
+            - paragraph [ref=e253]: Matchday 15 of the 2025/26 Nigeria Women Football League (NWFL) Premiership takes centre stage with high-stakes fixtures across both groups, headlined by three crucial derby clashes that could shape the final push for Super Six positioning on Wednesday, April 15. The spotlight falls on Port Harcourt, where Rivers Angels host Bayelsa Queens in a blockbuster
+        - link "NWFL Opens Registration for 2026 Nationwide Season 11 Apr 2026 | news NWFL Opens Registration for 2026 Nationwide Season The Nigeria Women Football League has officially announced the commencement of registration for the 2026 NWFL Nationwide season, inviting clubs across the country to participate in its third tier competition. In a statement signed by the NWFL spokesman, Samuel Ahmadu, on April 11, 2026, it was confirmed that payment for registration for the third division" [ref=e254] [cursor=pointer]:
+          - /url: /news/nwfl-opens-registration-for-2026-nationwide-season
+          - img "NWFL Opens Registration for 2026 Nationwide Season" [ref=e256]
+          - generic [ref=e257]:
+            - generic [ref=e258]: 11 Apr 2026 | news
+            - heading "NWFL Opens Registration for 2026 Nationwide Season" [level=3] [ref=e259]
+            - paragraph [ref=e260]: The Nigeria Women Football League has officially announced the commencement of registration for the 2026 NWFL Nationwide season, inviting clubs across the country to participate in its third tier competition. In a statement signed by the NWFL spokesman, Samuel Ahmadu, on April 11, 2026, it was confirmed that payment for registration for the third division
+        - link "Bayelsa Queens, Rivers Angels First to Seal NWFL Premiership Super 6 Spots 10 Apr 2026 | news Bayelsa Queens, Rivers Angels First to Seal NWFL Premiership Super 6 Spots Defending champions Bayelsa Queens and Rivers Angels have emerged as the first teams to secure qualification for the Super Six playoffs of the 2025/26 Nigeria Women Football League (NWFL) Premiership following the conclusion of Matchday 14. Bayelsa Queens confirmed their place in emphatic fashion with a commanding 3–0 victory over Ibom Angels in a South-South" [ref=e261] [cursor=pointer]:
+          - /url: /news/bayelsa-queens-rivers-angels-first-to-seal-nwfl-premiership-super-6-spots
+          - img "Bayelsa Queens, Rivers Angels First to Seal NWFL Premiership Super 6 Spots" [ref=e263]
+          - generic [ref=e264]:
+            - generic [ref=e265]: 10 Apr 2026 | news
+            - heading "Bayelsa Queens, Rivers Angels First to Seal NWFL Premiership Super 6 Spots" [level=3] [ref=e266]
+            - paragraph [ref=e267]: Defending champions Bayelsa Queens and Rivers Angels have emerged as the first teams to secure qualification for the Super Six playoffs of the 2025/26 Nigeria Women Football League (NWFL) Premiership following the conclusion of Matchday 14. Bayelsa Queens confirmed their place in emphatic fashion with a commanding 3–0 victory over Ibom Angels in a South-South
+        - 'link "NWFL Premiership MD 14 Previews: Crucial Battles as Season Enters Decisive Phase 7 Apr 2026 | news NWFL Premiership MD 14 Previews: Crucial Battles as Season Enters Decisive Phase The 2025/26 Nigeria Women Football League (NWFL) Premiership resumes with Matchday 14 fixtures promising intense competition across both groups as teams continue their push toward Super Six qualification and improved standings on the league table. With the season gradually approaching its decisive phase, margins for error are shrinking, and every fixture now carries significant implications" [ref=e268] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-14-previews-crucial-battles-as-season-enters-decisive-phase
+          - 'img "NWFL Premiership MD 14 Previews: Crucial Battles as Season Enters Decisive Phase" [ref=e270]'
+          - generic [ref=e271]:
+            - generic [ref=e272]: 7 Apr 2026 | news
+            - 'heading "NWFL Premiership MD 14 Previews: Crucial Battles as Season Enters Decisive Phase" [level=3] [ref=e273]'
+            - paragraph [ref=e274]: The 2025/26 Nigeria Women Football League (NWFL) Premiership resumes with Matchday 14 fixtures promising intense competition across both groups as teams continue their push toward Super Six qualification and improved standings on the league table. With the season gradually approaching its decisive phase, margins for error are shrinking, and every fixture now carries significant implications
+        - 'link "Previews: Enyimba Stadium Hosts Double-header as NWFL Premiership MD 11 Unfolds 17 Mar 2026 | news Previews: Enyimba Stadium Hosts Double-header as NWFL Premiership MD 11 Unfolds The 2025/26 Nigeria Women Football League (NWFL) Premiership enters Matchday 11, with fixtures taking place across nine centres as teams intensify their push for Super Six qualification and the battle to avoid relegation. This round represents the return legs of Matchday Two fixtures, offering clubs an opportunity for redemption, consolidation, or dominance as the second" [ref=e275] [cursor=pointer]':
+          - /url: /news/previews-enyimba-stadium-hosts-double-header-as-nwfl-premiership-md-11-unfolds
+          - 'img "Previews: Enyimba Stadium Hosts Double-header as NWFL Premiership MD 11 Unfolds" [ref=e277]'
+          - generic [ref=e278]:
+            - generic [ref=e279]: 17 Mar 2026 | news
+            - 'heading "Previews: Enyimba Stadium Hosts Double-header as NWFL Premiership MD 11 Unfolds" [level=3] [ref=e280]'
+            - paragraph [ref=e281]: The 2025/26 Nigeria Women Football League (NWFL) Premiership enters Matchday 11, with fixtures taking place across nine centres as teams intensify their push for Super Six qualification and the battle to avoid relegation. This round represents the return legs of Matchday Two fixtures, offering clubs an opportunity for redemption, consolidation, or dominance as the second
+        - 'link "NWFL Premiership MD 10 Previews: Derbies Take Centre Stage as Action Returns for Second Stanza 10 Mar 2026 | news NWFL Premiership MD 10 Previews: Derbies Take Centre Stage as Action Returns for Second Stanza The 2025/26 Nigeria Women Football League (NWFL) Premiership resumes this week with Matchday 10 fixtures following the mid-season break, ushering in the start of the second stanza of the campaign. With teams now entering the decisive phase of the season, the round promises intense battles across the country, highlighted by three derby clashes. The headline" [ref=e282] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-10-previews-derbies-take-centre-stage-as-action-returns-for-second-stanza
+          - 'img "NWFL Premiership MD 10 Previews: Derbies Take Centre Stage as Action Returns for Second Stanza" [ref=e284]'
+          - generic [ref=e285]:
+            - generic [ref=e286]: 10 Mar 2026 | news
+            - 'heading "NWFL Premiership MD 10 Previews: Derbies Take Centre Stage as Action Returns for Second Stanza" [level=3] [ref=e287]'
+            - paragraph [ref=e288]: The 2025/26 Nigeria Women Football League (NWFL) Premiership resumes this week with Matchday 10 fixtures following the mid-season break, ushering in the start of the second stanza of the campaign. With teams now entering the decisive phase of the season, the round promises intense battles across the country, highlighted by three derby clashes. The headline
+        - 'link "NWFL Premiership First Round in Numbers: Bayelsa Queens Lead Attack, Remo Stars Ladies Build Defensive Wall 9 Mar 2026 | news NWFL Premiership First Round in Numbers: Bayelsa Queens Lead Attack, Remo Stars Ladies Build Defensive Wall The first stanza of the 2025/26 Nigeria Women Football League (NWFL) Premiership delivered thrilling action, standout individual performances, and remarkable team statistics across nine matchdays. Here is the season so far — by the numbers: 0: Bayelsa Queens, Rivers Angels, and FC Robo Queens remain the only teams yet to record a draw after the" [ref=e289] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-first-round-in-numbers-bayelsa-queens-lead-attack-remo-stars-ladies-build-defensive-wall
+          - 'img "NWFL Premiership First Round in Numbers: Bayelsa Queens Lead Attack, Remo Stars Ladies Build Defensive Wall" [ref=e291]'
+          - generic [ref=e292]:
+            - generic [ref=e293]: 9 Mar 2026 | news
+            - 'heading "NWFL Premiership First Round in Numbers: Bayelsa Queens Lead Attack, Remo Stars Ladies Build Defensive Wall" [level=3] [ref=e294]'
+            - paragraph [ref=e295]: "The first stanza of the 2025/26 Nigeria Women Football League (NWFL) Premiership delivered thrilling action, standout individual performances, and remarkable team statistics across nine matchdays. Here is the season so far — by the numbers: 0: Bayelsa Queens, Rivers Angels, and FC Robo Queens remain the only teams yet to record a draw after the"
+        - 'link "NWFL Premiership: Standout Players Named in First Stanza Best XI 8 Mar 2026 | news NWFL Premiership: Standout Players Named in First Stanza Best XI After nine matchdays of the 2025/26 Nigeria Women Football League (NWFL) Premiership first stanza, several players have distinguished themselves with outstanding performances to earn places in the Best XI of the season so far. From crucial saves and defensive discipline to creative midfield influence and prolific goal scoring, the selected players played pivotal roles for" [ref=e296] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-standout-players-named-in-first-stanza-best-xi
+          - 'img "NWFL Premiership: Standout Players Named in First Stanza Best XI" [ref=e298]'
+          - generic [ref=e299]:
+            - generic [ref=e300]: 8 Mar 2026 | news
+            - 'heading "NWFL Premiership: Standout Players Named in First Stanza Best XI" [level=3] [ref=e301]'
+            - paragraph [ref=e302]: After nine matchdays of the 2025/26 Nigeria Women Football League (NWFL) Premiership first stanza, several players have distinguished themselves with outstanding performances to earn places in the Best XI of the season so far. From crucial saves and defensive discipline to creative midfield influence and prolific goal scoring, the selected players played pivotal roles for
+        - link "Derbies Take Centre Stage as NWFL Premiership Enters Mid-Season Break with Matchday 9 Fireworks 23 Feb 2026 | news Derbies Take Centre Stage as NWFL Premiership Enters Mid-Season Break with Matchday 9 Fireworks The final round of fixtures before the 2025/26 Nigeria Women Football League Premiership mid-season break promises intensity, rivalry and high-stakes battles across both groups on Wednesday. From a heavyweight South-South clash between Rivers Angels and Edo Queens to the historic first-ever Abia derby featuring Ahudiyannem Queens and Abia Angels, Matchday 9 delivers compelling narratives. A" [ref=e303] [cursor=pointer]:
+          - /url: /news/derbies-take-centre-stage-as-nwfl-premiership-enters-mid-season-break-with-matchday-9-fireworks
+          - img "Derbies Take Centre Stage as NWFL Premiership Enters Mid-Season Break with Matchday 9 Fireworks" [ref=e305]
+          - generic [ref=e306]:
+            - generic [ref=e307]: 23 Feb 2026 | news
+            - heading "Derbies Take Centre Stage as NWFL Premiership Enters Mid-Season Break with Matchday 9 Fireworks" [level=3] [ref=e308]
+            - paragraph [ref=e309]: The final round of fixtures before the 2025/26 Nigeria Women Football League Premiership mid-season break promises intensity, rivalry and high-stakes battles across both groups on Wednesday. From a heavyweight South-South clash between Rivers Angels and Edo Queens to the historic first-ever Abia derby featuring Ahudiyannem Queens and Abia Angels, Matchday 9 delivers compelling narratives. A
+        - link "NWFL Slaps Osun Babes with ₦2.5M Fine Over Jersey Violation 19 Feb 2026 | news NWFL Slaps Osun Babes with ₦2.5M Fine Over Jersey Violation The Nigeria Women Football League (NWFL) has sanctioned Osun Babes FC following breaches of its regulatory framework that led to the non-commencement of their 2025/2026 NWFL Premiership fixture against FC Robo Queens in Lagos. The match, scheduled for Wednesday, 18 February 2026, at Onikan Stadium, Lagos, could not proceed after Osun Babes, designated as the" [ref=e310] [cursor=pointer]:
+          - /url: /news/nwfl-slaps-osun-babes-with-%e2%82%a62-5m-fine-over-jersey-violation
+          - img "NWFL Slaps Osun Babes with ₦2.5M Fine Over Jersey Violation" [ref=e312]
+          - generic [ref=e313]:
+            - generic [ref=e314]: 19 Feb 2026 | news
+            - heading "NWFL Slaps Osun Babes with ₦2.5M Fine Over Jersey Violation" [level=3] [ref=e315]
+            - paragraph [ref=e316]: The Nigeria Women Football League (NWFL) has sanctioned Osun Babes FC following breaches of its regulatory framework that led to the non-commencement of their 2025/2026 NWFL Premiership fixture against FC Robo Queens in Lagos. The match, scheduled for Wednesday, 18 February 2026, at Onikan Stadium, Lagos, could not proceed after Osun Babes, designated as the
+        - link "Aba Double-Header, South South & South West Derbies Mark NWFL Premiership Returns 17 Feb 2026 | news Aba Double-Header, South South & South West Derbies Mark NWFL Premiership Returns The Nigeria Women Football League (NWFL) Premiership returns this Wednesday with nine fixtures across the country, as clubs intensify the race for Super Six qualification while others battle to avoid relegation trouble. Attention will be firmly on Aba, where fans are set for a double-header as debutants Ahudiyannem Queens face Confluence Queens before FC Robo" [ref=e317] [cursor=pointer]:
+          - /url: /news/aba-double-header-south-south-south-west-derbies-mark-nwfl-premiership-returns
+          - img "Aba Double-Header, South South & South West Derbies Mark NWFL Premiership Returns" [ref=e319]
+          - generic [ref=e320]:
+            - generic [ref=e321]: 17 Feb 2026 | news
+            - heading "Aba Double-Header, South South & South West Derbies Mark NWFL Premiership Returns" [level=3] [ref=e322]
+            - paragraph [ref=e323]: The Nigeria Women Football League (NWFL) Premiership returns this Wednesday with nine fixtures across the country, as clubs intensify the race for Super Six qualification while others battle to avoid relegation trouble. Attention will be firmly on Aba, where fans are set for a double-header as debutants Ahudiyannem Queens face Confluence Queens before FC Robo
+        - link "North-Central Showdown and South-West Fireworks Ignite NWFL Premiership MD 7 20 Jan 2026 | news North-Central Showdown and South-West Fireworks Ignite NWFL Premiership MD 7 Derby tension, unbeaten runs, and Super Six ambitions will dominate the narrative as the Nigeria Women Football League (NWFL) Premiership serves up Matchday Seven fixtures across the country on Wednesday. With the season beginning to take clearer shape, several mouthwatering encounters, including a North-Central derby and two fierce South-West battles, are set to test contenders" [ref=e324] [cursor=pointer]:
+          - /url: /news/north-central-showdown-and-south-west-fireworks-ignite-nwfl-premiership-md-7
+          - img "North-Central Showdown and South-West Fireworks Ignite NWFL Premiership MD 7" [ref=e326]
+          - generic [ref=e327]:
+            - generic [ref=e328]: 20 Jan 2026 | news
+            - heading "North-Central Showdown and South-West Fireworks Ignite NWFL Premiership MD 7" [level=3] [ref=e329]
+            - paragraph [ref=e330]: Derby tension, unbeaten runs, and Super Six ambitions will dominate the narrative as the Nigeria Women Football League (NWFL) Premiership serves up Matchday Seven fixtures across the country on Wednesday. With the season beginning to take clearer shape, several mouthwatering encounters, including a North-Central derby and two fierce South-West battles, are set to test contenders
+        - link "Bayelsa Queens vs Rivers Angels Headline NWFL Premiership Matchday Six 13 Jan 2026 | news Bayelsa Queens vs Rivers Angels Headline NWFL Premiership Matchday Six Two teams with perfect records will put their flawless starts on the line as the 2025/26 Nigeria Women Football League (NWFL) Premiership Matchday Six takes centre stage across the country on Wednesday. The standout fixture of the round is the South-South derby between Bayelsa Queens and Rivers Angels, one of nine matches scheduled nationwide. A" [ref=e331] [cursor=pointer]:
+          - /url: /news/bayelsa-queens-vs-rivers-angels-headline-nwfl-premiership-matchday-six
+          - img "Bayelsa Queens vs Rivers Angels Headline NWFL Premiership Matchday Six" [ref=e333]
+          - generic [ref=e334]:
+            - generic [ref=e335]: 13 Jan 2026 | news
+            - heading "Bayelsa Queens vs Rivers Angels Headline NWFL Premiership Matchday Six" [level=3] [ref=e336]
+            - paragraph [ref=e337]: Two teams with perfect records will put their flawless starts on the line as the 2025/26 Nigeria Women Football League (NWFL) Premiership Matchday Six takes centre stage across the country on Wednesday. The standout fixture of the round is the South-South derby between Bayelsa Queens and Rivers Angels, one of nine matches scheduled nationwide. A
+        - link "NWFL Fines Ibom Angels ₦2.5m, Orders Three Home Matches Behind Closed Doors After Uyo Incident 8 Jan 2026 | news NWFL Fines Ibom Angels ₦2.5m, Orders Three Home Matches Behind Closed Doors After Uyo Incident The Nigeria Women’s Football League (NWFL) has imposed sanctions on Ibom Angels FC following crowd disturbances and the assault on Bayelsa Queens players and officials during their Premiership fixture in Uyo on Wednesday. The disciplinary action, announced on Thursday, 8 January 2026, followed a review of match officials’ reports and video evidence from the NWFL" [ref=e338] [cursor=pointer]:
+          - /url: /news/nwfl-fines-ibom-angels-%e2%82%a62-5m-orders-three-home-matches-behind-closed-doors-after-uyo-incident
+          - img "NWFL Fines Ibom Angels ₦2.5m, Orders Three Home Matches Behind Closed Doors After Uyo Incident" [ref=e340]
+          - generic [ref=e341]:
+            - generic [ref=e342]: 8 Jan 2026 | news
+            - heading "NWFL Fines Ibom Angels ₦2.5m, Orders Three Home Matches Behind Closed Doors After Uyo Incident" [level=3] [ref=e343]
+            - paragraph [ref=e344]: The Nigeria Women’s Football League (NWFL) has imposed sanctions on Ibom Angels FC following crowd disturbances and the assault on Bayelsa Queens players and officials during their Premiership fixture in Uyo on Wednesday. The disciplinary action, announced on Thursday, 8 January 2026, followed a review of match officials’ reports and video evidence from the NWFL
+        - link "Four Away Victories Mark Competitive 2025/26 NWFL Premiership Return 7 Jan 2026 | news Four Away Victories Mark Competitive 2025/26 NWFL Premiership Return The 2025/26 Nigeria Women Football League (NWFL) Premiership returned from the festive break with an action-packed Matchday Five, as nine fixtures were played across the country on Wednesday, January 7, 2026. In Lagos, FC Robo Queens extended their perfect start to the season with a narrow 1–0 victory over debutants Ahudiyannem Queens. Opeyemi Ajakaye struck" [ref=e345] [cursor=pointer]:
+          - /url: /news/four-away-victories-mark-competitive-2025-26-nwfl-premiership-return
+          - img "Four Away Victories Mark Competitive 2025/26 NWFL Premiership Return" [ref=e347]
+          - generic [ref=e348]:
+            - generic [ref=e349]: 7 Jan 2026 | news
+            - heading "Four Away Victories Mark Competitive 2025/26 NWFL Premiership Return" [level=3] [ref=e350]
+            - paragraph [ref=e351]: The 2025/26 Nigeria Women Football League (NWFL) Premiership returned from the festive break with an action-packed Matchday Five, as nine fixtures were played across the country on Wednesday, January 7, 2026. In Lagos, FC Robo Queens extended their perfect start to the season with a narrow 1–0 victory over debutants Ahudiyannem Queens. Opeyemi Ajakaye struck
+        - link "Ibom Angels, Bayelsa Queens Rekindle South-South Derby as NWFL Premiership Returns January 7 6 Jan 2026 | news Ibom Angels, Bayelsa Queens Rekindle South-South Derby as NWFL Premiership Returns January 7 The 2025/26 Nigeria Women Football League (NWFL) Premiership resumes on Wednesday, January 7, after the Christmas and New Year break, with Matchday Five offering a defining set of fixtures across Groups A and B. As the season settles into rhythm, Matchday Five represents a critical checkpoint. Teams chasing Super Six qualification will look to consolidate" [ref=e352] [cursor=pointer]:
+          - /url: /news/ibom-angels-bayelsa-queens-rekindle-south-south-derby-as-nwfl-premiership-returns-january-7
+          - img "Ibom Angels, Bayelsa Queens Rekindle South-South Derby as NWFL Premiership Returns January 7" [ref=e354]
+          - generic [ref=e355]:
+            - generic [ref=e356]: 6 Jan 2026 | news
+            - heading "Ibom Angels, Bayelsa Queens Rekindle South-South Derby as NWFL Premiership Returns January 7" [level=3] [ref=e357]
+            - paragraph [ref=e358]: The 2025/26 Nigeria Women Football League (NWFL) Premiership resumes on Wednesday, January 7, after the Christmas and New Year break, with Matchday Five offering a defining set of fixtures across Groups A and B. As the season settles into rhythm, Matchday Five represents a critical checkpoint. Teams chasing Super Six qualification will look to consolidate
+        - link "Nigeria Women Football League Lands ₦20bn Backing in Landmark Toptier Deal 19 Dec 2025 | news Nigeria Women Football League Lands ₦20bn Backing in Landmark Toptier Deal The Nigeria Women’s Football League (NWFL) has secured a major financial and structural boost following the signing of a landmark investment agreement with Toptier Sports Management on Friday, December 19, 2025. The deal unveiled at an epic signing and presentation ceremony held at Fraser Suites, Abuja, on Friday, places Nigerian women’s football at the centre" [ref=e359] [cursor=pointer]:
+          - /url: /news/nigeria-women-football-league-lands-%e2%82%a620bn-backing-in-landmark-toptier-deal
+          - img "Nigeria Women Football League Lands ₦20bn Backing in Landmark Toptier Deal" [ref=e361]
+          - generic [ref=e362]:
+            - generic [ref=e363]: 19 Dec 2025 | news
+            - heading "Nigeria Women Football League Lands ₦20bn Backing in Landmark Toptier Deal" [level=3] [ref=e364]
+            - paragraph [ref=e365]: The Nigeria Women’s Football League (NWFL) has secured a major financial and structural boost following the signing of a landmark investment agreement with Toptier Sports Management on Friday, December 19, 2025. The deal unveiled at an epic signing and presentation ceremony held at Fraser Suites, Abuja, on Friday, places Nigerian women’s football at the centre
+        - 'link "NWFL Premiership MD4 Previews: Three Derbies Take Centre Stage Before Christmas Break 15 Dec 2025 | news NWFL Premiership MD4 Previews: Three Derbies Take Centre Stage Before Christmas Break Fresh from a historic Matchday Three that produced five away victories, the 2025/26 Nigeria Women Football League (NWFL) Premiership heads into its final round before the Christmas break with Matchday Four promising high drama, renewed rivalries, and early-season statements across both groups on Wednesday. With three derbies, two in the South-West and a fierce South-South" [ref=e366] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md4-previews-three-derbies-take-centre-stage-before-christmas-break
+          - 'img "NWFL Premiership MD4 Previews: Three Derbies Take Centre Stage Before Christmas Break" [ref=e368]'
+          - generic [ref=e369]:
+            - generic [ref=e370]: 15 Dec 2025 | news
+            - 'heading "NWFL Premiership MD4 Previews: Three Derbies Take Centre Stage Before Christmas Break" [level=3] [ref=e371]'
+            - paragraph [ref=e372]: Fresh from a historic Matchday Three that produced five away victories, the 2025/26 Nigeria Women Football League (NWFL) Premiership heads into its final round before the Christmas break with Matchday Four promising high drama, renewed rivalries, and early-season statements across both groups on Wednesday. With three derbies, two in the South-West and a fierce South-South
+        - link "NWFL Slams Ekiti Queens With ₦2.5m Fine, Three-Game Home Ban After Assault on Match Officials 11 Dec 2025 | news NWFL Slams Ekiti Queens With ₦2.5m Fine, Three-Game Home Ban After Assault on Match Officials The Nigeria Women’s Football League (NWFL) has imposed sanctions on Ekiti Queens following the assault on match officials during their Wednesday’s home match against Edo Queens in Ado-Ekiti, describing the incident as a severe violation of league safety and conduct regulations. In a swift response on Thursday, NWFL Media Director Samuel Ahmadu issued an official" [ref=e373] [cursor=pointer]:
+          - /url: /news/nwfl-slams-ekiti-queens-with-%e2%82%a62-5m-fine-three-game-home-ban-after-assault-on-match-officials
+          - img "NWFL Slams Ekiti Queens With ₦2.5m Fine, Three-Game Home Ban After Assault on Match Officials" [ref=e375]
+          - generic [ref=e376]:
+            - generic [ref=e377]: 11 Dec 2025 | news
+            - heading "NWFL Slams Ekiti Queens With ₦2.5m Fine, Three-Game Home Ban After Assault on Match Officials" [level=3] [ref=e378]
+            - paragraph [ref=e379]: The Nigeria Women’s Football League (NWFL) has imposed sanctions on Ekiti Queens following the assault on match officials during their Wednesday’s home match against Edo Queens in Ado-Ekiti, describing the incident as a severe violation of league safety and conduct regulations. In a swift response on Thursday, NWFL Media Director Samuel Ahmadu issued an official
+        - link "Bayelsa Queens Seal Historic Five Away Wins as Sunshine Queens Clinch First Win 11 Dec 2025 | news Bayelsa Queens Seal Historic Five Away Wins as Sunshine Queens Clinch First Win Defending champions Bayelsa Queens capped a remarkable Matchday Three in the 2025/26 Nigeria Women Football League (NWFL) Premiership with a commanding 5–0 away victory over Naija Ratels FC in Bwari, Abuja, completing a historic round that produced five away wins across the country. Sunshine Queens also recorded their first success of the season with a" [ref=e380] [cursor=pointer]:
+          - /url: /news/bayelsa-queens-seal-historic-five-away-wins-as-sunshine-queens-clinch-first-win
+          - img "Bayelsa Queens Seal Historic Five Away Wins as Sunshine Queens Clinch First Win" [ref=e382]
+          - generic [ref=e383]:
+            - generic [ref=e384]: 11 Dec 2025 | news
+            - heading "Bayelsa Queens Seal Historic Five Away Wins as Sunshine Queens Clinch First Win" [level=3] [ref=e385]
+            - paragraph [ref=e386]: Defending champions Bayelsa Queens capped a remarkable Matchday Three in the 2025/26 Nigeria Women Football League (NWFL) Premiership with a commanding 5–0 away victory over Naija Ratels FC in Bwari, Abuja, completing a historic round that produced five away wins across the country. Sunshine Queens also recorded their first success of the season with a
+        - 'link "NWFL Premiership MD3 Previews: South West Derby in Akure as Bayelsa Queens Visit Draw Specialist Ratels 9 Dec 2025 | news NWFL Premiership MD3 Previews: South West Derby in Akure as Bayelsa Queens Visit Draw Specialist Ratels Matchday Three of the 2025/26 Nigeria Women Football League (NWFL) Premiership promises another explosive round of fixtures across nine centres this Wednesday, with storylines ranging from early-season momentum to the fight for survival. With rivalries renewed, records on the line, and debutants still seeking their place in the elite ranks, this week’s action is set" [ref=e387] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md3-previews-south-west-derby-in-akure-as-bayelsa-queens-visit-draw-specialist-ratels
+          - 'img "NWFL Premiership MD3 Previews: South West Derby in Akure as Bayelsa Queens Visit Draw Specialist Ratels" [ref=e389]'
+          - generic [ref=e390]:
+            - generic [ref=e391]: 9 Dec 2025 | news
+            - 'heading "NWFL Premiership MD3 Previews: South West Derby in Akure as Bayelsa Queens Visit Draw Specialist Ratels" [level=3] [ref=e392]'
+            - paragraph [ref=e393]: Matchday Three of the 2025/26 Nigeria Women Football League (NWFL) Premiership promises another explosive round of fixtures across nine centres this Wednesday, with storylines ranging from early-season momentum to the fight for survival. With rivalries renewed, records on the line, and debutants still seeking their place in the elite ranks, this week’s action is set
+        - 'link "NWFL Premiership MD 2 Previews: Doubleheader in Lagos Highlights Early-Season Showdowns 2 Dec 2025 | news NWFL Premiership MD 2 Previews: Doubleheader in Lagos Highlights Early-Season Showdowns The 2024/26 Nigeria Women Football League (NWFL) Premiership returns on Wednesday with a full slate of nine fixtures across the country, as clubs in Groups A and B look to build rhythm, recover from opening-day setbacks, and stake early claims in the race for Super Six qualification. The spotlight falls on Lagos, where a high-profile" [ref=e394] [cursor=pointer]':
+          - /url: /news/nwfl-premiership-md-2-previews-doubleheader-in-lagos-highlights-early-season-showdowns
+          - 'img "NWFL Premiership MD 2 Previews: Doubleheader in Lagos Highlights Early-Season Showdowns" [ref=e396]'
+          - generic [ref=e397]:
+            - generic [ref=e398]: 2 Dec 2025 | news
+            - 'heading "NWFL Premiership MD 2 Previews: Doubleheader in Lagos Highlights Early-Season Showdowns" [level=3] [ref=e399]'
+            - paragraph [ref=e400]: The 2024/26 Nigeria Women Football League (NWFL) Premiership returns on Wednesday with a full slate of nine fixtures across the country, as clubs in Groups A and B look to build rhythm, recover from opening-day setbacks, and stake early claims in the race for Super Six qualification. The spotlight falls on Lagos, where a high-profile
+        - link "Holders Bayelsa Queens Outclass Edo Queens in Dramatic 2025/26 NWFL Premiership Opener 26 Nov 2025 | news Holders Bayelsa Queens Outclass Edo Queens in Dramatic 2025/26 NWFL Premiership Opener The 2025/26 Nigeria Women Football League (NWFL) Premiership season commenced on Wednesday, November 26, 2025, with an action-packed Matchday One that produced goals, late drama, and early statements across nine centres nationwide. The curtain-raiser at the Samson Siasia Stadium in Yenagoa lived up to its billing as defending champions Bayelsa Queens claimed a dramatic 3–2" [ref=e401] [cursor=pointer]:
+          - /url: /news/holders-bayelsa-queens-outclass-edo-queens-in-dramatic-2025-26-nwfl-premiership-opener
+          - img "Holders Bayelsa Queens Outclass Edo Queens in Dramatic 2025/26 NWFL Premiership Opener" [ref=e403]
+          - generic [ref=e404]:
+            - generic [ref=e405]: 26 Nov 2025 | news
+            - heading "Holders Bayelsa Queens Outclass Edo Queens in Dramatic 2025/26 NWFL Premiership Opener" [level=3] [ref=e406]
+            - paragraph [ref=e407]: The 2025/26 Nigeria Women Football League (NWFL) Premiership season commenced on Wednesday, November 26, 2025, with an action-packed Matchday One that produced goals, late drama, and early statements across nine centres nationwide. The curtain-raiser at the Samson Siasia Stadium in Yenagoa lived up to its billing as defending champions Bayelsa Queens claimed a dramatic 3–2
+        - link "Titleholders Bayelsa Queens face 2024 champions Edo Queens in 2025/26 NWFL Premiership opener & previews 24 Nov 2025 | news Titleholders Bayelsa Queens face 2024 champions Edo Queens in 2025/26 NWFL Premiership opener & previews The 2025/26 Nigeria Women Football League (NWFL) Premiership season officially kicks off on Wednesday, November 26, with 10 matches across two groups. 20 topflight clubs will battle for early momentum in a campaign expected to deliver high-stakes competition, debutante surprises, and renewed rivalries. Defending champions Bayelsa Queens will host 2023/24 winners Edo Queens in a" [ref=e408] [cursor=pointer]:
+          - /url: /news/titleholders-bayelsa-queens-face-2024-champions-edo-queens-in-2025-26-nwfl-premiership-opener-previews
+          - img "Titleholders Bayelsa Queens face 2024 champions Edo Queens in 2025/26 NWFL Premiership opener & previews" [ref=e410]
+          - generic [ref=e411]:
+            - generic [ref=e412]: 24 Nov 2025 | news
+            - heading "Titleholders Bayelsa Queens face 2024 champions Edo Queens in 2025/26 NWFL Premiership opener & previews" [level=3] [ref=e413]
+            - paragraph [ref=e414]: The 2025/26 Nigeria Women Football League (NWFL) Premiership season officially kicks off on Wednesday, November 26, with 10 matches across two groups. 20 topflight clubs will battle for early momentum in a campaign expected to deliver high-stakes competition, debutante surprises, and renewed rivalries. Defending champions Bayelsa Queens will host 2023/24 winners Edo Queens in a
+        - link "NWFL Confirms Castmog Ladies’ Relegation Over Registration and Licensing Non-Compliance 24 Nov 2025 | news NWFL Confirms Castmog Ladies’ Relegation Over Registration and Licensing Non-Compliance The Nigeria Women Football League (NWFL) Secretariat has formally confirmed the relegation of Castmog Ladies from the 2025/2026 NWFL Premiership after the club failed to meet essential licensing and registration requirements for the new season. The decision, in a statement by its Media Director, Samuel Ahmadu on Monday November 24, 2025, follows earlier issued clear" [ref=e415] [cursor=pointer]:
+          - /url: /news/nwfl-confirms-castmog-ladies-relegation-over-registration-and-licensing-non-compliance
+          - img "NWFL Confirms Castmog Ladies’ Relegation Over Registration and Licensing Non-Compliance" [ref=e417]
+          - generic [ref=e418]:
+            - generic [ref=e419]: 24 Nov 2025 | news
+            - heading "NWFL Confirms Castmog Ladies’ Relegation Over Registration and Licensing Non-Compliance" [level=3] [ref=e420]
+            - paragraph [ref=e421]: The Nigeria Women Football League (NWFL) Secretariat has formally confirmed the relegation of Castmog Ladies from the 2025/2026 NWFL Premiership after the club failed to meet essential licensing and registration requirements for the new season. The decision, in a statement by its Media Director, Samuel Ahmadu on Monday November 24, 2025, follows earlier issued clear
+        - link "NWFL Warns Premiership Clubs Over Late Registration, insists Nov 26 kickoff remains sacrosanct 18 Nov 2025 | news NWFL Warns Premiership Clubs Over Late Registration, insists Nov 26 kickoff remains sacrosanct The Nigeria Women Football League (NWFL) has issued a firm warning to clubs yet to complete their digital registration and club licensing procedures ahead of the new Premiership season, stressing that non-compliant teams risk sanctions, including relegation. With the November 22 deadline fast approaching, the league organizers, in a statement on Tuesday by its Media" [ref=e422] [cursor=pointer]:
+          - /url: /news/nwfl-warns-premiership-clubs-over-late-registration-insists-nov-26-kickoff-remains-sacrosanct
+          - img "NWFL Warns Premiership Clubs Over Late Registration, insists Nov 26 kickoff remains sacrosanct" [ref=e424]
+          - generic [ref=e425]:
+            - generic [ref=e426]: 18 Nov 2025 | news
+            - heading "NWFL Warns Premiership Clubs Over Late Registration, insists Nov 26 kickoff remains sacrosanct" [level=3] [ref=e427]
+            - paragraph [ref=e428]: The Nigeria Women Football League (NWFL) has issued a firm warning to clubs yet to complete their digital registration and club licensing procedures ahead of the new Premiership season, stressing that non-compliant teams risk sanctions, including relegation. With the November 22 deadline fast approaching, the league organizers, in a statement on Tuesday by its Media
+        - link "NWFL Launches Mandatory Digital Registration and Licensing Portal for 2025/26 Premiership season 15 Nov 2025 | news NWFL Launches Mandatory Digital Registration and Licensing Portal for 2025/26 Premiership season The Nigeria Women Football League (NWFL) has launched a compulsory digital portal for player registration and club licensing, beginning on Friday, November 14, 2025, ahead of the 2025/26 season. The initiative was announced in a statement by the league’s Media Director, Samuel Ahmadu, as part of ongoing efforts to modernise administrative processes and strengthen regulatory" [ref=e429] [cursor=pointer]:
+          - /url: /news/nwfl-launches-mandatory-digital-registration-and-licensing-portal-for-2025-26-premiership-season
+          - img "NWFL Launches Mandatory Digital Registration and Licensing Portal for 2025/26 Premiership season" [ref=e431]
+          - generic [ref=e432]:
+            - generic [ref=e433]: 15 Nov 2025 | news
+            - heading "NWFL Launches Mandatory Digital Registration and Licensing Portal for 2025/26 Premiership season" [level=3] [ref=e434]
+            - paragraph [ref=e435]: The Nigeria Women Football League (NWFL) has launched a compulsory digital portal for player registration and club licensing, beginning on Friday, November 14, 2025, ahead of the 2025/26 season. The initiative was announced in a statement by the league’s Media Director, Samuel Ahmadu, as part of ongoing efforts to modernise administrative processes and strengthen regulatory
+        - 'link "COMMUNIQUÉ ISSUED AT THE END OF THE 2025 NWFL ANNUAL GENERAL ASSEMBLY 30 Oct 2025 | news COMMUNIQUÉ ISSUED AT THE END OF THE 2025 NWFL ANNUAL GENERAL ASSEMBLY COMMUNIQUÉ ISSUED AT THE END OF THE 2025 ANNUAL GENERAL ASSEMBLY (AGA) OF THE NIGERIA WOMEN FOOTBALL LEAGUE (NWFL) HELD ON WEDNESDAY, 29TH OCTOBER, 2025, AT GOLDEN TULIP HOTEL, PORT HARCOURT. The Nigeria Women Football League (NWFL) rose from its Annual General Assembly held on Wednesday, 29th October, 2025, and resolved as follows: 1. The" [ref=e436] [cursor=pointer]':
+          - /url: /news/communique-issued-at-the-end-of-the-2025-nwfl-annual-general-assembly
+          - img "COMMUNIQUÉ ISSUED AT THE END OF THE 2025 NWFL ANNUAL GENERAL ASSEMBLY" [ref=e438]
+          - generic [ref=e439]:
+            - generic [ref=e440]: 30 Oct 2025 | news
+            - heading "COMMUNIQUÉ ISSUED AT THE END OF THE 2025 NWFL ANNUAL GENERAL ASSEMBLY" [level=3] [ref=e441]
+            - paragraph [ref=e442]: "COMMUNIQUÉ ISSUED AT THE END OF THE 2025 ANNUAL GENERAL ASSEMBLY (AGA) OF THE NIGERIA WOMEN FOOTBALL LEAGUE (NWFL) HELD ON WEDNESDAY, 29TH OCTOBER, 2025, AT GOLDEN TULIP HOTEL, PORT HARCOURT. The Nigeria Women Football League (NWFL) rose from its Annual General Assembly held on Wednesday, 29th October, 2025, and resolved as follows: 1. The"
+        - link "NWFL Annual Assembly Confirms November Kick-Off for 2025/26 Premiership Season 30 Oct 2025 | news NWFL Annual Assembly Confirms November Kick-Off for 2025/26 Premiership Season The Nigeria Women Football League (NWFL) held its Annual General Assembly (AGA) on Wednesday in Port Harcourt, setting the stage for the 2025/26 NWFL Premiership season, officially scheduled to kick off on November 26, 2025. The Assembly brought together key stakeholders, including Rivers State Sports Commissioner Barr. Chris Green, Nigeria Football Federation (NFF) board member" [ref=e443] [cursor=pointer]:
+          - /url: /news/nwfl-annual-assembly-confirms-november-kick-off-for-2025-26-premiership-season
+          - img "NWFL Annual Assembly Confirms November Kick-Off for 2025/26 Premiership Season" [ref=e445]
+          - generic [ref=e446]:
+            - generic [ref=e447]: 30 Oct 2025 | news
+            - heading "NWFL Annual Assembly Confirms November Kick-Off for 2025/26 Premiership Season" [level=3] [ref=e448]
+            - paragraph [ref=e449]: The Nigeria Women Football League (NWFL) held its Annual General Assembly (AGA) on Wednesday in Port Harcourt, setting the stage for the 2025/26 NWFL Premiership season, officially scheduled to kick off on November 26, 2025. The Assembly brought together key stakeholders, including Rivers State Sports Commissioner Barr. Chris Green, Nigeria Football Federation (NFF) board member

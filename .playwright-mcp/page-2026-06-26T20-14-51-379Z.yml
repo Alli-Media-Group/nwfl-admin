@@ -1,0 +1,272 @@
+- generic [ref=e3]:
+  - navigation "Main navigation" [ref=e4]:
+    - generic [ref=e5]:
+      - link "NWFL" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "NWFL" [ref=e7]
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e11]:
+          - link "News" [ref=e12] [cursor=pointer]:
+            - /url: /news
+        - listitem [ref=e13]:
+          - link "Blog" [ref=e14] [cursor=pointer]:
+            - /url: /blog
+        - listitem [ref=e15]:
+          - link "Gallery" [ref=e16] [cursor=pointer]:
+            - /url: /gallery
+        - listitem [ref=e17]:
+          - link "Stats" [ref=e18] [cursor=pointer]:
+            - /url: /stats
+        - listitem [ref=e19]:
+          - link "Analytics" [ref=e20] [cursor=pointer]:
+            - /url: /analytics
+      - generic [ref=e21]:
+        - button "Search" [ref=e22] [cursor=pointer]:
+          - img [ref=e23]
+        - button "Open menu" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+  - complementary "Site menu" [ref=e28]:
+    - img [ref=e30]
+    - button "Close menu" [ref=e32] [cursor=pointer]:
+      - img [ref=e33]
+    - navigation [ref=e36]:
+      - list [ref=e37]:
+        - listitem [ref=e38]:
+          - link "Home" [ref=e39] [cursor=pointer]:
+            - /url: /
+            - img [ref=e41]
+            - generic [ref=e44]: Home
+        - listitem [ref=e45]:
+          - link "About" [ref=e46] [cursor=pointer]:
+            - /url: /about
+            - img [ref=e48]
+            - generic [ref=e50]: About
+        - listitem [ref=e51]:
+          - link "News" [ref=e52] [cursor=pointer]:
+            - /url: /news
+            - img [ref=e54]
+            - generic [ref=e56]: News
+        - listitem [ref=e57]:
+          - link "Match Center" [ref=e58] [cursor=pointer]:
+            - /url: /match-center
+            - img [ref=e60]
+            - generic [ref=e63]: Match Center
+        - listitem [ref=e64]:
+          - link "Teams" [ref=e65] [cursor=pointer]:
+            - /url: /teams
+            - img [ref=e67]
+            - generic [ref=e72]: Teams
+        - listitem [ref=e73]:
+          - link "Players" [ref=e74] [cursor=pointer]:
+            - /url: /players
+            - img [ref=e76]
+            - generic [ref=e79]: Players
+        - listitem [ref=e80]:
+          - link "Analytics" [ref=e81] [cursor=pointer]:
+            - /url: /analytics
+            - img [ref=e83]
+            - generic [ref=e84]: Analytics
+        - listitem [ref=e85]:
+          - link "Media Channel" [ref=e86] [cursor=pointer]:
+            - /url: /media
+            - img [ref=e88]
+            - generic [ref=e91]: Media Channel
+    - generic [ref=e92]: NWFL © 2023
+  - main [ref=e93]:
+    - region "Hero" [ref=e94]:
+      - img "NWFL match action" [ref=e96]
+      - generic [ref=e98]:
+        - heading "We are recruiting" [level=1] [ref=e99]
+        - paragraph [ref=e100]: Join our large network of contributors
+        - link "Apply Now" [ref=e102] [cursor=pointer]:
+          - /url: /stats
+      - generic [ref=e104]:
+        - button "Previous matches" [ref=e105] [cursor=pointer]:
+          - img [ref=e106]
+        - button "Next matches" [ref=e191] [cursor=pointer]:
+          - img [ref=e192]
+    - region "Latest News" [ref=e194]:
+      - img [ref=e196]
+      - generic [ref=e197]:
+        - heading "Know what's happening around you" [level=2] [ref=e198]
+        - generic [ref=e199]:
+          - img "Get the latest sports news updates, on the local and international sphere. Only on NWFL" [ref=e201]
+          - generic [ref=e202]:
+            - heading "Get the latest sports news updates, on the local and international sphere. Only on NWFL" [level=3] [ref=e203]
+            - link "See News Log" [ref=e204] [cursor=pointer]:
+              - /url: /news-log
+              - text: See News Log
+              - img [ref=e205]
+            - generic [ref=e208]:
+              - generic [ref=e209]: "Photo credit: women's football"
+              - generic [ref=e210]: 2022-09-19 | Football
+    - region "Rising Stars" [ref=e211]:
+      - generic [ref=e212]:
+        - heading "Meet rising stars" [level=2] [ref=e213]
+        - generic [ref=e215]:
+          - generic [ref=e216] [cursor=pointer]:
+            - img "Blessing Okpe" [ref=e218]
+            - generic [ref=e219]: Blessing Okpe
+            - generic [ref=e220]: Forward · Nasarawa Amazons
+          - generic [ref=e221] [cursor=pointer]:
+            - img "Chioma Okafor" [ref=e223]
+            - generic [ref=e224]: Chioma Okafor
+            - generic [ref=e225]: Midfielder · Rivers Angels FC
+          - generic [ref=e226] [cursor=pointer]:
+            - img "Fatima Bello" [ref=e228]
+            - generic [ref=e229]: Fatima Bello
+            - generic [ref=e230]: Defender · Bayelsa Queens FC
+          - generic [ref=e231] [cursor=pointer]:
+            - img "Amina Yusuf" [ref=e233]
+            - generic [ref=e234]: Amina Yusuf
+            - generic [ref=e235]: Goalkeeper · Delta Queens FC
+          - generic [ref=e236] [cursor=pointer]:
+            - img "Grace Eze" [ref=e238]
+            - generic [ref=e239]: Grace Eze
+            - generic [ref=e240]: Forward · Edo Queens FC
+        - link "View Gallery" [ref=e242] [cursor=pointer]:
+          - /url: /stats
+    - region "Fixtures and Standings" [ref=e243]:
+      - generic [ref=e244]:
+        - generic [ref=e246]:
+          - generic [ref=e247]:
+            - heading "Fixtures & Results" [level=2] [ref=e248]
+            - generic [ref=e249]:
+              - button "Fixtures (0)" [ref=e250] [cursor=pointer]
+              - button "Results (0)" [ref=e251] [cursor=pointer]
+          - link "View All Fixtures" [ref=e348] [cursor=pointer]:
+            - /url: /stats
+        - generic [ref=e350]:
+          - generic [ref=e351]:
+            - heading "League Standings" [level=2] [ref=e352]
+            - generic [ref=e353]:
+              - button "Group A" [ref=e354] [cursor=pointer]
+              - button "Group B" [ref=e355] [cursor=pointer]
+          - table [ref=e357]:
+            - rowgroup [ref=e358]:
+              - row "# Team MP W D L GD PTS" [ref=e359]:
+                - columnheader "#" [ref=e360]
+                - columnheader "Team" [ref=e361]
+                - columnheader "MP" [ref=e362]
+                - columnheader "W" [ref=e363]
+                - columnheader "D" [ref=e364]
+                - columnheader "L" [ref=e365]
+                - columnheader "GD" [ref=e366]
+                - columnheader "PTS" [ref=e367]
+            - rowgroup [ref=e368]:
+              - row [ref=e369]:
+                - cell [ref=e370]
+                - cell [ref=e372]
+                - cell [ref=e376]
+                - cell [ref=e378]
+                - cell [ref=e380]
+                - cell [ref=e382]
+                - cell [ref=e384]
+                - cell [ref=e386]
+              - row [ref=e388]:
+                - cell [ref=e389]
+                - cell [ref=e391]
+                - cell [ref=e395]
+                - cell [ref=e397]
+                - cell [ref=e399]
+                - cell [ref=e401]
+                - cell [ref=e403]
+                - cell [ref=e405]
+              - row [ref=e407]:
+                - cell [ref=e408]
+                - cell [ref=e410]
+                - cell [ref=e414]
+                - cell [ref=e416]
+                - cell [ref=e418]
+                - cell [ref=e420]
+                - cell [ref=e422]
+                - cell [ref=e424]
+              - row [ref=e426]:
+                - cell [ref=e427]
+                - cell [ref=e429]
+                - cell [ref=e433]
+                - cell [ref=e435]
+                - cell [ref=e437]
+                - cell [ref=e439]
+                - cell [ref=e441]
+                - cell [ref=e443]
+              - row [ref=e445]:
+                - cell [ref=e446]
+                - cell [ref=e448]
+                - cell [ref=e452]
+                - cell [ref=e454]
+                - cell [ref=e456]
+                - cell [ref=e458]
+                - cell [ref=e460]
+                - cell [ref=e462]
+              - row [ref=e464]:
+                - cell [ref=e465]
+                - cell [ref=e467]
+                - cell [ref=e471]
+                - cell [ref=e473]
+                - cell [ref=e475]
+                - cell [ref=e477]
+                - cell [ref=e479]
+                - cell [ref=e481]
+              - row [ref=e483]:
+                - cell [ref=e484]
+                - cell [ref=e486]
+                - cell [ref=e490]
+                - cell [ref=e492]
+                - cell [ref=e494]
+                - cell [ref=e496]
+                - cell [ref=e498]
+                - cell [ref=e500]
+              - row [ref=e502]:
+                - cell [ref=e503]
+                - cell [ref=e505]
+                - cell [ref=e509]
+                - cell [ref=e511]
+                - cell [ref=e513]
+                - cell [ref=e515]
+                - cell [ref=e517]
+                - cell [ref=e519]
+          - generic [ref=e521]:
+            - generic [ref=e522]: Qualifies for Playoffs
+            - generic [ref=e523]: Relegated
+    - generic "Site footer" [ref=e524]:
+      - generic [ref=e525]:
+        - link "NWFL logo" [ref=e526] [cursor=pointer]:
+          - /url: /
+          - img "NWFL logo" [ref=e527]
+        - list [ref=e528]:
+          - listitem [ref=e529]:
+            - link "About" [ref=e530] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e531]:
+            - link "Help" [ref=e532] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e533]:
+            - link "FAQs" [ref=e534] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e535]:
+            - link "Feedback" [ref=e536] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e537]:
+            - link "Terms of Use" [ref=e538] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e539]:
+            - link "Privacy Policy" [ref=e540] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e541]:
+        - link "Facebook" [ref=e542] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e543]
+        - link "Twitter" [ref=e545] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e546]
+        - link "Instagram" [ref=e548] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e549]
+        - link "YouTube" [ref=e551] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e552]
+      - generic [ref=e554]: © 2023 All Rights Reserved.
