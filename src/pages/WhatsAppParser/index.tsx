@@ -62,7 +62,7 @@ export function WhatsAppParserPage() {
     <div className="space-y-6">
       <Card className="p-6">
         <div className="mb-4">
-          <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-highlight)]">
+          <p className="inline-flex items-center gap-2 eyebrow">
             <MessageSquareText size={14} />
             WhatsApp Match Parser
           </p>

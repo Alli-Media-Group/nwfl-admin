@@ -1,231 +1,167 @@
-import { AlertTriangle, ArrowRight, CalendarRange, Clock3, ShieldCheck, Users } from 'lucide-react'
+import { AlertCircle, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Badge } from '../../components/ui/Badge'
-import { Card } from '../../components/ui/Card'
-import { Spinner } from '../../components/ui/Spinner'
+import { Card, CardHeader } from '../../components/ui/Card'
+import { Select } from '../../components/ui/Input'
+import { Skeleton, SkeletonStats } from '../../components/ui/Skeleton'
+import { TeamCrest } from '../../components/ui/TeamCrest'
 import { api } from '../../lib/api'
-import type { DashboardStats, Match, Team } from '../../types'
+import type { Match, Team } from '../../types'
 
-function CountUp({ value }: { value: number }) {
-  const [display, setDisplay] = useState(0)
+const formatDate = (iso: string | null) =>
+  iso ? new Date(`${iso}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'No date'
 
-  useEffect(() => {
-    const duration = 500
-    const start = performance.now()
-    const frame = (time: number) => {
-      const progress = Math.min((time - start) / duration, 1)
-      setDisplay(Math.round(value * progress))
-      if (progress < 1) requestAnimationFrame(frame)
-    }
-    requestAnimationFrame(frame)
-  }, [value])
+function Scoreline({ match }: { match: Match }) {
+  if (match.home_score == null || match.away_score == null) {
+    return <span className="scoreline scoreline--pending">{match.kick_off ? match.kick_off.slice(0, 5) : 'v'}</span>
+  }
+  return (
+    <span className="scoreline">
+      {match.home_score}
+      <span className="scoreline__sep">–</span>
+      {match.away_score}
+    </span>
+  )
+}
 
-  return <span>{display}</span>
+/** One fixture as a row: home team, score, away team. */
+function MatchRow({ match, trailing }: { match: Match; trailing?: React.ReactNode }) {
+  return (
+    <li className="grid grid-cols-[3.5rem_1fr_auto_1fr] items-center gap-3 border-t px-5 py-3 first:border-t-0 sm:grid-cols-[4.5rem_1fr_auto_1fr_auto]" style={{ borderColor: 'var(--color-border)' }}>
+      <span className="text-[0.78rem] text-[var(--color-muted)]">{formatDate(match.date)}</span>
+      <span className="flex min-w-0 items-center justify-end gap-2 text-right">
+        <span className="truncate text-[0.875rem] font-medium">{match.home_team.short_name || match.home_team.name}</span>
+        <TeamCrest team={match.home_team} size={22} />
+      </span>
+      <Scoreline match={match} />
+      <span className="flex min-w-0 items-center gap-2">
+        <TeamCrest team={match.away_team} size={22} />
+        <span className="truncate text-[0.875rem] font-medium">{match.away_team.short_name || match.away_team.name}</span>
+      </span>
+      {trailing ? <span className="hidden justify-self-end sm:block">{trailing}</span> : null}
+    </li>
+  )
+}
+
+function Stat({ label, value, tone }: { label: string; value: number; tone?: 'warning' }) {
+  return (
+    <Card className="p-4">
+      <p className="text-[0.8rem] text-[var(--color-muted)]">{label}</p>
+      <p className="figure mt-2 text-[2rem] leading-none" style={{ color: tone === 'warning' && value > 0 ? 'var(--color-warning)' : 'var(--color-text)' }}>
+        {value}
+      </p>
+    </Card>
+  )
 }
 
 export function DashboardPage() {
-  const navigate = useNavigate()
-  const [teams, setTeams] = useState<Team[]>([])
-  const [matches, setMatches] = useState<Match[]>([])
+  const [seasons, setSeasons] = useState<string[] | null>(null)
   const [season, setSeason] = useState('')
-  const [seasons, setSeasons] = useState<string[]>([])
-  const [seasonsReady, setSeasonsReady] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [dismissed, setDismissed] = useState(false)
+  const [data, setData] = useState<{ season: string; teams: Team[]; matches: Match[] } | null>(null)
 
   useEffect(() => {
-    async function loadSeasons() {
-      try {
-        const response = await api.getSeasons()
-        setSeasons(response)
-        if (response.length && !season) {
-          setSeason(response[0])
-        }
-      } finally {
-        setSeasonsReady(true)
-      }
-    }
-    void loadSeasons()
+    api.getSeasons()
+      .then(list => {
+        setSeasons(list)
+        setSeason(list[0] ?? '')
+      })
+      .catch(() => setSeasons([]))
   }, [])
 
   useEffect(() => {
-    if (!seasonsReady) return
-    async function load() {
-      setLoading(true)
-      try {
-        const [teamData, matchData] = await Promise.all([
-          api.getTeams(),
-          api.getMatches({ season }),
-        ])
-        setTeams(teamData)
-        setMatches(matchData)
-      } finally {
-        setLoading(false)
-      }
-    }
-    void load()
-  }, [seasonsReady, season])
+    if (seasons === null) return
+    let live = true
+    Promise.all([api.getTeams(), api.getMatches({ season })])
+      .then(([teams, matches]) => live && setData({ season, teams, matches }))
+      .catch(() => live && setData({ season, teams: [], matches: [] }))
+    return () => { live = false }
+  }, [seasons, season])
 
-  const stats = useMemo<DashboardStats>(() => {
-    const pendingMatches = matches.filter((match) => match.status === 'PENDING').length
-    const upcomingMatches = matches.filter((match) => match.status === 'UPCOMING').length
+  const loading = !data || data.season !== season
+
+  const view = useMemo(() => {
+    const matches = data?.matches ?? []
+    const byDateDesc = [...matches].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
+    const byDateAsc = [...byDateDesc].reverse()
     return {
-      pendingMatches,
-      totalMatches: matches.length,
-      totalTeams: teams.length,
-      upcomingMatches,
+      pending: byDateDesc.filter(m => m.status === 'PENDING'),
+      results: byDateDesc.filter(m => m.status === 'FT').slice(0, 8),
+      fixtures: byDateAsc.filter(m => m.status === 'UPCOMING' || m.status === 'LIVE').slice(0, 6),
+      counts: {
+        played: matches.filter(m => m.status === 'FT').length,
+        upcoming: matches.filter(m => m.status === 'UPCOMING').length,
+        pending: matches.filter(m => m.status === 'PENDING').length,
+        teams: data?.teams.length ?? 0,
+      },
     }
-  }, [matches, teams])
-
-  const pendingAlerts = matches.filter((match) => match.status === 'PENDING' && match.notify_admin)
-  const recentMatches = [...matches].sort((left, right) => (right.date ?? '').localeCompare(left.date ?? '')).slice(0, 10)
-
-  const cards: Array<{
-    icon: typeof Users
-    label: string
-    tone?: 'warning'
-    value: number
-  }> = [
-    { icon: Users, label: 'Total Teams', value: stats.totalTeams },
-    { icon: ShieldCheck, label: 'Total Matches', value: stats.totalMatches },
-    { icon: AlertTriangle, label: 'Pending Matches', tone: 'warning', value: stats.pendingMatches },
-    { icon: CalendarRange, label: 'Upcoming Matches', value: stats.upcomingMatches },
-  ]
-
-  if (loading) {
-    return <Spinner label="Loading dashboard" />
-  }
+  }, [data])
 
   return (
     <div className="space-y-6">
-      {!dismissed && pendingAlerts.length ? (
-        <div className="shell-panel flex flex-wrap items-center justify-between gap-4 rounded-lg px-5 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-warning)' }}>Pending Alerts</p>
-            <p className="mt-1 text-sm" style={{ color: 'var(--color-text)' }}>
-              {pendingAlerts.length} match {pendingAlerts.length > 1 ? 'entries need' : 'entry needs'} review before publication.
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <button className="btn-outline" onClick={() => navigate('/matches')} type="button">
-              Review
-            </button>
-            <button className="btn-primary" onClick={() => setDismissed(true)} type="button">
-              Dismiss
-            </button>
-          </div>
-        </div>
-      ) : null}
-
-      <div className="flex items-center gap-4">
-        <span className="text-sm font-medium" style={{ color: 'var(--color-muted)' }}>Season</span>
-        <select
-          className="rounded-md border px-3 py-1.5 text-sm"
-          style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)', color: 'var(--color-text)' }}
-          value={season}
-          onChange={(e) => setSeason(e.target.value)}
-        >
-          {seasons.map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
+      <div className="flex flex-wrap items-center gap-3">
+        <label className="flex items-center gap-2 text-[0.85rem] text-[var(--color-muted)]">
+          Season
+          <Select className="w-auto min-w-[8.5rem]" onChange={e => setSeason(e.target.value)} value={season} disabled={!seasons?.length}>
+            {(seasons ?? []).map(s => <option key={s} value={s}>{s}</option>)}
+          </Select>
+        </label>
       </div>
 
-      <div className="data-grid data-grid-4">
-        {cards.map(({ icon: Icon, label, tone, value }) => (
-          <Card className="p-5" key={label}>
-            <div className="mb-8 flex items-start justify-between">
-              <div className="rounded-lg p-3" style={{
-                background: tone === 'warning' ? 'rgba(217,119,6,0.12)' : 'var(--color-surface-2)',
-                color: tone === 'warning' ? 'var(--color-warning)' : 'var(--color-primary)',
-              }}>
-                <Icon size={20} />
-              </div>
-              {tone === 'warning' && value > 0 ? <Badge value="PENDING" /> : null}
-            </div>
-            <p className="text-sm" style={{ color: 'var(--color-muted)' }}>{label}</p>
-            <h3 className="mt-2 text-4xl" style={{ color: 'var(--color-text)' }}>
-              <CountUp value={value} />
-            </h3>
-          </Card>
-        ))}
-      </div>
-
-      <Card className="overflow-hidden p-0">
-        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-highlight)' }}>Recent Matches</p>
-            <h3 className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>Latest results and fixtures</h3>
-          </div>
-          <button className="btn-outline" onClick={() => navigate('/matches')} type="button">
-            Open Desk
-          </button>
+      {loading ? (
+        <SkeletonStats />
+      ) : (
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <Stat label="Results entered" value={view.counts.played} />
+          <Stat label="Fixtures to play" value={view.counts.upcoming} />
+          <Stat label="Waiting for review" value={view.counts.pending} tone="warning" />
+          <Stat label="Teams" value={view.counts.teams} />
         </div>
+      )}
 
-        <div className="table-shell rounded-none border-0">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Fixture</th>
-                <th>Status</th>
-                <th>Venue</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentMatches.map((match) => (
-                <tr key={match.id}>
-                  <td>{match.date}</td>
-                  <td>
-                    <div className="font-medium" style={{ color: 'var(--color-text)' }}>
-                      {match.home_team.name} {match.home_score ?? '-'}:{match.away_score ?? '-'} {match.away_team.name}
-                    </div>
-                  </td>
-                  <td>
-                    <Badge pulse={match.status === 'LIVE'} value={match.status} />
-                  </td>
-                  <td>{match.venue || 'TBC'}</td>
-                  <td>
-                    <button className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-highlight)]" onClick={() => navigate('/matches')} type="button">
-                      Edit <ArrowRight size={14} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <Card>
+        <CardHeader
+          title="Needs attention"
+          description="Results that were entered but not yet confirmed."
+          actions={view.pending.length ? <Link className="btn-outline" to="/matches">Review in Matches <ArrowRight size={14} /></Link> : null}
+        />
+        {loading ? (
+          <div className="space-y-3 p-5"><Skeleton className="h-4 w-2/3" /><Skeleton className="h-4 w-1/2" /></div>
+        ) : view.pending.length ? (
+          <ul>
+            {view.pending.slice(0, 6).map(m => (
+              <MatchRow key={m.id} match={m} trailing={<span className="inline-flex items-center gap-1.5 text-[0.8rem] text-[var(--color-warning)]"><AlertCircle size={14} />{m.pending_reason || 'Needs review'}</span>} />
+            ))}
+          </ul>
+        ) : (
+          <p className="flex items-center gap-2 px-5 py-5 text-[0.875rem] text-[var(--color-muted)]">
+            <CheckCircle2 size={16} className="text-[var(--color-success)]" />
+            Nothing waiting. Every entered result is confirmed.
+          </p>
+        )}
       </Card>
 
-      <div className="data-grid data-grid-2">
-        <Card className="p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-highlight)' }}>Desk Tempo</p>
-          <h3 className="mt-2 text-2xl" style={{ color: 'var(--color-text)' }}>Tonight&apos;s live operations</h3>
-          <div className="mt-5 space-y-4">
-            {matches
-              .filter((match) => match.status === 'LIVE' || match.status === 'UPCOMING')
-              .slice(0, 4)
-              .map((match) => (
-                <div className="flex items-center justify-between rounded-lg border px-4 py-3" style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }} key={match.id}>
-                  <div>
-                    <p className="font-medium" style={{ color: 'var(--color-text)' }}>
-                      {match.home_team.short_name} vs {match.away_team.short_name}
-                    </p>
-                    <p className="mt-1 text-sm" style={{ color: 'var(--color-muted)' }}>{match.venue || 'Venue pending'}</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="inline-flex items-center gap-2 text-sm" style={{ color: 'var(--color-text)' }}>
-                      <Clock3 size={14} /> {match.kick_off || 'TBA'}
-                    </div>
-                    <div className="mt-2">
-                      <Badge pulse={match.status === 'LIVE'} value={match.status} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-          </div>
+      <div className="grid gap-6 2xl:grid-cols-2">
+        <Card>
+          <CardHeader title="Latest results" actions={<Link className="btn-outline" to="/matches">All matches</Link>} />
+          {loading ? (
+            <div className="space-y-4 p-5">{Array.from({ length: 5 }, (_, i) => <Skeleton key={i} className="h-5 w-full" />)}</div>
+          ) : view.results.length ? (
+            <ul>{view.results.map(m => <MatchRow key={m.id} match={m} />)}</ul>
+          ) : (
+            <p className="px-5 py-5 text-[0.875rem] text-[var(--color-muted)]">No results this season yet.</p>
+          )}
+        </Card>
+
+        <Card>
+          <CardHeader title="Next fixtures" />
+          {loading ? (
+            <div className="space-y-4 p-5">{Array.from({ length: 4 }, (_, i) => <Skeleton key={i} className="h-5 w-full" />)}</div>
+          ) : view.fixtures.length ? (
+            <ul>{view.fixtures.map(m => <MatchRow key={m.id} match={m} trailing={<Badge pulse={m.status === 'LIVE'} value={m.status} />} />)}</ul>
+          ) : (
+            <p className="px-5 py-5 text-[0.875rem] text-[var(--color-muted)]">No fixtures scheduled for this season.</p>
+          )}
         </Card>
       </div>
     </div>

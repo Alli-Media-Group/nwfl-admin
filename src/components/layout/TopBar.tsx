@@ -1,170 +1,141 @@
-import { useState, useRef, useEffect } from 'react'
-import { LogOut, ChevronDown, Shield, Sun, Moon, Bell } from 'lucide-react'
+import { ChevronDown, ChevronRight, LogOut, Menu, Moon, Sun } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { useTheme } from '../../hooks/useTheme'
+import { findNav } from '../../lib/nav'
 
-const titles: Record<string, string> = {
-  '/': 'Newsroom Overview',
-  '/matches': 'Match Operations',
-  '/standings': 'Table Control',
-  '/teams': 'Club Profiles',
-  '/whatsapp-parser': 'WhatsApp Intake',
-}
-
-export function TopBar() {
+export function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   const { pathname } = useLocation()
   const { logout, user } = useAuth()
   const { theme, toggle } = useTheme()
   const [open, setOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const here = findNav(pathname)
 
   const displayName = user?.full_name || user?.username || 'User'
-  const initials = displayName.slice(0, 2).toUpperCase()
-  const roleLabel = user?.is_superuser ? 'Administrator' : user?.is_staff ? 'Staff' : 'User'
+  const initials = displayName
+    .split(/\s+/)
+    .map(w => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
+  const roleLabel = user?.is_superuser ? 'League owner' : user?.is_staff ? 'Staff' : 'User'
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false)
     }
     document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('keydown', handleKey)
+    }
   }, [])
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-20 lg:left-[260px]"
-      style={{
-        background: 'var(--color-sidebar)',
-        borderBottom: '1px solid var(--color-border-2)',
-      }}
+      className="sticky top-0 z-20 border-b backdrop-blur-md"
+      style={{ background: 'color-mix(in srgb, var(--color-bg) 82%, transparent)', borderColor: 'var(--color-border)' }}
     >
-      <div className="flex h-16 items-center justify-between gap-4 px-6 md:px-8 lg:px-10">
-
-        {/* Page title */}
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--color-primary)' }}>
-            NWFL Editorial Desk
-          </p>
-          <p className="text-base font-semibold" style={{ color: 'var(--color-text)' }}>
-            {titles[pathname] ?? 'Admin Portal'}
-          </p>
+      <div className="flex h-14 items-center justify-between gap-3 px-4 md:px-8">
+        <div className="flex min-w-0 items-center gap-2">
+          <button
+            aria-label="Open menu"
+            className="-ml-1 rounded-[var(--radius-sm)] p-2 text-[var(--color-text-2)] hover:bg-[var(--color-surface-2)] lg:hidden"
+            onClick={onOpenMenu}
+            type="button"
+          >
+            <Menu size={18} />
+          </button>
+          <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-[0.85rem]">
+            {here?.group ? (
+              <>
+                <span className="hidden text-[var(--color-muted)] sm:inline">{here.group}</span>
+                <ChevronRight className="hidden text-[var(--color-border-2)] sm:inline" size={14} />
+              </>
+            ) : null}
+            <span className="truncate font-medium text-[var(--color-text)]">{here?.item.label ?? 'NWFL admin'}</span>
+          </nav>
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Theme toggle */}
+        <div className="flex items-center gap-1">
           <button
-            type="button"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="grid h-9 w-9 place-items-center rounded-[var(--radius-sm)] text-[var(--color-muted)] transition hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]"
             onClick={toggle}
-            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="grid h-9 w-9 place-items-center rounded-full transition"
-            style={{ color: 'var(--color-muted)' }}
-          >
-            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-          </button>
-
-          {/* Notifications */}
-          <button
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
             type="button"
-            className="relative grid h-9 w-9 place-items-center rounded-full transition"
-            style={{ color: 'var(--color-muted)' }}
           >
-            <Bell size={18} />
-            <span
-              className="absolute top-2 right-2 h-2 w-2 rounded-full"
-              style={{ background: 'var(--color-danger)' }}
-            />
+            <AnimatePresence initial={false} mode="wait">
+              <motion.span
+                key={theme}
+                initial={{ opacity: 0, rotate: -45 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 45 }}
+                transition={{ duration: 0.15 }}
+              >
+                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              </motion.span>
+            </AnimatePresence>
           </button>
 
-          {/* Divider */}
-          <div className="mx-2 h-8 w-px" style={{ background: 'var(--color-border-2)' }} />
-
-          {/* User dropdown */}
-          <div className="relative" ref={dropdownRef}>
+          <div className="relative" ref={menuRef}>
             <button
-              type="button"
+              aria-expanded={open}
+              aria-haspopup="menu"
+              className="flex items-center gap-2 rounded-[var(--radius-sm)] py-1 pl-1 pr-2 transition hover:bg-[var(--color-surface-2)]"
               onClick={() => setOpen(v => !v)}
-              className="flex items-center gap-3 cursor-pointer group"
+              type="button"
             >
-              <div className="hidden text-right sm:block">
-                <p className="text-xs font-bold leading-none" style={{ color: 'var(--color-text)' }}>
-                  {displayName}
-                </p>
-                <p className="text-[10px] leading-tight" style={{ color: 'var(--color-muted)' }}>
-                  {roleLabel}
-                </p>
-              </div>
-              <div
-                className="grid h-9 w-9 place-items-center rounded-full border text-[11px] font-bold overflow-hidden"
-                style={{
-                  background: 'var(--color-surface-2)',
-                  borderColor: 'var(--color-border-2)',
-                  color: 'var(--color-primary)',
-                }}
-              >
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[var(--color-primary-soft)] text-[0.7rem] font-bold text-[var(--color-primary)]">
                 {initials}
-              </div>
+              </span>
+              <span className="hidden text-[0.85rem] font-medium text-[var(--color-text)] sm:inline">{displayName}</span>
               <ChevronDown
-                size={13}
-                style={{ color: 'var(--color-muted)', transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'none' }}
+                className="text-[var(--color-muted)] transition-transform duration-200"
+                size={14}
+                style={{ transform: open ? 'rotate(180deg)' : 'none' }}
               />
             </button>
 
-            {/* Dropdown panel */}
-            {open && (
-              <div
-                className="absolute right-0 top-full mt-2 w-52 rounded-lg overflow-hidden"
-                style={{
-                  background: 'var(--color-card)',
-                  border: '1px solid var(--color-border-2)',
-                  boxShadow: 'var(--shadow-elevated)',
-                }}
-              >
-                {/* User info */}
-                <div className="px-4 py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-bold"
-                      style={{
-                        background: 'var(--color-surface-2)',
-                        color: 'var(--color-primary)',
-                      }}
-                    >
-                      {initials}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
-                        {displayName}
-                      </p>
-                      <p className="truncate text-[11px]" style={{ color: 'var(--color-muted)' }}>
-                        {user?.email || 'No email set'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-1.5">
-                  <div className="flex items-center gap-2.5 rounded-lg px-3 py-2">
-                    <Shield size={13} style={{ color: 'var(--color-primary)' }} />
-                    <span className="text-xs" style={{ color: 'var(--color-muted)' }}>
+            <AnimatePresence>
+              {open ? (
+                <motion.div
+                  role="menu"
+                  className="absolute right-0 top-full mt-2 w-60 origin-top-right overflow-hidden rounded-[var(--radius-md)] border"
+                  style={{ background: 'var(--color-card)', borderColor: 'var(--color-border-2)', boxShadow: 'var(--shadow-elevated)' }}
+                  initial={{ opacity: 0, scale: 0.96, y: -4 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: -4 }}
+                  transition={{ duration: 0.14 }}
+                >
+                  <div className="border-b px-4 py-3" style={{ borderColor: 'var(--color-border)' }}>
+                    <p className="truncate text-[0.875rem] font-semibold">{displayName}</p>
+                    <p className="truncate text-[0.78rem] text-[var(--color-muted)]">{user?.email || roleLabel}</p>
+                    <p className="mt-1.5 inline-flex rounded-full bg-[var(--color-surface-2)] px-2 py-0.5 text-[0.7rem] font-medium text-[var(--color-text-2)]">
                       {roleLabel}
-                    </span>
+                    </p>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => { setOpen(false); void logout() }}
-                    className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition"
-                    style={{ color: 'var(--color-danger)' }}
-                  >
-                    <LogOut size={13} />
-                    Sign out
-                  </button>
-                </div>
-              </div>
-            )}
+                  <div className="p-1">
+                    <button
+                      className="flex w-full items-center gap-2.5 rounded-[var(--radius-sm)] px-3 py-2 text-left text-[0.85rem] text-[var(--color-danger)] transition hover:bg-[var(--color-danger-soft)]"
+                      onClick={() => { setOpen(false); void logout() }}
+                      role="menuitem"
+                      type="button"
+                    >
+                      <LogOut size={14} />
+                      Sign out
+                    </button>
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
         </div>
       </div>

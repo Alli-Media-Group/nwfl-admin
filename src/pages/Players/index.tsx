@@ -126,17 +126,10 @@ export function PlayersPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-highlight)' }}>
-            Player Registry
-          </p>
-          <h1 className="mt-1 text-2xl font-bold md:text-3xl" style={{ color: 'var(--color-text)' }}>
-            Players
-          </h1>
-        </div>
+        <div />
         <Button onClick={() => setShowCreate(true)}>
           <Plus size={16} />
-          Create Player
+          Add player
         </Button>
       </div>
 

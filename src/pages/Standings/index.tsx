@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Bot } from 'lucide-react'
-import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonRows } from '../../components/ui/Skeleton'
 import { StandingsTable } from '../../components/domain/StandingsTable'
 import { StandingsAIParser } from '../../components/domain/StandingsAIParser'
 import { Modal } from '../../components/ui/Modal'
@@ -48,7 +48,7 @@ export function StandingsPage() {
   }, [season])
 
   if (loading) {
-    return <Spinner label="Loading standings" />
+    return <div className="space-y-6"><SkeletonRows rows={10} /><SkeletonRows rows={9} /></div>
   }
 
   const groupA = rows.filter((row) => row.team.group === 'A')
@@ -59,38 +59,26 @@ export function StandingsPage() {
       {/* Page header with season selector and AI Import button */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+          <label className="flex items-center gap-2 text-[0.85rem] text-[var(--color-muted)]">
+            Season
             <select
+              className="field-base"
+              style={{ width: 'auto', minWidth: '8.5rem' }}
               value={season}
               onChange={(e) => setSeason(e.target.value)}
-              style={{
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 8,
-                padding: '6px 10px',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: 'var(--color-highlight)',
-                cursor: 'pointer',
-              }}
             >
               {seasons.map((s) => (
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
-            <p style={{ margin: 0, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.24em', color: 'var(--color-muted)' }}>Season</p>
-          </div>
-          <h1 style={{ margin: '4px 0 0', fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-off-white)' }}>Standings</h1>
+          </label>
         </div>
         <button
           type="button"
-          className="btn-primary"
+          className="btn-outline"
           onClick={() => setShowAI(true)}
-          style={{ fontSize: '0.82rem', padding: '0.55rem 1rem' }}
         >
-          <Bot size={15} /> AI Import
+          <Bot size={15} /> Import from text
         </button>
       </div>
 

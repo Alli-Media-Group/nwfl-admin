@@ -5,6 +5,7 @@ import { Card } from '../../components/ui/Card'
 import { Field, Input, Textarea } from '../../components/ui/Input'
 import { Modal } from '../../components/ui/Modal'
 import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonCards } from '../../components/ui/Skeleton'
 import { api } from '../../lib/api'
 import type { BlogPost, Gallery } from '../../types'
 
@@ -124,14 +125,7 @@ export function BlogPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-highlight)' }}>
-            Content Management
-          </p>
-          <h3 className="mt-1 text-2xl" style={{ color: 'var(--color-off-white)' }}>
-            News, Blog & Gallery
-          </h3>
-        </div>
+        <div />
         <Button
           icon={syncing ? <Spinner size="sm" /> : <RefreshCw size={16} />}
           onClick={() => void handleSync()}
@@ -167,7 +161,7 @@ export function BlogPage() {
       </div>
 
       {loading ? (
-        <Spinner label="Loading content" />
+        <SkeletonCards count={6} media />
       ) : tab === 'posts' ? (
         <PostsTable posts={posts} onEdit={setEditingPost} onDelete={setDeletingPost} />
       ) : (
@@ -296,8 +290,8 @@ function PostsTable({ posts, onEdit, onDelete }: { posts: BlogPost[]; onEdit: (p
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`rounded px-2 py-1 text-xs font-bold uppercase ${post.status === 'published' ? 'text-green-400' : 'text-amber-400'}`} style={{ background: post.status === 'published' ? 'rgba(22,163,74,0.10)' : 'rgba(217,119,6,0.10)' }}>
-                    {post.status}
+                  <span className="inline-flex rounded-full px-2.5 py-0.5 text-[0.75rem] font-medium capitalize" style={post.status ? { background: post.status === 'published' ? 'var(--color-success-soft)' : 'var(--color-warning-soft)', color: post.status === 'published' ? 'var(--color-success)' : 'var(--color-warning)' } : { color: 'var(--color-muted)' }}>
+                    {post.status || '—'}
                   </span>
                 </td>
                 <td className="px-4 py-3" style={{ color: 'var(--color-muted)' }}>

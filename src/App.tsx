@@ -1,4 +1,5 @@
-import { AnimatePresence } from 'motion/react'
+import { MotionConfig } from 'motion/react'
+import { useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { PageWrapper } from './components/layout/PageWrapper'
 import { Sidebar } from './components/layout/Sidebar'
@@ -24,6 +25,7 @@ import { PlayersPage } from './pages/Players/index'
 function ProtectedApp() {
   const { loading, user } = useAuth()
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   if (loading) {
     return (
@@ -38,25 +40,27 @@ function ProtectedApp() {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
-      <Sidebar />
-      <TopBar />
-      <main className="lg:pl-[260px]">
+      <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <div className="lg:pl-[248px]">
+      <TopBar onOpenMenu={() => setMenuOpen(true)} />
+      <main>
         <Routes>
-          <Route path="/" element={<PageWrapper title="Newsroom Overview" eyebrow="Dashboard"><DashboardPage /></PageWrapper>} />
-          <Route path="/matches" element={<PageWrapper title="Match Operations" eyebrow="Matches"><MatchesPage /></PageWrapper>} />
-          <Route path="/teams" element={<PageWrapper title="Club Profiles" eyebrow="Teams"><TeamsPage /></PageWrapper>} />
-          <Route path="/players" element={<PageWrapper title="Player Registry" eyebrow="Players"><PlayersPage /></PageWrapper>} />
-          <Route path="/standings" element={<PageWrapper title="Table Control" eyebrow="Standings"><StandingsPage /></PageWrapper>} />
-          <Route path="/whatsapp-parser" element={<PageWrapper title="WhatsApp Intake" eyebrow="Parser"><WhatsAppParserPage /></PageWrapper>} />
-          <Route path="/sync" element={<PageWrapper title="Sheet Sync" eyebrow="Data Pipeline"><SyncPage /></PageWrapper>} />
-          <Route path="/blog" element={<PageWrapper title="News, Blog & Gallery" eyebrow="Content"><BlogPage /></PageWrapper>} />
-          <Route path="/media-library" element={<PageWrapper title="Media Library" eyebrow="Assets"><MediaLibraryPage /></PageWrapper>} />
-          <Route path="/missing-logos" element={<PageWrapper title="Missing Logos" eyebrow="Asset Health"><MissingLogosPage /></PageWrapper>} />
-          <Route path="/invitations" element={<PageWrapper title="Team Invitations" eyebrow="Access Control"><InvitationsPage /></PageWrapper>} />
-          <Route path="/api-access" element={<PageWrapper title="API Access" eyebrow="Data"><ApiAccessPage /></PageWrapper>} />
+          <Route path="/" element={<PageWrapper><DashboardPage /></PageWrapper>} />
+          <Route path="/matches" element={<PageWrapper><MatchesPage /></PageWrapper>} />
+          <Route path="/teams" element={<PageWrapper><TeamsPage /></PageWrapper>} />
+          <Route path="/players" element={<PageWrapper><PlayersPage /></PageWrapper>} />
+          <Route path="/standings" element={<PageWrapper><StandingsPage /></PageWrapper>} />
+          <Route path="/whatsapp-parser" element={<PageWrapper><WhatsAppParserPage /></PageWrapper>} />
+          <Route path="/sync" element={<PageWrapper><SyncPage /></PageWrapper>} />
+          <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
+          <Route path="/media-library" element={<PageWrapper><MediaLibraryPage /></PageWrapper>} />
+          <Route path="/missing-logos" element={<PageWrapper><MissingLogosPage /></PageWrapper>} />
+          <Route path="/invitations" element={<PageWrapper><InvitationsPage /></PageWrapper>} />
+          <Route path="/api-access" element={<PageWrapper><ApiAccessPage /></PageWrapper>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      </div>
     </div>
   )
 }
@@ -65,12 +69,12 @@ export default function App() {
   useTheme()
 
   return (
-    <AnimatePresence mode="wait">
+    <MotionConfig reducedMotion="user">
       <Routes>
         <Route path="/accept-invite" element={<AcceptInvitePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/*" element={<ProtectedApp />} />
       </Routes>
-    </AnimatePresence>
+    </MotionConfig>
   )
 }

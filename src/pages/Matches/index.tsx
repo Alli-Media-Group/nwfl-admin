@@ -1,40 +1,15 @@
-import { Bot, Filter, Plus } from 'lucide-react'
+import { Bot, Pencil, Plus } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Badge } from '../../components/ui/Badge'
 import { Card } from '../../components/ui/Card'
 import { Field, Input, Select } from '../../components/ui/Input'
 import { Modal } from '../../components/ui/Modal'
-import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonRows } from '../../components/ui/Skeleton'
+import { TeamCrest } from '../../components/ui/TeamCrest'
 import { MatchForm } from '../../components/domain/MatchForm'
 import { MatchesAIParser } from '../../components/domain/MatchesAIParser'
-import { api, LOGO_SOURCES } from '../../lib/api'
-import type { Match, Team } from '../../types'
-
-// ── Small team logo with initial fallback ─────────────────────────────────────
-function TeamLogo({ team }: { team: Team }) {
-  const sources = LOGO_SOURCES(team.slug)
-  const [idx, setIdx] = useState(0)
-  if (idx < sources.length) {
-    return (
-      <img
-        src={sources[idx]}
-        alt={team.name}
-        onError={() => setIdx(i => i + 1)}
-        style={{ width: 22, height: 22, borderRadius: '50%', objectFit: 'contain', flexShrink: 0, background: 'var(--color-surface-2)' }}
-      />
-    )
-  }
-  return (
-    <div style={{
-      width: 22, height: 22, borderRadius: '50%', flexShrink: 0,
-      background: 'var(--color-surface-2)', border: '1px solid var(--color-border)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: '0.58rem', fontWeight: 700, color: 'var(--color-text)',
-    }}>
-      {team.name.charAt(0)}
-    </div>
-  )
-}
+import { api } from '../../lib/api'
+import type { Match } from '../../types'
 
 export function MatchesPage() {
   const [matches, setMatches] = useState<Match[]>([])
@@ -115,403 +90,168 @@ export function MatchesPage() {
       }))
   }, [filteredMatches])
 
-  const thStyle: React.CSSProperties = {
-    padding: '0.7rem 0.75rem',
-    fontSize: '0.7rem',
-    fontWeight: 700,
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    color: '#fff',
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-    borderRight: '1px solid rgba(255,255,255,0.15)',
-  }
-  const tdStyle: React.CSSProperties = {
-    padding: '0.6rem 0.75rem',
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-    borderRight: '1px solid var(--color-border)',
-    fontSize: '0.85rem',
-    color: 'var(--color-text)',
-    fontWeight: 500,
-  }
+  const openEdit = (match: Match | null) => { setSelected(match); setOpen(true) }
 
-  const tabButtonStyle = (active: boolean): React.CSSProperties => ({
-    appearance: 'none',
-    background: 'none',
-    border: 'none',
-    borderBottom: active ? '2px solid var(--color-highlight)' : '2px solid transparent',
-    color: active ? 'var(--color-off-white)' : 'var(--color-muted)',
-    cursor: 'pointer',
-    fontFamily: 'var(--font-body)',
-    fontSize: '0.76rem',
-    fontWeight: 700,
-    letterSpacing: '0.08em',
-    padding: '0.2rem 0 0.65rem',
-    textTransform: 'uppercase',
-    transition: 'color 0.15s ease, border-color 0.15s ease',
-  })
-
-  const scorePillStyle: React.CSSProperties = {
-    alignItems: 'center',
-    background: 'rgba(0, 0, 0, 0.45)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 999,
-    color: 'var(--color-off-white)',
-    display: 'inline-flex',
-    fontSize: '0.78rem',
-    fontWeight: 700,
-    justifyContent: 'center',
-    letterSpacing: '0.08em',
-    minWidth: 56,
-    padding: '0.36rem 0.65rem',
-    whiteSpace: 'nowrap',
-  }
-
-  function renderResultGroup(group: 'A' | 'B', groupMatches: Match[]) {
-    if (!groupMatches.length) return null
-
+  function MatchLine({ match }: { match: Match }) {
+    const played = match.home_score != null && match.away_score != null
     return (
-      <div
-        style={{
-          background: 'var(--color-bg-subtle)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 12,
-          overflow: 'hidden',
-        }}
-      >
-        <div
-          style={{
-            borderBottom: '1px solid var(--color-border)',
-            color: 'var(--color-highlight)',
-            fontSize: '0.68rem',
-            fontWeight: 700,
-            letterSpacing: '0.16em',
-            padding: '0.8rem 1rem',
-            textTransform: 'uppercase',
-          }}
+      <li>
+        <button
+          className="group/row grid w-full grid-cols-[1fr_auto_1fr_auto] items-center gap-3 border-t px-4 py-2.5 text-left transition-colors hover:bg-[var(--color-surface)]"
+          onClick={() => openEdit(match)}
+          style={{ borderColor: 'var(--color-border)' }}
+          title="Edit this match"
+          type="button"
         >
-          Group {group}
-        </div>
-        <div>
-          {groupMatches.map((match, index) => {
-            const baseBackground = index % 2 === 1 ? 'rgba(255,255,255,0.015)' : 'transparent'
-            return (
-              <div
-                key={match.id}
-                style={{
-                  alignItems: 'center',
-                  background: baseBackground,
-                  borderBottom: index < groupMatches.length - 1 ? '1px solid var(--color-border)' : 'none',
-                  display: 'grid',
-                  gap: '0.55rem',
-                  gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr) auto',
-                  padding: '0.85rem 1rem',
-                  transition: 'background 0.15s ease',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(124,58,237,0.06)')}
-                onMouseLeave={e => (e.currentTarget.style.background = baseBackground)}
-              >
-                <div
-                  style={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    gap: 8,
-                    justifyContent: 'flex-end',
-                    minWidth: 0,
-                  }}
-                >
-                  <span
-                    style={{
-                      color: 'var(--color-text)',
-                      fontSize: '0.83rem',
-                      fontWeight: 600,
-                      overflow: 'hidden',
-                      textAlign: 'right',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {match.home_team.name}
-                  </span>
-                  <TeamLogo team={match.home_team} />
-                </div>
+          <span className="flex min-w-0 items-center justify-end gap-2">
+            <span className="truncate text-right text-[0.85rem] font-medium">{match.home_team.name}</span>
+            <TeamCrest team={match.home_team} size={22} />
+          </span>
+          {played ? (
+            <span className="scoreline">{match.home_score}<span className="scoreline__sep">–</span>{match.away_score}</span>
+          ) : (
+            <span className="scoreline scoreline--pending">{match.kick_off ? match.kick_off.slice(0, 5) : 'v'}</span>
+          )}
+          <span className="flex min-w-0 items-center gap-2">
+            <TeamCrest team={match.away_team} size={22} />
+            <span className="truncate text-[0.85rem] font-medium">{match.away_team.name}</span>
+          </span>
+          <span className="flex min-w-[1.5rem] justify-end">
+            {match.status !== 'FT'
+              ? <Badge pulse={match.status === 'LIVE'} value={match.status} />
+              : <Pencil className="text-[var(--color-muted)] opacity-0 transition-opacity group-hover/row:opacity-100" size={13} />}
+          </span>
+        </button>
+      </li>
+    )
+  }
 
-                <span style={scorePillStyle}>
-                  {match.home_score ?? '-'} : {match.away_score ?? '-'}
-                </span>
-
-                <div
-                  style={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    gap: 8,
-                    justifyContent: 'flex-start',
-                    minWidth: 0,
-                  }}
-                >
-                  <TeamLogo team={match.away_team} />
-                  <span
-                    style={{
-                      color: 'var(--color-text)',
-                      fontSize: '0.83rem',
-                      fontWeight: 600,
-                      overflow: 'hidden',
-                      textAlign: 'left',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {match.away_team.name}
-                  </span>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  {match.status !== 'FT' ? <Badge pulse={match.status === 'LIVE'} value={match.status} /> : null}
-                </div>
-              </div>
-            )
-          })}
-        </div>
+  function GroupList({ group, list }: { group: 'A' | 'B'; list: Match[] }) {
+    if (!list.length) return null
+    return (
+      <div className="overflow-hidden rounded-[var(--radius-md)] border" style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg-subtle)' }}>
+        <p className="eyebrow px-4 py-2">Group {group}</p>
+        <ul>{list.map(m => <MatchLine key={m.id} match={m} />)}</ul>
       </div>
     )
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {/* Filters card */}
-      <Card className="p-5">
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p style={{ margin: 0, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.24em', color: 'var(--color-highlight)' }}>{season ? `Season ${season}` : 'All Seasons'}</p>
-            <h1 style={{ margin: '4px 0 0', fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-off-white)' }}>Matches</h1>
-          </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button type="button" className="btn-primary" onClick={() => setShowAI(true)} style={{ fontSize: '0.82rem', padding: '0.55rem 1rem' }}>
-              <Bot size={15} /> AI Import
-            </button>
-            <button type="button" className="btn-primary" onClick={() => { setSelected(null); setOpen(true) }} style={{ fontSize: '0.82rem', padding: '0.55rem 1rem' }}>
-              <Plus size={15} /> Add Match
-            </button>
-          </div>
-        </div>
-        <div className="grid gap-4 md:grid-cols-4">
+    <div className="space-y-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4 lg:max-w-[46rem]">
           <Field label="Season">
             <Select onChange={e => setSeason(e.target.value)} value={season}>
               <option value="">All seasons</option>
-              {seasons.map(s => (
-                <option key={s} value={s}>{s}</option>
-              ))}
+              {seasons.map(s => <option key={s} value={s}>{s}</option>)}
             </Select>
           </Field>
           <Field label="Status">
             <Select onChange={e => setFilters(f => ({ ...f, status: e.target.value }))} value={filters.status}>
-              <option value="">All statuses</option>
+              <option value="">All</option>
               <option value="UPCOMING">Upcoming</option>
               <option value="LIVE">Live</option>
-              <option value="FT">Full Time</option>
-              <option value="PENDING">Pending</option>
+              <option value="FT">Full time</option>
+              <option value="PENDING">Needs review</option>
             </Select>
           </Field>
           <Field label="Matchday">
-            <Input onChange={e => setFilters(f => ({ ...f, matchday: e.target.value }))} placeholder="e.g. 7" value={filters.matchday} />
+            <Input inputMode="numeric" onChange={e => setFilters(f => ({ ...f, matchday: e.target.value }))} placeholder="Any" value={filters.matchday} />
           </Field>
           <Field label="Group">
             <Select onChange={e => setFilters(f => ({ ...f, group: e.target.value }))} value={filters.group}>
-              <option value="">All groups</option>
+              <option value="">Both</option>
               <option value="A">Group A</option>
               <option value="B">Group B</option>
             </Select>
           </Field>
         </div>
-      </Card>
-
-      {/* Table card */}
-      <div style={{ background: 'var(--color-card)', borderRadius: 14, border: '1px solid var(--color-border)', overflow: 'hidden', boxShadow: 'var(--shadow-card)' }}>
-        {/* Header */}
-        <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, borderBottom: '1px solid var(--color-border)' }}>
-          <div>
-            <p style={{ margin: 0, fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.24em', color: 'var(--color-highlight)' }}>
-              Match Records
-            </p>
-            <h3 style={{ margin: '2px 0 0', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text)' }}>
-              <Filter size={14} style={{ display: 'inline', marginRight: 6, verticalAlign: 'middle' }} />
-              {filteredMatches.length} match{filteredMatches.length !== 1 ? 'es' : ''}
-            </h3>
-          </div>
-          <div style={{ alignItems: 'flex-end', display: 'flex', gap: 18 }}>
-            <button
-              type="button"
-              onClick={() => setView('desk')}
-              style={tabButtonStyle(view === 'desk')}
-            >
-              Entry Desk
-            </button>
-            <button
-              type="button"
-              onClick={() => setView('results')}
-              style={tabButtonStyle(view === 'results')}
-            >
-              Results
-            </button>
-          </div>
+        <div className="flex flex-wrap gap-2">
+          <button className="btn-outline" onClick={() => setShowAI(true)} type="button"><Bot size={15} /> Import from text</button>
+          <button className="btn-primary" onClick={() => openEdit(null)} type="button"><Plus size={15} /> Add match</button>
         </div>
-
-        {/* Content */}
-        {loading ? (
-          <div style={{ padding: '2rem' }}><Spinner label="Loading matches" /></div>
-        ) : view === 'results' ? (
-          groupedResults.length ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem' }}>
-              {groupedResults.map(({ matchday, groups }) => (
-                <div
-                  key={matchday}
-                  style={{
-                    background: 'var(--color-card)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 14,
-                    overflow: 'hidden',
-                  }}
-                >
-                  <div
-                    style={{
-                      background: 'var(--gradient-primary)',
-                      borderBottom: '1px solid rgba(255,255,255,0.12)',
-                      color: '#fff',
-                      fontSize: '1rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.04em',
-                      padding: '0.9rem 1rem',
-                    }}
-                  >
-                    Matchday {matchday || 'Unassigned'}
-                  </div>
-
-                  <div
-                    style={{
-                      display: 'grid',
-                      gap: '1rem',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                      padding: '1rem',
-                    }}
-                  >
-                    {renderResultGroup('A', groups.A)}
-                    {renderResultGroup('B', groups.B)}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-muted)', fontSize: '0.85rem' }}>
-              No match results found for the current filters.
-            </div>
-          )
-        ) : (
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)' }}>
-              <thead>
-                <tr style={{ background: 'linear-gradient(135deg, #4b1fa3 0%, #8a3dff 100%)' }}>
-                  <th style={{ ...thStyle, width: 52 }}>MD</th>
-                  <th style={{ ...thStyle, width: 90 }}>Date</th>
-                  <th style={{ ...thStyle, textAlign: 'left', paddingLeft: '1rem', minWidth: 160 }}>Home</th>
-                  <th style={{ ...thStyle, width: 72 }}>Score</th>
-                  <th style={{ ...thStyle, textAlign: 'left', paddingLeft: '0.75rem', minWidth: 160 }}>Away</th>
-                  <th style={{ ...thStyle, width: 50 }}>Grp</th>
-                  <th style={{ ...thStyle, width: 100 }}>Status</th>
-                  <th style={{ ...thStyle, borderRight: 'none', width: 60 }}>Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredMatches.map((match, index) => (
-                  <tr
-                    key={match.id}
-                    style={{
-                      borderBottom: index < filteredMatches.length - 1 ? '1px solid var(--color-border)' : 'none',
-                      background: index % 2 === 1 ? 'rgba(255,255,255,0.015)' : 'transparent',
-                      transition: 'background 0.15s',
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(124,58,237,0.06)')}
-                    onMouseLeave={e => (e.currentTarget.style.background = index % 2 === 1 ? 'rgba(255,255,255,0.015)' : 'transparent')}
-                  >
-                    {/* MD */}
-                    <td style={{ ...tdStyle, fontWeight: 700, color: 'var(--color-highlight)' }}>
-                      {match.matchday}
-                    </td>
-
-                    {/* Date */}
-                    <td style={{ ...tdStyle, fontSize: '0.78rem', color: 'var(--color-muted)' }}>
-                      {match.date ?? '—'}
-                    </td>
-
-                    {/* Home team */}
-                    <td style={{ ...tdStyle, textAlign: 'left', paddingLeft: '1rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                        <TeamLogo team={match.home_team} />
-                        <span style={{ fontWeight: 600, fontSize: '0.83rem', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 140 }}>
-                          {match.home_team.name}
-                        </span>
-                      </div>
-                    </td>
-
-                    {/* Score */}
-                    <td style={{ ...tdStyle, fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-off-white)', letterSpacing: '0.04em' }}>
-                      {match.home_score ?? '-'} : {match.away_score ?? '-'}
-                    </td>
-
-                    {/* Away team */}
-                    <td style={{ ...tdStyle, textAlign: 'left', paddingLeft: '0.75rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                        <TeamLogo team={match.away_team} />
-                        <span style={{ fontWeight: 600, fontSize: '0.83rem', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 140 }}>
-                          {match.away_team.name}
-                        </span>
-                      </div>
-                    </td>
-
-                    {/* Group */}
-                    <td style={{ ...tdStyle }}>
-                      <span style={{
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        width: 22, height: 22, borderRadius: '50%',
-                        fontSize: '0.65rem', fontWeight: 700,
-                        background: match.home_team.group === 'A' ? 'rgba(139,92,246,0.2)' : 'rgba(99,102,241,0.2)',
-                        color: 'var(--color-highlight)',
-                        border: '1px solid rgba(139,92,246,0.3)',
-                      }}>
-                        {match.home_team.group}
-                      </span>
-                    </td>
-
-                    {/* Status */}
-                    <td style={{ ...tdStyle }}>
-                      <Badge pulse={match.status === 'LIVE'} value={match.status} />
-                    </td>
-
-                    {/* Edit */}
-                    <td style={{ ...tdStyle, borderRight: 'none' }}>
-                      <button
-                        type="button"
-                        onClick={() => { setSelected(match); setOpen(true) }}
-                        style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-highlight)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                      >
-                        Edit
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-
-                {filteredMatches.length === 0 && (
-                  <tr>
-                    <td colSpan={8} style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-muted)', fontSize: '0.85rem' }}>
-                      No matches found — import results or add a match manually.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-[0.85rem] text-[var(--color-muted)]">
+          {loading ? 'Loading matches' : `${filteredMatches.length} match${filteredMatches.length === 1 ? '' : 'es'}${season ? ` in ${season}` : ''}`}
+        </p>
+        <div aria-label="View" className="segmented" role="tablist">
+          <button aria-selected={view === 'results'} onClick={() => setView('results')} role="tab" type="button">By matchday</button>
+          <button aria-selected={view === 'desk'} onClick={() => setView('desk')} role="tab" type="button">Table</button>
+        </div>
+      </div>
+
+      {loading ? (
+        <SkeletonRows rows={8} />
+      ) : !filteredMatches.length ? (
+        <Card className="px-5 py-10 text-center">
+          <p className="font-medium">No matches for these filters.</p>
+          <p className="mt-1 text-[0.85rem] text-[var(--color-muted)]">Change the filters, import results from text, or add a match.</p>
+        </Card>
+      ) : view === 'results' ? (
+        <div className="space-y-5">
+          {groupedResults.map(({ matchday, groups }) => (
+            <Card className="overflow-hidden" key={matchday}>
+              <div className="flex items-baseline justify-between border-b px-5 py-3" style={{ borderColor: 'var(--color-border)' }}>
+                <h2 className="text-[1rem]">{matchday ? `Matchday ${matchday}` : 'No matchday'}</h2>
+                <span className="text-[0.8rem] text-[var(--color-muted)]">{groups.A.length + groups.B.length} matches</span>
+              </div>
+              <div className="grid gap-4 p-4 [grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))]">
+                <GroupList group="A" list={groups.A} />
+                <GroupList group="B" list={groups.B} />
+              </div>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <div className="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>MD</th>
+                <th>Date</th>
+                <th style={{ textAlign: 'right' }}>Home</th>
+                <th style={{ textAlign: 'center' }}>Score</th>
+                <th>Away</th>
+                <th>Group</th>
+                <th>Status</th>
+                <th><span className="sr-only">Edit</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredMatches.map(match => (
+                <tr key={match.id}>
+                  <td className="figure" style={{ color: 'var(--color-text)' }}>{match.matchday}</td>
+                  <td className="whitespace-nowrap">{match.date ?? '—'}</td>
+                  <td>
+                    <span className="flex items-center justify-end gap-2 font-medium" style={{ color: 'var(--color-text)' }}>
+                      <span className="truncate">{match.home_team.name}</span>
+                      <TeamCrest team={match.home_team} size={22} />
+                    </span>
+                  </td>
+                  <td style={{ textAlign: 'center' }}>
+                    {match.home_score != null && match.away_score != null
+                      ? <span className="scoreline">{match.home_score}<span className="scoreline__sep">–</span>{match.away_score}</span>
+                      : <span className="scoreline scoreline--pending">v</span>}
+                  </td>
+                  <td>
+                    <span className="flex items-center gap-2 font-medium" style={{ color: 'var(--color-text)' }}>
+                      <TeamCrest team={match.away_team} size={22} />
+                      <span className="truncate">{match.away_team.name}</span>
+                    </span>
+                  </td>
+                  <td>{match.home_team.group}</td>
+                  <td><Badge pulse={match.status === 'LIVE'} value={match.status} /></td>
+                  <td style={{ textAlign: 'right' }}>
+                    <button className="btn-outline" onClick={() => openEdit(match)} style={{ minHeight: 0, padding: '0.25rem 0.6rem', fontSize: '0.8rem' }} type="button">Edit</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <Modal onClose={() => setOpen(false)} open={open} title={selected ? 'Edit Match' : 'Add Match'}>
         <MatchForm match={selected} onSaved={() => { setOpen(false); void loadMatches() }} />

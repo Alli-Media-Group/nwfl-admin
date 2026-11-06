@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Card } from '../../components/ui/Card'
 import { Input } from '../../components/ui/Input'
 import { Button } from '../../components/ui/Button'
-import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonRows } from '../../components/ui/Skeleton'
 import { api } from '../../lib/api'
 import { useToast } from '../../components/ui/Toast'
 import type { Invitation } from '../../types'
@@ -68,7 +68,7 @@ export function InvitationsPage() {
         <div className="mb-4 flex items-center gap-3">
           <Mail size={20} style={{ color: 'var(--color-primary)' }} />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-primary)' }}>
+            <p className="eyebrow">
               User Management
             </p>
             <h3 className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>Invite Team Member</h3>
@@ -110,7 +110,7 @@ export function InvitationsPage() {
       {/* Invitations list */}
       <Card className="overflow-hidden p-0">
         <div className="flex items-center justify-between border-b px-6 py-4" style={{ borderColor: 'var(--color-border)' }}>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-highlight)' }}>
+          <p className="eyebrow">
             Sent Invitations
           </p>
           <button
@@ -125,7 +125,7 @@ export function InvitationsPage() {
 
         {loading ? (
           <div className="p-8">
-            <Spinner label="Loading invitations..." />
+            <SkeletonRows rows={4} />
           </div>
         ) : invites.length === 0 ? (
           <div className="p-8 text-center">

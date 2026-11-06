@@ -82,7 +82,7 @@ export function SyncPage() {
         <div className="mb-4 flex items-center gap-3">
           <CloudCog size={22} className="text-[var(--color-highlight)]" />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-highlight)]">
+            <p className="eyebrow">
               Data Pipeline
             </p>
             <h3 className="mt-1 text-2xl text-[var(--color-off-white)]">

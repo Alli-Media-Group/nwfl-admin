@@ -7,17 +7,15 @@ export function Spinner({
   label?: string
   size?: 'sm' | 'md' | 'lg'
 }) {
-  const dimensions = size === 'lg' ? 'h-12 w-12' : size === 'sm' ? 'h-4 w-4' : 'h-6 w-6'
+  const dimensions = size === 'lg' ? 'h-8 w-8' : size === 'sm' ? 'h-3.5 w-3.5' : 'h-5 w-5'
 
   return (
-    <div className="flex items-center gap-3 text-[var(--color-off-white)]">
+    <span className={clsx('inline-flex items-center gap-2.5', label && 'text-[var(--color-muted)]')} role="status">
       <span
-        className={clsx(
-          dimensions,
-          'inline-block animate-spin rounded-full border-2 border-white/30 border-t-white',
-        )}
+        aria-hidden
+        className={clsx(dimensions, 'inline-block animate-spin rounded-full border-2 border-current border-t-transparent opacity-80')}
       />
-      {label ? <span className="text-sm">{label}</span> : null}
-    </div>
+      {label ? <span className="text-sm">{label}</span> : <span className="sr-only">Loading</span>}
+    </span>
   )
 }

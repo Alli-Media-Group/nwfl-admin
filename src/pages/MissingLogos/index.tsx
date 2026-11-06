@@ -2,7 +2,7 @@ import { AlertCircle, ImagePlus, Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
-import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonRows } from '../../components/ui/Skeleton'
 import { api } from '../../lib/api'
 import type { MediaImage, MissingLogoTeam, Team } from '../../types'
 
@@ -81,7 +81,7 @@ export function MissingLogosPage() {
         <div className="mb-4 flex items-center gap-3">
           <AlertCircle size={22} className="text-[var(--color-highlight)]" />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-highlight)]">
+            <p className="eyebrow">
               Asset Health
             </p>
             <h3 className="mt-1 text-2xl text-[var(--color-off-white)]">Missing Logos</h3>
@@ -110,7 +110,7 @@ export function MissingLogosPage() {
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Spinner label="Checking teams..." />
+          <SkeletonRows rows={6} />
         </div>
       ) : visible.length === 0 ? (
         <Card className="p-8 text-center">

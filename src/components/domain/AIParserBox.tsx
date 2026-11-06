@@ -39,7 +39,7 @@ export function AIParserBox({
     <Card className="p-5 md:p-6">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="mb-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-highlight)]">
+          <p className="mb-2 inline-flex items-center gap-2 eyebrow">
             <Sparkles size={14} />
             AI Match Parser
           </p>

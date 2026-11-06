@@ -2,7 +2,7 @@ import { Bot, MapPin, Pencil, Plus, Users, ImageIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Card } from '../../components/ui/Card'
 import { Modal } from '../../components/ui/Modal'
-import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonCards } from '../../components/ui/Skeleton'
 import { TeamForm } from '../../components/domain/TeamForm'
 import { TeamAIParser } from '../../components/domain/TeamAIParser'
 import { api, LOGO_SOURCES } from '../../lib/api'
@@ -43,18 +43,18 @@ export function TeamsPage() {
           <button
             type="button"
             className="btn-outline"
-            onClick={() => setShowCreate(true)}
+            onClick={() => setShowAIParser(true)}
           >
-            <Plus size={15} />
-            Create Team
+            <Bot size={15} />
+            Import from text
           </button>
           <button
             type="button"
             className="btn-primary"
-            onClick={() => setShowAIParser(true)}
+            onClick={() => setShowCreate(true)}
           >
-            <Bot size={15} />
-            AI Import Team
+            <Plus size={15} />
+            Add team
           </button>
         </div>
       </div>
@@ -96,7 +96,7 @@ export function TeamsPage() {
       </Modal>
 
       {loading ? (
-        <Spinner label="Loading teams" />
+        <SkeletonCards count={12} />
       ) : teams.length === 0 ? (
         /* Empty state */
         <div style={{ textAlign: 'center', padding: '60px 20px' }}>

@@ -20,8 +20,8 @@ export function LoginPage() {
         {/* Logo + wordmark */}
         <div className="mb-8 text-center">
           <div
-            className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-lg"
-            style={{ background: 'var(--color-primary-solid)' }}
+            className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-[var(--radius-md)] border bg-white"
+            style={{ borderColor: 'var(--color-border)' }}
           >
             <img alt="NWFL" className="h-7 w-7 object-contain" src="/logo.svg" />
           </div>
@@ -29,7 +29,7 @@ export function LoginPage() {
             NWFL Admin
           </h1>
           <p className="mt-1 text-sm" style={{ color: 'var(--color-muted)' }}>
-            Sign in to the editorial desk
+            Sign in to the league admin
           </p>
         </div>
 

@@ -5,6 +5,7 @@ import { Card } from '../../components/ui/Card'
 import { Input } from '../../components/ui/Input'
 import { Modal } from '../../components/ui/Modal'
 import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonCards } from '../../components/ui/Skeleton'
 import { api } from '../../lib/api'
 import type { MediaImage } from '../../types'
 
@@ -274,7 +275,7 @@ export function MediaLibraryPage() {
         <div className="mb-4 flex items-center gap-3">
           <ImagePlus size={22} className="text-[var(--color-highlight)]" />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-highlight)]">
+            <p className="eyebrow">
               Asset Management
             </p>
             <h3 className="mt-1 text-2xl text-[var(--color-off-white)]">Media Library</h3>
@@ -397,7 +398,7 @@ export function MediaLibraryPage() {
       {/* Image Grid */}
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Spinner label="Loading images..." />
+          <SkeletonCards count={12} media />
         </div>
       ) : images.length === 0 ? (
         <Card className="p-8 text-center">

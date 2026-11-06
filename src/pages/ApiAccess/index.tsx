@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
 import { Input } from '../../components/ui/Input'
-import { Spinner } from '../../components/ui/Spinner'
+import { SkeletonRows } from '../../components/ui/Skeleton'
 import { useToast } from '../../components/ui/Toast'
 import { api } from '../../lib/api'
 import type { ApiClientInfo } from '../../types'
@@ -117,7 +117,7 @@ export function ApiAccessPage() {
         <div className="mb-4 flex items-center gap-3">
           <KeyRound size={20} style={{ color: 'var(--color-primary)' }} />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: 'var(--color-primary)' }}>
+            <p className="eyebrow">
               Data access
             </p>
             <h3 className="mt-1 text-2xl" style={{ color: 'var(--color-text)' }}>Make an API key</h3>
@@ -141,7 +141,7 @@ export function ApiAccessPage() {
       </Card>
 
       {loading ? (
-        <div className="flex justify-center py-10"><Spinner /></div>
+        <SkeletonRows rows={2} />
       ) : clients.length === 0 ? (
         <Card className="p-6">
           <p className="text-sm" style={{ color: 'var(--color-muted)' }}>No keys yet.</p>

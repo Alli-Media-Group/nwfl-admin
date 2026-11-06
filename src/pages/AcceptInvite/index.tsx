@@ -119,9 +119,9 @@ export function AcceptInvitePage() {
         <div className="mb-8 text-center">
           <div
             className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-lg"
-            style={{ background: 'var(--color-primary-solid)' }}
+            style={{ background: '#fff', border: '1px solid var(--color-border)' }}
           >
-            <img alt="NWFL" className="h-7 w-7 object-contain invert" src="/logo.svg" />
+            <img alt="NWFL" className="h-7 w-7 object-contain" src="/logo.svg" />
           </div>
           <h1 className="text-2xl" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}>
             Accept Invitation

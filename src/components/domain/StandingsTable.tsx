@@ -128,10 +128,10 @@ export function StandingsTable({
     fontWeight: 700,
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
-    color: '#fff',
+    color: 'var(--color-muted)',
     textAlign: 'center',
     whiteSpace: 'nowrap',
-    borderRight: '1px solid rgba(255,255,255,0.15)',
+    borderBottom: '1px solid var(--color-border)',
   }
   const tdStyle: React.CSSProperties = {
     padding: '0.65rem 0.75rem',
@@ -149,7 +149,7 @@ export function StandingsTable({
       {/* Header */}
       <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, borderBottom: '1px solid var(--color-border)' }}>
         <div>
-          <p style={{ margin: 0, fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.24em', color: 'var(--color-highlight)' }}>
+          <p style={{ margin: 0, fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-highlight)' }}>
             Group {group}
           </p>
           <h3 style={{ margin: '2px 0 0', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text)' }}>
@@ -172,8 +172,8 @@ export function StandingsTable({
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)' }}>
           <thead>
-            <tr style={{ background: 'linear-gradient(135deg, #4b1fa3 0%, #8a3dff 100%)' }}>
-              <th style={{ ...thStyle, width: 40, borderRight: '1px solid rgba(255,255,255,0.15)' }}>#</th>
+            <tr style={{ background: 'var(--color-bg-subtle)' }}>
+              <th style={{ ...thStyle, width: 40 }}>#</th>
               <th style={{ ...thStyle, textAlign: 'left', paddingLeft: '1rem', minWidth: 160 }}>Team</th>
               <th style={thStyle}>MP</th>
               <th style={thStyle}>W</th>
@@ -183,7 +183,7 @@ export function StandingsTable({
               <th style={thStyle}>GA</th>
               <th style={thStyle}>GD</th>
               <th style={thStyle}>PTS</th>
-              <th style={{ ...thStyle, borderRight: 'none', minWidth: 100 }}>Form</th>
+              <th style={{ ...thStyle, minWidth: 100 }}>Form</th>
             </tr>
           </thead>
           <tbody>
