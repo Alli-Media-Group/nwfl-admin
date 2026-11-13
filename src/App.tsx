@@ -13,7 +13,6 @@ import { MatchesPage } from './pages/Matches/index'
 import { StandingsPage } from './pages/Standings/index'
 import { MediaLibraryPage } from './pages/MediaLibrary/index'
 import { MissingLogosPage } from './pages/MissingLogos/index'
-import { SyncPage } from './pages/Sync/index'
 import { TeamsPage } from './pages/Teams/index'
 import { BlogPage } from './pages/Blog/index'
 import { WhatsAppParserPage } from './pages/WhatsAppParser/index'
@@ -51,7 +50,6 @@ function ProtectedApp() {
           <Route path="/players" element={<PageWrapper><PlayersPage /></PageWrapper>} />
           <Route path="/standings" element={<PageWrapper><StandingsPage /></PageWrapper>} />
           <Route path="/whatsapp-parser" element={<PageWrapper><WhatsAppParserPage /></PageWrapper>} />
-          <Route path="/sync" element={<PageWrapper><SyncPage /></PageWrapper>} />
           <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
           <Route path="/media-library" element={<PageWrapper><MediaLibraryPage /></PageWrapper>} />
           <Route path="/missing-logos" element={<PageWrapper><MissingLogosPage /></PageWrapper>} />

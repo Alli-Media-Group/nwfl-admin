@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react'
 import {
-  AlertTriangle, AudioLines, CalendarDays, CloudCog, FileText, Home, ImageIcon, KeyRound, ListOrdered, Mail, Shirt, Users,
+  AlertTriangle, AudioLines, CalendarDays, FileText, Home, ImageIcon, KeyRound, ListOrdered, Mail, Shirt, Users,
 } from 'lucide-react'
 
 /**
@@ -61,7 +61,6 @@ export const NAV: NavGroup[] = [
     label: 'Tools',
     items: [
       { to: '/missing-logos', label: 'Missing logos', description: 'Teams without a logo yet.', icon: AlertTriangle },
-      { to: '/sync', label: 'Sheet import', description: 'Bring results in from the old Google Sheet.', icon: CloudCog },
     ],
   },
 ]
